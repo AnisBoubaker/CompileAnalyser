@@ -1,0 +1,20 @@
+
+Chaque constante (ou groupe de constante), doit être accompagnée d’un commentaire.
+
+/* La constante mathématique PI. */
+#define PI 3.141592
+
+/* Le nombre de mois dans une année. */
+#define NB_MOIS_ANNEE 12
+
+/* Les territoire du jeu de RISK. */
+#define ALASKA		1
+#define BRESIL		2
+ …
+#define KAMATCHAKA	24
+
+
+______
+Conetnu tiré du document "NORMES DE PROGRAMATION À RESPECTER LORS DE LA REMISE DE TRAVAUX PRATIQUES"
+Par Francis Bourdeau ET Frédérick Henri
+Version du 23 janvier 2017.

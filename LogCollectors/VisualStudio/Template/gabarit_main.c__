@@ -1,0 +1,43 @@
+/*********************************************************************
+Par  : <AUTEUR>
+Date : <DATE>
+
+<DESCRIPTION DE CE QUE FAIT LE PROGRAMME>
+*********************************************************************/
+
+#define _CRT_SECURE_NO_WARNINGS /*Supprime les avertissement pour certaines
+								  fonctions de la librairie standard jugées
+								  à risque.*/
+
+/**********************************
+ *** INCLUSION DES DÉPENDANCES ****
+ **********************************/
+#include <stdio.h>
+#include <stdlib.h>
+
+/**********************************
+ ** CONSTANTES DE PRÉCOMPILATION **
+ **********************************/
+
+/* NDE: Exemple de commentaire de constante CONSTANTE_DEMO */
+#define CONSTANTE_DEMO 0
+
+
+/*************************************
+** DÉCLARATIONS DES SOUS-PROGRAMMES **
+**************************************/
+
+
+/*************************************
+***         FONCTION MAIN          ***
+**************************************/
+int main(void) {
+	
+	
+}
+
+
+/************************************
+** DÉFINITIONS DES SOUS-PROGRAMMES **
+*************************************/
+

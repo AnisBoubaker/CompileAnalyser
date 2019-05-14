@@ -1,0 +1,27 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+<TemplateData>
+    <Name>Projet INF155 (ÉTS)</Name>
+    <Description>Projet de base pour le cours INF155. Ce type de projet fait partie de l'étude InfoDiag.</Description>
+    <ProjectType>VC</ProjectType>
+    <SortOrder>1</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>INF155_Projet</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <Icon>__TemplateIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="Projet1.vcxproj" File="Projet1.vcxproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="false" TargetFileName="$projectname$.vcxproj.filters">Projet1.vcxproj.filters</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="gabarit_main.c__">gabarit_main.c__</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="gabarit_module.c__">gabarit_module.c__</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="gabarit_module.h__">gabarit_module.h__</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="01_entete_fichier.txt">01_entete_fichier.txt</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="02_constante.txt">02_constante.txt</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="03_entete_fonction.txt">03_entete_fonction.txt</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="04_variable.txt">04_variable.txt</ProjectItem>
+      <ProjectItem ReplaceParameters="false" TargetFileName="05_code.txt">05_code.txt</ProjectItem>
+    </Project>
+  </TemplateContent>
+</VSTemplate>

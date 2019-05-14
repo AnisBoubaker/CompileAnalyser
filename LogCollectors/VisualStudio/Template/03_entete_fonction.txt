@@ -1,0 +1,60 @@
+Chaque déclaration de fonction doit être commentée. Le commentaire doit contenir 
+les informations suivantes :
+•	Le nom de la fonction;
+•	La tâche réalisée par la fonction;
+•	Une description de chacun des paramètres attendus accompagnée des valeurs 
+    permises pour chacun de ces paramètres;
+•	Une description de la valeur de retour de la fonction.
+
+Voici les commentaires qui pourraient accompagner la déclaration d'une fonction 
+qui calcule la valeur absolue d'un nombre.
+
+/*
+ VALEUR_ABSOLUE
+
+ Cette fonction retourne la valeur absolue d'un nombre.
+ Rappelons que la valeur absolue d'un nombre est sa valeur
+ numérique sans tenir compte de son signe.
+ 
+ PARAMÈTRES :
+   - x : Le nombre dont on cherche la valeur absolue
+         (type : double).
+ 
+ VALEUR DE RETOUR : La valeur absolue de x (type : double).
+ 
+ EXEMPLES D'APPEL :
+   - valeur_absolue(-3.5)   retourne  3.5.
+   - valeur_absolue(14.15)  retourne  14.15.
+*/ 
+double valeur_absolue(double x);
+
+Voici les commentaires qui pourraient accompagner la définition d'une fonction qui retourne le nième terme de la suite de Fibonacci.
+
+/*
+ TERME_FIBONACCI
+ 
+ Cette fonction retourne la nième valeur de la suite de Fibonacci.
+
+ Rappelons que la suite de Fibonacci est : 1 1 2 3 5 8 13 21 ...
+
+ Les deux premiers termes valent 1 et tous les autres termes
+ proviennent de la somme des deux termes précédents.
+ 
+PARAMÈTRES :
+   - n : L'indice du terme à retourner (type : int).
+         Le premier élément de la suite porte l'indice 0.
+ 
+VALEUR DE RETOUR : La valeur du nième terme (type : double).
+
+EXEMPLES D'APPEL :
+   - terme_fibonacci(2) retourne 2.
+   - terme_fibonacci(5) retourne 8.
+*/
+double terme_fibonacci(int n);
+
+
+
+______
+Conetnu tiré du document "NORMES DE PROGRAMATION À RESPECTER LORS DE LA REMISE DE TRAVAUX PRATIQUES"
+Par Francis Bourdeau ET Frédérick Henri
+Version du 23 janvier 2017.

@@ -1,0 +1,37 @@
+Chaque variable doit être accompagnée d'un commentaire décrivant son utilité 
+(ce à quoi la variable va servir). Le commentaire qui accompagne une variable 
+est généralement placé à la droite de sa définition sauf lorsqu'il n'y a pas 
+suffisamment de place. On le positionne alors au-dessus de la définition.
+
+
+Voici quelques exemples de commentaires corrects:
+-------------------------------------------------
+
+char nom_saisi[50];          /* Pour saisir le nom au clavier. */
+
+int indice_minimum;		/* L'indice de l'élément contenant la plus 
+					       petite valeur dans le tableau. */
+
+
+int utilisateur_veut_continuer;	/* 1 lorsque l'utilisateur veut 
+						           continuer et 0 lorsqu'il souhaite
+                                   quitter l'application. */
+
+
+Les exemples ci-dessous contiennent tous des erreurs:
+------------------------------------------------------
+
+/* ATTENTION : Il ne faut pas traduire la déclaration! */
+int indice_minimum;	/* On déclare indice_minimum qui est un entier.*/
+
+
+/* ATTENTION : Quelle valeur ? Toutes les variables conservent une
+   valeur! */
+char nom_saisi[50];		/* Pour conserver une valeur. */
+ 
+
+
+ ______
+Conetnu tiré du document "NORMES DE PROGRAMATION À RESPECTER LORS DE LA REMISE DE TRAVAUX PRATIQUES"
+Par Francis Bourdeau ET Frédérick Henri
+Version du 23 janvier 2017.

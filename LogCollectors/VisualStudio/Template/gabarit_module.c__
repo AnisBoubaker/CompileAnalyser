@@ -1,0 +1,14 @@
+#define _CRT_SECURE_NO_WARNINGS /*Supprime les avertissement pour certaines
+								  fonctions de la librairie standard jugées
+								  à risque.*/
+
+#include "gabarit_module.h" //NDE: Adapter au module développé
+
+/**************************************************
+** DÉFINITIONS DES STRUCTURES DE DONNÉES PRIVÉES **
+***************************************************/
+
+
+/***************************************
+** DÉCLARATIONS DES FONCTIONS PRIVÉES **
+****************************************/

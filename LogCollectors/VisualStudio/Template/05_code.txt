@@ -1,0 +1,45 @@
+Chaque étape dans une fonction doit être décrite à l'aide d'une ou plusieurs 
+lignes de commentaires qui explique ce que le sous-programme accomplit. 
+Ces commentaires doivent être des phrases qui débutent par une majuscule et 
+se terminent par un point.
+
+Voici deux exemples de fonctions dont le code est commenté adéquatement.
+double valeur_absolue(double nombre)
+{
+    /* Si le nombre reçu est positif, alors on le retourne.
+       Cependant, s'il est négatif, on retourne son inverse.    */
+    return (nombre > 0)?(nombre):(-nombre);
+}
+
+
+double maximum(const double tableau[], int taille)
+{
+    int valeur_maximale; /* La plus grande valeur du tableau. */
+    int i;               /* L'indice de l'élément à consulter. */
+
+    /* Au départ, on considère que le premier élément contient
+       la valeur maximale.
+    */
+    valeur_maximale = tableau[0];
+
+    /* On consulte toutes les autres valeurs dans le tableau : */
+    for (i = 1; i < taille; ++i)
+    {
+        /* Si la valeur courante est supérieure au maximum trouvé
+           à présent, alors cette valeur devient le nouveau maximum.
+        */
+        if (tableau[i] > valeur_maximale)
+        {
+            valeur_maximale = tableau[i];
+        }
+    }
+
+    return valeur_maximale;
+}
+
+
+
+______
+Conetnu tiré du document "NORMES DE PROGRAMATION À RESPECTER LORS DE LA REMISE DE TRAVAUX PRATIQUES"
+Par Francis Bourdeau ET Frédérick Henri
+Version du 23 janvier 2017.

@@ -1,0 +1,45 @@
+/*********************************************************************
+Par  : <AUTEUR>
+Date : <DATE>
+
+<DESCRIPTION DU MODULE>
+
+Liste des fonctions publiques:
+- <IDENTIFIANT FONCTION 1>: <DESCRIPTION FONCTION 1>
+- <IDENTIFIANT FONCTION 2>: <DESCRIPTION FONCTION 2>
+...
+*********************************************************************/
+
+#ifndef NOM_MODULE__H //NDE: Adapter au nom du module!
+#define NOM_MODULE__H
+
+/*******************************************
+*** INCLUSION DES DÉPENDANCES DU MODULE ****
+********************************************/
+#include <stdlib.h>
+
+/*****************************************
+** DÉFINITIONS DE STRUCTURES DE DONNÉES **
+******************************************/
+
+
+
+/*************************************
+** DÉCLARATIONS DES SOUS-PROGRAMMES **
+**************************************/
+
+/* Ceci est le gabarit du commentaire d'en-tête à ADAPTER pour chaque fonction
+<IDENTIFIANT DE LA FONCTION>
+
+<DESCRIPTION DE LA FONCTION
+
+PARAMÈTRES :
+- <ID PARAM 1> (<TYPE>): <DESCRIPTION PARAM 1>.
+- <ID PARAM 2> (<TYPE>): <DESCRIPTION PARAM 2>.
+...
+
+VALEUR DE RETOUR (<TYPE>): <DESCRIPTION VALEUR RETOURNÉE>.
+*/
+
+
+#endif

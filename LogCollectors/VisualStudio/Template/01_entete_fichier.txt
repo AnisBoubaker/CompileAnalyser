@@ -1,0 +1,58 @@
+/*********************************************************************
+Par  : <AUTEUR>
+Date : <DATE>
+
+<DESCRIPTION DE CE QUE FAIT LE PROGRAMME OU MODULE>
+
+<ENUMÉRATION ET DESCRIPTION BRÈVE DES FONCTIONS PUBLIQUES DU MODULE>
+*********************************************************************/
+
+
+------------------
+
+Chacun de vos fichiers doit débuter par un commentaire dans lequel on retrouve les éléments suivants:
+•	Les auteurs du fichier;
+•	La date de création du fichier
+•	Une description de ce que contient le fichier
+•	La liste de toutes les fonctions publiques de ce fichier, lorsque celui-ci est une librairie de 
+    fonctions.
+
+Si le fichier contient la fonction main(), alors on doit retourner dans le commentaire d’en-tête une 
+description de ce qu’accomplit le programme et une description de la stratégie de résolution employée. 
+
+/*********************************************************************
+Par  : Frédérick Henri
+Date : Mai 2012
+
+Ce programme estime la probabilité qu'une mère possède deux garçons 
+sachant qu'elle a deux enfants et qu'un de ses enfants est un garçon. 
+ 
+Afin d'obtenir un résultat, elle simule la naissance d’un million de 
+couple d'enfants et calcule le rapport du nombre de fois que les deux 
+enfants sont des garçons divisés par le nombre de fois qu'au moins un 
+des enfants est un garçon.
+*********************************************************************/
+
+
+
+Dans un module regroupant des fonctions, on pourrait retrouver ce qui suit.
+
+/*********************************************************************
+Par  : Frédérick Henri
+Date : Mai 2012
+
+Ce module défini le type t_point qui représente un point dans le plan. 
+
+On y retrouve les sous-programmes suivants :
+  - creer_point : Cette fonction crée un point à partir d'une
+                  coordonnée en x et d'une coordonnée en y.
+  - distance_points : Cette fonction retourne la distance entre
+                      deux points.
+  - quadrant : Cette fonction retourne le quadrant où se trouve
+               un point.
+*********************************************************************/
+
+______
+Conetnu tiré du document "NORMES DE PROGRAMATION À RESPECTER LORS DE LA REMISE DE TRAVAUX PRATIQUES"
+Par Francis Bourdeau ET Frédérick Henri
+Version du 23 janvier 2017.
