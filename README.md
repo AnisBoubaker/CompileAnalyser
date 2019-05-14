@@ -1,2 +1,2 @@
-# CompileAnalyser
+# CompileAnalyzer
 A teaching toolset for students' compilation log analysis and visualization
