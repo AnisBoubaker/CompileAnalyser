@@ -1,20 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Services.Configurations;
-
 namespace InfoDiag
 {
+    using AutoMapper;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Services.Configurations;
+    using Services.Interfaces;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -30,11 +24,10 @@ namespace InfoDiag
             ServicesConfiguration.ConfigureServices(services, Configuration);
             services.AddControllers()
                 .AddNewtonsoftJson();
-            services.AddAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IErrorCodeService errorCodeService)
         {
             if (env.IsDevelopment())
             {
@@ -56,6 +49,8 @@ namespace InfoDiag
             {
                 endpoints.MapControllers();
             });
+
+            //errorCodeService.SeedErrorCodes();
         }
     }
 }

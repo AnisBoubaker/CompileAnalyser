@@ -1,11 +1,14 @@
-﻿using Entity;
-using Microsoft.EntityFrameworkCore;
-using Repositories.Interfaces;
-
-namespace Repositories
+﻿namespace Repositories
 {
-    class CompilationRepository : BaseRepository<Compilation, int>, ICompilationRepository
+    using Entity;
+    using Microsoft.EntityFrameworkCore;
+    using Repositories.Interfaces;
+
+    internal class CompilationRepository : BaseRepository<Compilation, int>, ICompilationRepository
     {
-        public CompilationRepository(DbContext context) : base(context) { }
+        public CompilationRepository(DbContext context)
+            : base(context)
+        {
+        }
     }
 }

@@ -1,13 +1,13 @@
-﻿using Entity;
-using Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
-
-namespace Repositories
+﻿namespace Repositories
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using Entity;
+    using Microsoft.EntityFrameworkCore;
+    using Repositories.Interfaces;
+
     /// <summary>
     ///     This class serves has a base for any repository. Any modification to this will have an effect on every class using
     ///     it.
@@ -15,32 +15,22 @@ namespace Repositories
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TId"></typeparam>
-    abstract class BaseRepository<TEntity, TId> : IRepository<TEntity, TId>
+    internal abstract class BaseRepository<TEntity, TId> : IRepository<TEntity, TId>
         where TEntity : class, IBaseEntity<TId>
     {
-        #region Fields
-
         public virtual IEnumerable<TEntity> All => AllAsQueryable.ToArray();
 
         public virtual IEnumerable<TEntity> AllAsQueryable => GetAsQueryable();
 
-        protected DbContext DataContext;
+        protected DbContext DataContext { get; private set; }
 
-        protected DbSet<TEntity> DbSet;
-
-        #endregion
-
-        #region Constructors
+        protected DbSet<TEntity> DbSet { get; private set; }
 
         protected BaseRepository(DbContext context)
         {
             DataContext = context;
             DbSet = context.Set<TEntity>();
         }
-
-        #endregion
-
-        #region Methods
 
         public virtual TEntity Get(TId id)
         {
@@ -189,7 +179,5 @@ namespace Repositories
         {
             DataContext.SaveChanges();
         }
-
-        #endregion
     }
 }

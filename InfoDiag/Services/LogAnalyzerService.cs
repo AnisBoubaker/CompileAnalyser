@@ -1,19 +1,19 @@
-﻿using Services.Interfaces;
-using Services.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using Services.Interfaces;
+using Services.Models;
 
 namespace Services
 {
-    class LogAnalyzerService : ILogAnalyzerService
+    internal class LogAnalyzerService : ILogAnalyzerService
     {
         private const int FileNameGroup = 1;
         private const int LineGroup = 2;
         private const int ErrorCodeGroup = 4;
         private const int CriticityGroup = 3;
         private const int ErrorMessageGroup = 5;
-        private Regex logLineRegex = new Regex(".+\\\\(\\w+.\\w)\\((\\d+)\\): (\\w+) *(\\w{1,2}\\d{4})?: (.+)");
+        private readonly Regex logLineRegex = new Regex(".+\\\\(\\w+.\\w)\\((\\d+)\\): (\\w+) *(\\w{1,2}\\d{4})?: (.+)");
 
         public IEnumerable<LogLine> MapToLines(string logPath)
         {
@@ -21,7 +21,7 @@ namespace Services
 
             var logLines = new List<LogLine>();
 
-            foreach(var line in lines)
+            foreach (var line in lines)
             {
                 var match = logLineRegex.Match(line);
                 if (match.Success)
@@ -32,7 +32,7 @@ namespace Services
                         Line = int.Parse(match.Groups[LineGroup].Value),
                         Code = match.Groups[ErrorCodeGroup].Value,
                         Message = match.Groups[ErrorMessageGroup].Value,
-                        Criticity = match.Groups[CriticityGroup].Value
+                        Criticity = match.Groups[CriticityGroup].Value,
                     });
                 }
             }

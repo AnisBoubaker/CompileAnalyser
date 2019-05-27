@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace Entity
+﻿namespace Entity
 {
+    using System.Collections.Generic;
+
     public class CompilationError : IBaseEntity<long>
     {
         public int CompilationId { get; set; }
@@ -13,7 +13,7 @@ namespace Entity
         public CompilationErrorType Type { get; set; }
 
         public long Id { get; set; }
-        
+
         public virtual ICollection<CompilationErrorLine> Lines { get; set; }
     }
 }

@@ -6,6 +6,6 @@
         CompilerError,
         CompilerWarning,
         Note,
-        Other
+        Other,
     }
 }

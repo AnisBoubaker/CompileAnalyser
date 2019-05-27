@@ -1,7 +1,5 @@
-﻿using Services.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using Services.Models;
 
 namespace Services.Interfaces
 {

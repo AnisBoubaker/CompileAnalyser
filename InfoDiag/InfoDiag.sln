@@ -3,17 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfoDiag", "InfoDiag\InfoDiag.csproj", "{7BE96D7A-FC9B-4311-8B76-7C0832E46F7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfoDiag", "InfoDiag\InfoDiag.csproj", "{7BE96D7A-FC9B-4311-8B76-7C0832E46F7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{80D3A16B-EF6E-4B0E-A600-B9A978978A11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{80D3A16B-EF6E-4B0E-A600-B9A978978A11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{DE508911-701B-43A2-9E84-E89F318C717E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{DE508911-701B-43A2-9E84-E89F318C717E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "Repositories\Repositories.csproj", "{C7154932-891F-4DBB-B3BA-1E4F98C1C7D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositories\Repositories.csproj", "{C7154932-891F-4DBB-B3BA-1E4F98C1C7D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entity", "Entity\Entity.csproj", "{D37B9BBD-96FB-44B7-AA11-1B50D87939B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity", "Entity\Entity.csproj", "{D37B9BBD-96FB-44B7-AA11-1B50D87939B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entity.DTO", "Entity.DTO\Entity.DTO.csproj", "{F5DF21CF-31D8-4350-AB42-E861C2F4A47F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity.DTO", "Entity.DTO\Entity.DTO.csproj", "{F5DF21CF-31D8-4350-AB42-E861C2F4A47F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ruleset", "Ruleset", "{6EBAF712-B106-4C76-8398-F796BA55FD05}"
+	ProjectSection(SolutionItems) = preProject
+		InfoDiag.ruleset = InfoDiag.ruleset
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

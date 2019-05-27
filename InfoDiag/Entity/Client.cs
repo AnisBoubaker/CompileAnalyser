@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace Entity
+﻿namespace Entity
 {
+    using System.Collections.Generic;
+
     public class Client : IBaseEntity<int>
     {
         public string FirstName { get; set; }

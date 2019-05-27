@@ -1,9 +1,12 @@
-﻿using Data.Configurations;
-using Entity;
-using Microsoft.EntityFrameworkCore;
-
-namespace Data
+﻿namespace Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using Data.Configurations;
+    using Entity;
+    using Microsoft.EntityFrameworkCore;
+
     public class InfoDiagContext : DbContext
     {
         public DbSet<Client> Clients { get; set; }
@@ -14,7 +17,10 @@ namespace Data
 
         public DbSet<CompilationErrorLine> CompilationErrorLines { get; set; }
 
-        public InfoDiagContext(DbContextOptions<InfoDiagContext> options) : base(options)
+        public DbSet<ErrorCode> ErrorCodes { get; set; }
+
+        public InfoDiagContext(DbContextOptions<InfoDiagContext> options)
+            : base(options)
         {
         }
 
@@ -24,6 +30,7 @@ namespace Data
             modelBuilder.ApplyConfiguration(new CompilationConfiguration());
             modelBuilder.ApplyConfiguration(new CompilationErrorConfiguration());
             modelBuilder.ApplyConfiguration(new CompilationErrorLineConfiguration());
+            modelBuilder.ApplyConfiguration(new ErrorCodeConfiguration());
         }
     }
 }

@@ -1,13 +1,10 @@
-﻿using Entity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Data.Configurations
+﻿namespace Data.Configurations
 {
-    class CompilationConfiguration : IEntityTypeConfiguration<Compilation>
+    using Entity;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    internal class CompilationConfiguration : IEntityTypeConfiguration<Compilation>
     {
         public void Configure(EntityTypeBuilder<Compilation> builder)
         {

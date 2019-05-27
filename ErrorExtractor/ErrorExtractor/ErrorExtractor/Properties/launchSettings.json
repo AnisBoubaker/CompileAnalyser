@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ErrorExtractor": {
+      "commandName": "Project",
+      "commandLineArgs": "D:\\Download\\cpp-docs-master\\cpp-docs-master\\docs\\error-messages"
+    }
+  }
+}

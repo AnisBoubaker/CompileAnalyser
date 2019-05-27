@@ -1,13 +1,10 @@
-﻿using Entity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Data.Configurations
+﻿namespace Data.Configurations
 {
-    class ClientConfiguration : IEntityTypeConfiguration<Client>
+    using Entity;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    internal class ClientConfiguration : IEntityTypeConfiguration<Client>
     {
         public void Configure(EntityTypeBuilder<Client> builder)
         {

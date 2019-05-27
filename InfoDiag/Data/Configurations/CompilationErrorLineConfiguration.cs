@@ -1,12 +1,12 @@
-﻿using Entity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Data.Configurations
+﻿namespace Data.Configurations
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using Entity;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
     public class CompilationErrorLineConfiguration : IEntityTypeConfiguration<CompilationErrorLine>
     {
         public void Configure(EntityTypeBuilder<CompilationErrorLine> builder)

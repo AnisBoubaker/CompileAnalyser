@@ -1,11 +1,12 @@
-﻿using Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-
-namespace Repositories.Interfaces
+﻿namespace Repositories.Interfaces
 {
-    public interface IRepository<TEntity, in TId> : IDisposable where TEntity : class, IBaseEntity<TId>
+    using System;
+    using System.Collections.Generic;
+    using System.Linq.Expressions;
+    using Entity;
+
+    public interface IRepository<TEntity, in TId> : IDisposable
+        where TEntity : class, IBaseEntity<TId>
     {
         IEnumerable<TEntity> All { get; }
 
@@ -19,8 +20,9 @@ namespace Repositories.Interfaces
 
         IEnumerable<TEntity> GetAsQueryable(Expression<Func<TEntity, bool>> where);
 
-        IEnumerable<TEntity> GetAsQueryable<TKey>(Expression<Func<TEntity, bool>> where,
-                                                 Expression<Func<TEntity, TKey>> orderBy);
+        IEnumerable<TEntity> GetAsQueryable<TKey>(
+            Expression<Func<TEntity, bool>> where,
+            Expression<Func<TEntity, TKey>> orderBy);
 
         void Delete(TEntity entity);
 

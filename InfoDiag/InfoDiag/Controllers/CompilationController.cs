@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Services.Interfaces;
-
-namespace InfoDiag.Controllers
+﻿namespace InfoDiag.Controllers
 {
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Services.Interfaces;
+
     /// <summary>
     /// Get and post compilations
     /// </summary>
@@ -11,11 +11,11 @@ namespace InfoDiag.Controllers
     [ApiController]
     public class CompilationController : ControllerBase
     {
-        private ICompilationService _compilationService;
+        private readonly ICompilationService compilationService;
 
         public CompilationController(ICompilationService compilationService)
         {
-            _compilationService = compilationService;
+            this.compilationService = compilationService;
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace InfoDiag.Controllers
         [HttpPost]
         public IActionResult SubmitCompilation(IFormFile file)
         {
-            var returnMessage = _compilationService.AddCompilation(file);
+            var returnMessage = compilationService.AddCompilation(file);
             return Ok(returnMessage);
         }
     }

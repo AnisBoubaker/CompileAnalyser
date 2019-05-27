@@ -1,20 +1,20 @@
-﻿using Entity;
-using Repositories.Interfaces;
-using Services.Interfaces;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Xml;
+using Entity;
+using Repositories.Interfaces;
+using Services.Interfaces;
 
 namespace Services
 {
     public class ClientService : IClientService
     {
-        private IClientRepository _clientRepository;
+        private readonly IClientRepository clientRepository;
 
         public ClientService(IClientRepository clientRepository)
         {
-            _clientRepository = clientRepository;
+            this.clientRepository = clientRepository;
         }
 
         public int FindClientId(string projPath)
@@ -31,7 +31,7 @@ namespace Services
                 return 0;
             }
 
-            var client = _clientRepository.AllAsQueryable.Where(c => c.Email == email).FirstOrDefault();
+            var client = clientRepository.AllAsQueryable.Where(c => c.Email == email).FirstOrDefault();
 
             if (client != null)
             {
@@ -43,11 +43,12 @@ namespace Services
                 {
                     FirstName = first,
                     LastName = last,
-                    Email = email
+                    Email = email,
                 };
 
-                _clientRepository.Insert(client);
+                clientRepository.Insert(client);
             }
+
             return client.Id;
         }
 
@@ -118,7 +119,7 @@ namespace Services
 
         if (hasChanged)
         {
-            _clientRepository.Update(client);
+            clientRepository.Update(client);
         }
     }
 }
