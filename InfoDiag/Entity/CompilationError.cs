@@ -8,7 +8,9 @@
 
         public string Message { get; set; }
 
-        public string Code { get; set; }
+        public string ErrorCodeId { get; set; }
+
+        public virtual ErrorCode ErrorCode { get; set; }
 
         public CompilationErrorType Type { get; set; }
 

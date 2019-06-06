@@ -8,7 +8,7 @@ namespace ErrorExtractor
 {
     internal class DirectoryAnalyzer
     {
-        private static Regex CodeRegex = new Regex("\\w{1,2}\\d{4}");
+        private static Regex CodeRegex = new Regex("\\w{1,3}\\d{4}");
 
         internal static IEnumerable<Error> ProcessDirectory(string directory, string linkstart)
         {
@@ -45,9 +45,19 @@ namespace ErrorExtractor
 
             error.Name = lines[1].Split('\"')[1];
 
+            if (error.Name.ToLower().Contains("through"))
+            {
+                return null;
+            }
+
             error.Title = lines[9];
 
             error.Link = link;
+
+            if (error.Link.ToLower().Contains("through"))
+            {
+                return null;
+            }
 
             return error;
         }

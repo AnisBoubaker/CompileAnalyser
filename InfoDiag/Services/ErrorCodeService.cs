@@ -34,7 +34,15 @@
 
             var groups = seedData.GroupBy(d => d.Id).Where(g => g.Count() > 1);
 
-            //errorCodeRepository.Insert(seedData);
+            var dups = seedData.Where(e => groups.Any(g => g.Key == e.Id));
+
+            var i = 2;
+            foreach (var dup in dups)
+            {
+                dup.Id = dup.Id + "L" + i;
+            }
+
+            errorCodeRepository.Insert(seedData);
         }
     }
 }

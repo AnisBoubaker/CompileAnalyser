@@ -11,8 +11,9 @@ namespace Services.Profiles
         public CompilationLineProfile()
         {
             _ = CreateMap<LogLine, CompilationError>()
-                .ForMember(to => to.Type, opt => { opt.MapFrom(from => MapCompilationError(from.Criticity)); })
-                .ForMember(to => to.Lines, opt => { opt.MapFrom(from => from.Lines.Select(l => MapCompilationErrorLine(l))); });
+                .ForMember(to => to.ErrorCodeId, opt => opt.MapFrom(from => from.Code))
+                .ForMember(to => to.Type, opt => opt.MapFrom(from => MapCompilationError(from.Criticity)))
+                .ForMember(to => to.Lines, opt => opt.MapFrom(from => from.Lines.Select(l => MapCompilationErrorLine(l))));
         }
 
         public static CompilationErrorType MapCompilationError(string value)
