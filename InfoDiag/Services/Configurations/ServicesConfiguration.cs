@@ -15,9 +15,10 @@ namespace Services.Configurations
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddScoped<ICompilationService, CompilationService>();
-            services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<IVSProjAnalyzerService, VSProjAnalyzerService>();
             services.AddScoped<ILogAnalyzerService, LogAnalyzerService>();
             services.AddScoped<IErrorCodeService, ErrorCodeService>();
+            services.AddScoped<ICourseService, CourseService>();
         }
     }
 }

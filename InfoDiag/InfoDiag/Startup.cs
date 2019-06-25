@@ -50,7 +50,7 @@ namespace InfoDiag
                 endpoints.MapControllers();
             });
 
-            //errorCodeService.SeedErrorCodes();
+            // errorCodeService.SeedErrorCodes();
         }
     }
 }

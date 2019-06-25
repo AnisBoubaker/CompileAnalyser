@@ -1,7 +1,8 @@
-﻿namespace Entity
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Constants;
 
+namespace Entity
+{
     public class CompilationError : IBaseEntity<long>
     {
         public int CompilationId { get; set; }

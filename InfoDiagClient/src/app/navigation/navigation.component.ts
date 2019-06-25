@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -15,9 +16,14 @@ export class NavigationComponent {
       map(result => result.matches)
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver,
+              private router: Router) {}
 
-  redirect(link: string) {
-    window.location.href  = link;
+  redirect(link: string, id: number | undefined) {
+    if (id) {
+      this.router.navigate([link, id]);
+    } else {
+      this.router.navigate([link]);
+    }
   }
 }

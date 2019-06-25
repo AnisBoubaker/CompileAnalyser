@@ -6,7 +6,7 @@ using Services.Models;
 
 namespace Services
 {
-    internal class LogAnalyzerService : ILogAnalyzerService
+    internal class LogAnalyzerService : BaseService, ILogAnalyzerService
     {
         private const int FileNameGroup = 1;
         private const int LineGroup = 2;

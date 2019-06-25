@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Linq.Expressions;
     using Entity;
 
@@ -10,7 +11,7 @@
     {
         IEnumerable<TEntity> All { get; }
 
-        IEnumerable<TEntity> AllAsQueryable { get; }
+        IQueryable<TEntity> AllAsQueryable { get; }
 
         TEntity Get(TId id);
 
@@ -18,9 +19,9 @@
 
         IEnumerable<TEntity> Get<TKey>(Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, TKey>> orderBy);
 
-        IEnumerable<TEntity> GetAsQueryable(Expression<Func<TEntity, bool>> where);
+        IQueryable<TEntity> GetAsQueryable(Expression<Func<TEntity, bool>> where);
 
-        IEnumerable<TEntity> GetAsQueryable<TKey>(
+        IQueryable<TEntity> GetAsQueryable<TKey>(
             Expression<Func<TEntity, bool>> where,
             Expression<Func<TEntity, TKey>> orderBy);
 

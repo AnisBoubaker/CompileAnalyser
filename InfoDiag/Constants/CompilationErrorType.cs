@@ -1,4 +1,4 @@
-﻿namespace Entity
+﻿namespace Constants
 {
     public enum CompilationErrorType
     {

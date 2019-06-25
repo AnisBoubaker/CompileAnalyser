@@ -21,6 +21,10 @@
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<ICompilationRepository, CompilationRepository>();
             services.AddScoped<IErrorCodeRepository, ErrorCodeRepository>();
+            services.AddScoped<ICourseGroupRepository, CourseGroupRepository>();
+            services.AddScoped<ICourseRepository, CourseRepository>();
+            services.AddScoped<IInstitutionRepository, InstitutionRepository>();
+            services.AddScoped<ITermRepository, TermRepository>();
         }
     }
 }

@@ -13,5 +13,7 @@
         public int Id { get; set; }
 
         public virtual ICollection<Compilation> Compilations { get; set; }
+
+        public virtual ICollection<CourseGroupClient> CourseGroupClient { get; set; }
     }
 }

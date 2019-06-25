@@ -96,6 +96,59 @@ namespace Data.Migrations
                     b.ToTable("CompilationErrorLine");
                 });
 
+            modelBuilder.Entity("Entity.Course", b =>
+                {
+                    b.Property<string>("Id");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Course");
+                });
+
+            modelBuilder.Entity("Entity.CourseGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Alias");
+
+                    b.Property<string>("CourseId");
+
+                    b.Property<int>("GroupNumber");
+
+                    b.Property<string>("TermId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("TermId");
+
+                    b.ToTable("CourseGroup");
+                });
+
+            modelBuilder.Entity("Entity.CourseGroupClient", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ClientId");
+
+                    b.Property<int>("CourseGroupId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("CourseGroupId");
+
+                    b.ToTable("CourseGroupClient");
+                });
+
             modelBuilder.Entity("Entity.ErrorCode", b =>
                 {
                     b.Property<string>("Id");
@@ -109,6 +162,21 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ErrorCode");
+                });
+
+            modelBuilder.Entity("Entity.Term", b =>
+                {
+                    b.Property<string>("Id");
+
+                    b.Property<string>("Alias");
+
+                    b.Property<int>("TermType");
+
+                    b.Property<int>("Year");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Term");
                 });
 
             modelBuilder.Entity("Entity.Compilation", b =>
@@ -138,6 +206,32 @@ namespace Data.Migrations
                     b.HasOne("Entity.CompilationError", null)
                         .WithMany("Lines")
                         .HasForeignKey("CompilationErrorId");
+                });
+
+            modelBuilder.Entity("Entity.CourseGroup", b =>
+                {
+                    b.HasOne("Entity.Course", "Course")
+                        .WithMany("CourseGroups")
+                        .HasForeignKey("CourseId");
+
+                    b.HasOne("Entity.Term", "Term")
+                        .WithMany("CourseGroups")
+                        .HasForeignKey("TermId");
+                });
+
+            modelBuilder.Entity("Entity.CourseGroupClient", b =>
+                {
+                    b.HasOne("Entity.Client", "Client")
+                        .WithMany("CourseGroupClient")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entity.CourseGroup", "CourseGroup")
+                        .WithMany("CourseGroupClient")
+                        .HasForeignKey("CourseGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

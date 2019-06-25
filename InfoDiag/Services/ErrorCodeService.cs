@@ -10,7 +10,7 @@
     using Repositories.Interfaces;
     using Services.Interfaces;
 
-    internal class ErrorCodeService : IErrorCodeService
+    internal class ErrorCodeService : BaseService, IErrorCodeService
     {
         private IErrorCodeRepository errorCodeRepository;
         private IMapper mapper;

@@ -12,16 +12,16 @@ using Services.Models;
 
 namespace Services
 {
-    public class CompilationService : ICompilationService
+    public class CompilationService : BaseService, ICompilationService
     {
         private const int LineKeep = 3;
-        private readonly IClientService clientService;
+        private readonly IVSProjAnalyzerService clientService;
         private readonly ILogAnalyzerService logAnalyzerService;
         private readonly ICompilationRepository compilationRepository;
         private readonly IMapper mapper;
 
         public CompilationService(
-            IClientService clientService,
+            IVSProjAnalyzerService clientService,
             ILogAnalyzerService logAnalyzerService,
             ICompilationRepository compilationRepository,
             IMapper mapper)
@@ -35,7 +35,7 @@ namespace Services
         public string AddCompilation(IFormFile file)
         {
             (var projPath, var logPath, var programPath) = ProcessZip(file);
-            var clientId = clientService.FindClientId(projPath);
+            var clientId = clientService.Process(projPath);
             if (clientId == 0)
             {
                 return "le .vcxprog doit être inclus avec la compilation";

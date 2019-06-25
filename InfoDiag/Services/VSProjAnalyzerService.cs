@@ -8,25 +8,39 @@ using Services.Interfaces;
 
 namespace Services
 {
-    public class ClientService : IClientService
+    public class VSProjAnalyzerService : BaseService, IVSProjAnalyzerService
     {
         private readonly IClientRepository clientRepository;
+        private readonly IInstitutionRepository institutionRepository;
+        private readonly ICourseService courseService;
 
-        public ClientService(IClientRepository clientRepository)
+        public VSProjAnalyzerService(
+            IClientRepository clientRepository,
+            IInstitutionRepository institutionRepository,
+            ICourseService courseService)
         {
             this.clientRepository = clientRepository;
+            this.institutionRepository = institutionRepository;
+            this.courseService = courseService;
         }
 
-        public int FindClientId(string projPath)
+        public int Process(string projPath)
         {
             if (!File.Exists(projPath))
             {
                 return 0;
             }
 
-            (var first, var last, var email) = ExtractInfo(projPath);
+            (string first, string last, string email, string institutionAlias, string courseAlias) = ExtractInfo(projPath);
 
             if (email == null)
+            {
+                return 0;
+            }
+
+            var institution = institutionRepository.AllAsQueryable.Where(i => i.Alias == institutionAlias).FirstOrDefault();
+
+            if (institution == null)
             {
                 return 0;
             }
@@ -49,10 +63,15 @@ namespace Services
                 clientRepository.Insert(client);
             }
 
+            if (courseService.ProcessCourseGroupAlias(courseAlias, client.Id))
+            {
+                return 0;
+            }
+
             return client.Id;
         }
 
-        private (string first, string last, string email) ExtractInfo(string projPath)
+        private (string first, string last, string email, string institution, string course) ExtractInfo(string projPath)
         {
             XmlDocument xmlDoc = new XmlDocument();
 
@@ -71,35 +90,39 @@ namespace Services
 
             if (requierdElement == null)
             {
-                return (null, null, null);
+                return (null, null, null, null, null);
             }
 
             string first = null;
             string last = null;
             string email = null;
+            string institution = null;
+            string course = null;
 
             foreach (XmlElement n in requierdElement.ChildNodes)
             {
-                // This is from a typo in the template
-                if (n.Name == "UserFirtName")
+                switch (n.Name)
                 {
-                    first = n.InnerText;
-                }
-                else if (n.Name == "UserFirstName")
-                {
-                    first = n.InnerText;
-                }
-                else if (n.Name == "UserLastName")
-                {
-                    last = n.InnerText;
-                }
-                else if (n.Name == "UserEmail")
-                {
-                    email = n.InnerText;
+                    case "UserFirtName":
+                    case "UserFirstName":
+                        first = n.InnerText;
+                        break;
+                    case "UserLastName":
+                        last = n.InnerText;
+                        break;
+                    case "UserEmail":
+                        email = n.InnerText;
+                        break;
+                    case "InstitutionId":
+                        institution = n.InnerText;
+                        break;
+                    case "Course":
+                        course = n.InnerText;
+                        break;
                 }
             }
 
-            return (first, last, email);
+            return (first, last, email, institution, course);
         }
 
         private void Update(Client client, string first, string last)

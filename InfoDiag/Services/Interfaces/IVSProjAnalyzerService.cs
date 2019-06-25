@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Services.Interfaces
 {
-    public interface IClientService
+    public interface IVSProjAnalyzerService
     {
-        int FindClientId(string projPath);
+        int Process(string projPath);
     }
 }

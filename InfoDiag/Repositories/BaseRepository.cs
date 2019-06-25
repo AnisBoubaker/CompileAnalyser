@@ -20,7 +20,7 @@
     {
         public virtual IEnumerable<TEntity> All => AllAsQueryable.ToArray();
 
-        public virtual IEnumerable<TEntity> AllAsQueryable => GetAsQueryable();
+        public virtual IQueryable<TEntity> AllAsQueryable => GetAsQueryable();
 
         protected DbContext DataContext { get; private set; }
 
@@ -51,12 +51,12 @@
             return GetAsQueryable(where, orderBy).ToArray();
         }
 
-        public virtual IEnumerable<TEntity> GetAsQueryable(Expression<Func<TEntity, bool>> where = null)
+        public virtual IQueryable<TEntity> GetAsQueryable(Expression<Func<TEntity, bool>> where = null)
         {
             return GetAsQueryable<Guid>(where, null);
         }
 
-        public virtual IEnumerable<TEntity> GetAsQueryable<TKey>(
+        public virtual IQueryable<TEntity> GetAsQueryable<TKey>(
             Expression<Func<TEntity, bool>> where,
             Expression<Func<TEntity, TKey>> orderBy)
         {
