@@ -19,6 +19,7 @@ namespace Services.Configurations
             services.AddScoped<ILogAnalyzerService, LogAnalyzerService>();
             services.AddScoped<IErrorCodeService, ErrorCodeService>();
             services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<IInstitutionService, InstitutionService>();
         }
     }
 }

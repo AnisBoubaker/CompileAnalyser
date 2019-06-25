@@ -5,6 +5,7 @@ using System.Xml;
 using Entity;
 using Repositories.Interfaces;
 using Services.Interfaces;
+using Services.Models;
 
 namespace Services
 {
@@ -24,25 +25,27 @@ namespace Services
             this.courseService = courseService;
         }
 
-        public int Process(string projPath)
+        public ServiceCallResult<int> Process(string projPath)
         {
             if (!File.Exists(projPath))
             {
-                return 0;
+                return Error<int>("File doesn't exist");
             }
 
-            (string first, string last, string email, string institutionAlias, string courseAlias) = ExtractInfo(projPath);
+            var result = ExtractInfo(projPath);
 
-            if (email == null)
+            if (result.Failed)
             {
-                return 0;
+                return Error<int>(result.Error);
             }
+
+            (string first, string last, string email, string institutionAlias, string courseAlias) = result.Value;
 
             var institution = institutionRepository.AllAsQueryable.Where(i => i.Alias == institutionAlias).FirstOrDefault();
 
             if (institution == null)
             {
-                return 0;
+                return Error<int>("Institution doesn't exist");
             }
 
             var client = clientRepository.AllAsQueryable.Where(c => c.Email == email).FirstOrDefault();
@@ -60,18 +63,18 @@ namespace Services
                     Email = email,
                 };
 
-                clientRepository.Insert(client);
+                client = clientRepository.Insert(client);
             }
 
-            if (courseService.ProcessCourseGroupAlias(courseAlias, client.Id))
+            if (courseService.ProcessCourseGroupAlias(courseAlias, client.Id).Failed)
             {
-                return 0;
+                return Error<int>("An error occured while verifying the course");
             }
 
-            return client.Id;
+            return Success(client.Id);
         }
 
-        private (string first, string last, string email, string institution, string course) ExtractInfo(string projPath)
+        private ServiceCallResult<(string first, string last, string email, string institution, string course)> ExtractInfo(string projPath)
         {
             XmlDocument xmlDoc = new XmlDocument();
 
@@ -90,7 +93,7 @@ namespace Services
 
             if (requierdElement == null)
             {
-                return (null, null, null, null, null);
+                return Error<(string, string, string, string, string)>("Required element in the .vsproj is missing");
             }
 
             string first = null;
@@ -122,7 +125,12 @@ namespace Services
                 }
             }
 
-            return (first, last, email, institution, course);
+            if (first == null || last == null || email == null || institution == null || course == null)
+            {
+                return Error<(string, string, string, string, string)>("Information is missing in the .vsproj");
+            }
+
+            return Success((first, last, email, institution, course));
         }
 
         private void Update(Client client, string first, string last)

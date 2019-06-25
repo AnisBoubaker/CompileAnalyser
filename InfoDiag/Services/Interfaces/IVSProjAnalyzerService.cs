@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Services.Models;
 
 namespace Services.Interfaces
 {
     public interface IVSProjAnalyzerService
     {
-        int Process(string projPath);
+        ServiceCallResult<int> Process(string projPath);
     }
 }

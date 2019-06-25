@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Services.Models;
 
 namespace Services.Interfaces
 {
     public interface ICourseService
     {
-        bool ProcessCourseGroupAlias(string alias, int clientId);
+        ServiceCallResult ProcessCourseGroupAlias(string alias, int clientId);
     }
 }

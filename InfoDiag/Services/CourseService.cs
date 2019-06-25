@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces;
 using Services.Interfaces;
+using Services.Models;
 
 namespace Services
 {
@@ -24,7 +25,7 @@ namespace Services
             this.termRepository = termRepository;
         }
 
-        public bool ProcessCourseGroupAlias(string alias, int clientId)
+        public ServiceCallResult ProcessCourseGroupAlias(string alias, int clientId)
         {
             (string courseAlias, string termAlias, int coursegroup) = SplitAlias(alias);
 
@@ -32,22 +33,22 @@ namespace Services
 
             if (course == null)
             {
-                return false;
+                return Error("Course cannot be found");
             }
 
             var courseGroup = courseGroupRepository.AllAsQueryable.Where(cg => cg.CourseId == course.Id && cg.Alias == alias).FirstOrDefault();
 
             if (courseGroup == null)
             {
-                return false;
+                return Error("Course group cannot be found");
             }
 
             if (courseGroup.Term.Alias != termAlias)
             {
-                return false;
+                return Error("Term cannot be found");
             }
 
-            return true;
+            return Success();
         }
 
         public (string courseAlias, string term, int coursegroup) SplitAlias(string alias)

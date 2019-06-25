@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Services.Models;
 
 namespace Services.Interfaces
 {
     public interface ICompilationService
     {
-        string AddCompilation(IFormFile file);
+        ServiceCallResult<string> AddCompilation(IFormFile file);
     }
 }

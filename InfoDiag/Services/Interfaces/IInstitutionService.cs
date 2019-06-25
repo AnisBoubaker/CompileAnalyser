@@ -1,15 +1,14 @@
 ﻿using Entity.DTO;
+using Services.Models;
 
 namespace Services.Interfaces
 {
     public interface IInstitutionService
     {
-        bool CreateInstitution(InstitutionDto dto);
+        ServiceCallResult CreateInstitution(InstitutionDto dto);
 
-        bool AddCourse(CourseDto dto);
+        ServiceCallResult AddCourse(CourseDto dto);
 
-        bool AddCourseGroup(CourseGroupDto dto);
-
-        bool 
+        ServiceCallResult AddCourseGroup(CourseGroupDto dto);
     }
 }

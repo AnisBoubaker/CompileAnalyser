@@ -32,13 +32,13 @@ namespace Services
             this.mapper = mapper;
         }
 
-        public string AddCompilation(IFormFile file)
+        public ServiceCallResult<string> AddCompilation(IFormFile file)
         {
             (var projPath, var logPath, var programPath) = ProcessZip(file);
-            var clientId = clientService.Process(projPath);
-            if (clientId == 0)
+            var result = clientService.Process(projPath);
+            if (result.Failed)
             {
-                return "le .vcxprog doit être inclus avec la compilation";
+                return Error<string>("le .vcxprog doit être inclus avec la compilation");
             }
 
             var lines = logAnalyzerService.MapToLines(logPath);
@@ -49,17 +49,17 @@ namespace Services
 
             var compilation = new Compilation
             {
-                ClientId = clientId,
+                ClientId = result.Value,
                 CompilationErrors = compilationErrors.ToList(),
                 CompilationTime = DateTime.UtcNow,
             };
 
             compilationRepository.Insert(compilation);
 
-            return "Merci";
+            return Success("Merci");
         }
 
-        public (string projPath, string logPath, string programPath) ProcessZip(IFormFile file)
+        private (string projPath, string logPath, string programPath) ProcessZip(IFormFile file)
         {
             var projPath = Path.GetTempPath() + Guid.NewGuid();
             var logPath = Path.GetTempPath() + Guid.NewGuid();
@@ -85,7 +85,7 @@ namespace Services
             return (projPath, logPath, programPath);
         }
 
-        public void AddReferenceLines(IEnumerable<LogLine> loglines, string directory)
+        private void AddReferenceLines(IEnumerable<LogLine> loglines, string directory)
         {
             var openedFiles = new Dictionary<string, string[]>();
 
