@@ -8,12 +8,16 @@ import { StudentComponent } from './student/student.component';
 import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
 import { StudentModule } from './student/student.module';
 import { ErrorModule } from './error/error.module';
+import { LoginComponent } from './login/login.component';
+import { LoginModule } from './login/login.module';
+import { AuthGuard } from './helpers/auth.guard';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent },
-    { path: 'student/all', component: StudentListComponent},
-    { path: 'student/:id', component: StudentComponent},
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: 'login', component: LoginComponent },
+    { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+    { path: 'student/all', component: StudentListComponent, canActivate: [AuthGuard] },
+    { path: 'student/:id', component: StudentComponent, canActivate: [AuthGuard] },
     { path: 'student', redirectTo: 'student/all'},
     { path: '**', component: PageNotFoundComponent}
   ];
@@ -23,7 +27,8 @@ const routes: Routes = [
       RouterModule.forRoot(routes),
       HomeModule,
       StudentModule,
-      ErrorModule
+      ErrorModule,
+      LoginModule
     ],
     exports: [ RouterModule ]
   })

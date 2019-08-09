@@ -20,7 +20,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ruleset", "Ruleset", "{6EBA
 		InfoDiag.ruleset = InfoDiag.ruleset
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Constants", "Constants\Constants.csproj", "{B96F3E2B-FA06-42AA-AE23-1BFA08A98094}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Constants", "Constants\Constants.csproj", "{B96F3E2B-FA06-42AA-AE23-1BFA08A98094}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfoDiag.Auth", "InfoDiag.Auth\InfoDiag.Auth.csproj", "{ADE87DDB-447A-4DD0-8C9A-75C1B1045B20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,6 +58,10 @@ Global
 		{B96F3E2B-FA06-42AA-AE23-1BFA08A98094}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B96F3E2B-FA06-42AA-AE23-1BFA08A98094}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B96F3E2B-FA06-42AA-AE23-1BFA08A98094}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADE87DDB-447A-4DD0-8C9A-75C1B1045B20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADE87DDB-447A-4DD0-8C9A-75C1B1045B20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADE87DDB-447A-4DD0-8C9A-75C1B1045B20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADE87DDB-447A-4DD0-8C9A-75C1B1045B20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="sides">
+      </div>
+  <div class="row">
+    <div class="sides">
+    </div>
+    <mat-card class="login-card">
+      <mat-card-title>
+        Connection
+      </mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="form" class="form">
+          <mat-form-field>
+            <input matInput placeholder="Utilisateur" formControlName="user">
+          </mat-form-field>
+          <mat-form-field>
+            <input type="password" matInput placeholder="Mot de passe" formControlName="password">
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" (click)="connect" [disabled]="loading">Se connecter</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+    <div class="sides">
+    </div>
+  </div>
+  <div class="sides">
+    </div>
+</div>

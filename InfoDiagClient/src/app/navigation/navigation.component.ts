@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-navigation',
@@ -17,6 +18,7 @@ export class NavigationComponent {
     );
 
   constructor(private breakpointObserver: BreakpointObserver,
+              private authService: AuthenticationService,
               private router: Router) {}
 
   redirect(link: string, id: number | undefined) {
@@ -25,5 +27,9 @@ export class NavigationComponent {
     } else {
       this.router.navigate([link]);
     }
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }
