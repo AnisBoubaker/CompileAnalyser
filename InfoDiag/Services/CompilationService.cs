@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -14,11 +14,11 @@ namespace Services
 {
     public class CompilationService : BaseService, ICompilationService
     {
-        private const int LineKeep = 3;
-        private readonly IVSProjAnalyzerService clientService;
-        private readonly ILogAnalyzerService logAnalyzerService;
-        private readonly ICompilationRepository compilationRepository;
-        private readonly IMapper mapper;
+        private const int _lineKeep = 3;
+        private readonly IVSProjAnalyzerService _clientService;
+        private readonly ILogAnalyzerService _logAnalyzerService;
+        private readonly ICompilationRepository _compilationRepository;
+        private readonly IMapper _mapper;
 
         public CompilationService(
             IVSProjAnalyzerService clientService,
@@ -26,26 +26,26 @@ namespace Services
             ICompilationRepository compilationRepository,
             IMapper mapper)
         {
-            this.clientService = clientService;
-            this.logAnalyzerService = logAnalyzerService;
-            this.compilationRepository = compilationRepository;
-            this.mapper = mapper;
+            _clientService = clientService;
+            _logAnalyzerService = logAnalyzerService;
+            _compilationRepository = compilationRepository;
+            _mapper = mapper;
         }
 
         public ServiceCallResult<string> AddCompilation(IFormFile file)
         {
             (var projPath, var logPath, var programPath) = ProcessZip(file);
-            var result = clientService.Process(projPath);
+            var result = _clientService.Process(projPath);
             if (result.Failed)
             {
                 return Error<string>("le .vcxprog doit être inclus avec la compilation");
             }
 
-            var lines = logAnalyzerService.MapToLines(logPath);
+            var lines = _logAnalyzerService.MapToLines(logPath);
 
             AddReferenceLines(lines, programPath);
 
-            var compilationErrors = mapper.Map<IEnumerable<CompilationError>>(lines);
+            var compilationErrors = _mapper.Map<IEnumerable<CompilationError>>(lines);
 
             var compilation = new Compilation
             {
@@ -54,7 +54,7 @@ namespace Services
                 CompilationTime = DateTime.UtcNow,
             };
 
-            compilationRepository.Insert(compilation);
+            _compilationRepository.Insert(compilation);
 
             return Success("Merci");
         }
@@ -108,16 +108,16 @@ namespace Services
 
                 IEnumerable<string> finalChoice;
 
-                if (logline.Line - LineKeep > 0)
+                if (logline.Line - _lineKeep > 0)
                 {
-                    finalChoice = lines.Skip(logline.Line - (LineKeep / 2));
+                    finalChoice = lines.Skip(logline.Line - (_lineKeep / 2));
                 }
                 else
                 {
                     finalChoice = lines;
                 }
 
-                logline.Lines = finalChoice.Take(LineKeep);
+                logline.Lines = finalChoice.Take(_lineKeep);
             }
         }
     }

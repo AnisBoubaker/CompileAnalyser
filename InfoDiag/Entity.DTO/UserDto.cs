@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Security.Claims;
+using Constants.Enums;
 
 namespace Entity.DTO
 {
@@ -12,6 +11,8 @@ namespace Entity.DTO
 
         public string LastName { get; set; }
 
-        public Role
+        public UserRole Role { get; set; }
+
+        public string Name => FirstName + ' ' + LastName;
     }
 }
