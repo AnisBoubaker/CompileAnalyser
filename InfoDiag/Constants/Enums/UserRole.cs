@@ -1,8 +1,9 @@
-﻿namespace Constants.Enums
+namespace Constants.Enums
 {
     public enum UserRole
     {
         Admin,
+        Coordinator,
         Teacher
     }
 }

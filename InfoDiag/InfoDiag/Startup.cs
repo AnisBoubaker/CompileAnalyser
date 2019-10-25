@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Services.Configurations;
+using Services.Interfaces;
 
 namespace InfoDiag
 {
@@ -37,16 +38,28 @@ namespace InfoDiag
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
                         };
                     });
+
+            services.AddCors(options => options.AddPolicy(
+                                                          "CorsPolicy",
+                                                          builder =>
+                                                          {
+                                                              builder
+                                                                  .WithOrigins("*")
+                                                                  .AllowAnyMethod()
+                                                                  .AllowAnyHeader();
+                                                          }));
+
             services.AddControllers()
                 .AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ISeedService seedService)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                seedService.Seed();
             }
             else
             {
@@ -61,6 +74,8 @@ namespace InfoDiag
             app.UseAuthorization();
 
             app.UseAuthentication();
+
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {

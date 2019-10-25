@@ -11,14 +11,18 @@ import { ErrorModule } from './error/error.module';
 import { LoginComponent } from './login/login.component';
 import { LoginModule } from './login/login.module';
 import { AuthGuard } from './helpers/auth.guard';
+import { ErrorCodeListComponent } from './error-code/error-code-list/error-code-list.component';
+import { ErrorCodeModule } from './error-code/error-code.module';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'student/all', component: StudentListComponent, canActivate: [AuthGuard] },
     { path: 'student/:id', component: StudentComponent, canActivate: [AuthGuard] },
     { path: 'student', redirectTo: 'student/all'},
+    { path: 'errorCode/all', component: ErrorCodeListComponent, canActivate: [AuthGuard]},
+    { path: 'errorCode', redirectTo: 'errorCode/all'},
     { path: '**', component: PageNotFoundComponent}
   ];
 
@@ -28,7 +32,8 @@ const routes: Routes = [
       HomeModule,
       StudentModule,
       ErrorModule,
-      LoginModule
+      LoginModule,
+      ErrorCodeModule
     ],
     exports: [ RouterModule ]
   })

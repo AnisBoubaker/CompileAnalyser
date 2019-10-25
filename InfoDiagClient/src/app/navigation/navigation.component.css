@@ -26,6 +26,7 @@
 
 .mat-drawer-content {
   height: -webkit-fill-available;
+  padding: 1rem;
 }
 
 .white-icon {

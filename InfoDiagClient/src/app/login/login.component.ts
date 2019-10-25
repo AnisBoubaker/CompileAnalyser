@@ -34,12 +34,13 @@ export class LoginComponent implements OnInit {
   get f() { return this.form.controls; }
 
   connect() {
+    console.log('connecting')
     if (this.form.invalid) {
       return;
     }
 
     this.loading = true;
-    this.authService.login(this.f.username.value, this.f.password.value)
+    this.authService.login(this.f.user.value, this.f.password.value)
         .pipe(first())
         .subscribe(
             data => {

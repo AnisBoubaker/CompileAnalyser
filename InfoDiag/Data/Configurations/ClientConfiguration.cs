@@ -1,4 +1,4 @@
-﻿namespace Data.Configurations
+namespace Data.Configurations
 {
     using Entity;
     using Microsoft.EntityFrameworkCore;
@@ -13,6 +13,8 @@
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.HasAlternateKey(x => x.Email);
+            builder.HasMany(x => x.CourseGroupClients);
+            builder.Ignore(x => x.CourseGroups);
         }
     }
 }

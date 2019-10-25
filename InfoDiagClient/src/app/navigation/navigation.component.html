@@ -1,21 +1,24 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button *ngIf="authService.currentUserValue" (click)="drawer.toggle()">
+  <button mat-icon-button *ngIf="authService.currentUserValue" (click)="click(drawer)">
     <div class="thicker-icon white-icon">
       <mat-icon>menu</mat-icon>
     </div>
   </button>
-  <img class="img-responsive" src="assets/logo.png" router-link="/">
-  <span class="fill-space"> 
-  </span>
+  <a href="/">
+    <img class="img-responsive" src="assets/logo.png">
+  </a>
+  <span class="fill-space"></span>
 </mat-toolbar>
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport="true" *ngIf="authService.currentUserValue"
+<mat-sidenav-container #drawer class="sidenav-container">
+  <mat-sidenav  class="sidenav" fixedInViewport="true" *ngIf="authService.currentUserValue"
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" fixedTopGap="64">
     <mat-action-list>
       <button mat-list-item (click)="redirect('student')"> Étudiants </button>
       <button mat-list-item (click)="redirect('group')"> Groups </button>
-      <button  mat-list-item (click)="logout">
-        Déconnecter <mat-icon>exit_to_app</mat-icon>
+      <button  mat-list-item (click)="logout()">
+        Déconnecter 
+        <span class="fill-space"> </span>
+        <mat-icon>exit_to_app</mat-icon>
       </button>
     </mat-action-list>
   </mat-sidenav>

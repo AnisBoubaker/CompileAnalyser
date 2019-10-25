@@ -8,6 +8,7 @@ using Entity.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Services.Interfaces;
 
@@ -54,6 +55,7 @@ namespace InfoDiag.Controllers
                 new Claim(JwtRegisteredClaimNames.Email, userInfo.Email),
                 new Claim("Role", Enum.GetName(typeof(UserRole), userInfo.Role)),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Sid, userInfo.Id.ToString()),
             };
 
             var token = new JwtSecurityToken(
@@ -62,6 +64,7 @@ namespace InfoDiag.Controllers
               claims,
               expires: DateTime.Now.AddMinutes(120),
               signingCredentials: credentials);
+            IdentityModelEventSource.ShowPII = true;
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }

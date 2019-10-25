@@ -1,4 +1,4 @@
-﻿namespace Repositories.Configurations
+namespace Repositories.Configurations
 {
     using Data;
     using Microsoft.EntityFrameworkCore;
@@ -25,6 +25,7 @@
             services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<IInstitutionRepository, InstitutionRepository>();
             services.AddScoped<ITermRepository, TermRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
     }
 }

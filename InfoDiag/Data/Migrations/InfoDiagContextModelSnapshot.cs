@@ -15,7 +15,7 @@ namespace Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.0.0-preview5.19227.1")
+                .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -23,14 +23,18 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -43,11 +47,14 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ClientId");
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("CompilationTime");
+                    b.Property<DateTime>("CompilationTime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -60,15 +67,20 @@ namespace Data.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CompilationId");
+                    b.Property<int>("CompilationId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("ErrorCodeId");
+                    b.Property<string>("ErrorCodeId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Message");
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Type");
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -83,11 +95,14 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("CompilationErrorId");
+                    b.Property<long?>("CompilationErrorId")
+                        .HasColumnType("bigint");
 
-                    b.Property<string>("Text");
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -98,11 +113,18 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entity.Course", b =>
                 {
-                    b.Property<string>("Id");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Name");
+                    b.Property<int?>("InstitutionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("InstitutionId");
 
                     b.ToTable("Course");
                 });
@@ -111,15 +133,23 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Alias");
+                    b.Property<string>("Alias")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CourseId");
+                    b.Property<string>("CourseId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("GroupNumber");
+                    b.Property<int>("GroupNumber")
+                        .HasColumnType("int");
 
-                    b.Property<string>("TermId");
+                    b.Property<string>("TermId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -127,22 +157,20 @@ namespace Data.Migrations
 
                     b.HasIndex("TermId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("CourseGroup");
                 });
 
             modelBuilder.Entity("Entity.CourseGroupClient", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
 
-                    b.Property<int>("ClientId");
+                    b.Property<int>("CourseGroupId")
+                        .HasColumnType("int");
 
-                    b.Property<int>("CourseGroupId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
+                    b.HasKey("ClientId", "CourseGroupId");
 
                     b.HasIndex("CourseGroupId");
 
@@ -151,32 +179,94 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entity.ErrorCode", b =>
                 {
-                    b.Property<string>("Id");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Link");
+                    b.Property<string>("Link")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("ErrorCode");
                 });
 
+            modelBuilder.Entity("Entity.Institution", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Alias")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Institution");
+                });
+
             modelBuilder.Entity("Entity.Term", b =>
                 {
-                    b.Property<string>("Id");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Alias");
+                    b.Property<string>("Alias")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TermType");
+                    b.Property<int>("TermType")
+                        .HasColumnType("int");
 
-                    b.Property<int>("Year");
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("Term");
+                });
+
+            modelBuilder.Entity("Entity.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ManagerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("Email");
+
+                    b.HasIndex("ManagerId");
+
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Entity.Compilation", b =>
@@ -208,6 +298,13 @@ namespace Data.Migrations
                         .HasForeignKey("CompilationErrorId");
                 });
 
+            modelBuilder.Entity("Entity.Course", b =>
+                {
+                    b.HasOne("Entity.Institution", null)
+                        .WithMany("Courses")
+                        .HasForeignKey("InstitutionId");
+                });
+
             modelBuilder.Entity("Entity.CourseGroup", b =>
                 {
                     b.HasOne("Entity.Course", "Course")
@@ -217,21 +314,35 @@ namespace Data.Migrations
                     b.HasOne("Entity.Term", "Term")
                         .WithMany("CourseGroups")
                         .HasForeignKey("TermId");
+
+                    b.HasOne("Entity.User", "User")
+                        .WithMany("CourseGroups")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entity.CourseGroupClient", b =>
                 {
                     b.HasOne("Entity.Client", "Client")
-                        .WithMany("CourseGroupClient")
+                        .WithMany("CourseGroupClients")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Entity.CourseGroup", "CourseGroup")
-                        .WithMany("CourseGroupClient")
+                        .WithMany("CourseGroupClients")
                         .HasForeignKey("CourseGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Entity.User", b =>
+                {
+                    b.HasOne("Entity.User", "Manager")
+                        .WithMany("Employees")
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.NoAction);
                 });
 #pragma warning restore 612, 618
         }

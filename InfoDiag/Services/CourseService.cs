@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces;
@@ -13,16 +13,13 @@ namespace Services
 
         private readonly ICourseRepository courseRepository;
         private readonly ICourseGroupRepository courseGroupRepository;
-        private readonly ITermRepository termRepository;
 
         public CourseService(
             ICourseRepository courseRepository,
-            ICourseGroupRepository courseGroupRepository,
-            ITermRepository termRepository)
+            ICourseGroupRepository courseGroupRepository)
         {
             this.courseRepository = courseRepository;
             this.courseGroupRepository = courseGroupRepository;
-            this.termRepository = termRepository;
         }
 
         public ServiceCallResult ProcessCourseGroupAlias(string alias, int clientId)

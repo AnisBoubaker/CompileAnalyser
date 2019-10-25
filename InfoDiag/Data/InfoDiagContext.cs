@@ -1,4 +1,4 @@
-﻿namespace Data
+namespace Data
 {
     using System;
     using System.Collections.Generic;
@@ -19,6 +19,16 @@
 
         public DbSet<ErrorCode> ErrorCodes { get; set; }
 
+        public DbSet<Course> Courses { get; set; }
+
+        public DbSet<CourseGroup> CourseGroups { get; set; }
+
+        public DbSet<Institution> Institutions { get; set; }
+
+        public DbSet<Term> Terms { get; set; }
+
+        public DbSet<User> Users { get; set; }
+
         public InfoDiagContext(DbContextOptions<InfoDiagContext> options)
             : base(options)
         {
@@ -31,6 +41,12 @@
             modelBuilder.ApplyConfiguration(new CompilationErrorConfiguration());
             modelBuilder.ApplyConfiguration(new CompilationErrorLineConfiguration());
             modelBuilder.ApplyConfiguration(new ErrorCodeConfiguration());
+            modelBuilder.ApplyConfiguration(new CourseConfiguration());
+            modelBuilder.ApplyConfiguration(new CourseGroupConfiguration());
+            modelBuilder.ApplyConfiguration(new CourseGroupClientConfiguration());
+            modelBuilder.ApplyConfiguration(new InstitutionConfiguration());
+            modelBuilder.ApplyConfiguration(new TermConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
         }
     }
 }

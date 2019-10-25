@@ -2863,13 +2863,6 @@
     "Link": "https://github.com/MicrosoftDocs/cpp-docs/blob/master/docs/error-messages/compiler-errors-1/compiler-error-c2499.md"
   },
   {
-    "Name": "Compiler errors C2000 - C3999",
-    "Title": "",
-    "Code": "C2000",
-    "Id": "C2000",
-    "Link": "https://github.com/MicrosoftDocs/cpp-docs/blob/master/docs/error-messages/compiler-errors-1/compiler-errors-c2000-c3999.md"
-  },
-  {
     "Name": "Fatal Error C1001",
     "Title": "> INTERNAL COMPILER ERROR(compiler file *file*, line *number*)",
     "Code": "C1001",
@@ -14159,14 +14152,7 @@
     "Code": "C4244",
     "Id": "C4244",
     "Link": "https://github.com/MicrosoftDocs/cpp-docs/blob/master/docs/error-messages/compiler-warnings/compiler-warning-levels-3-and-4-c4244.md"
-  },
-  {
-    "Name": "Compiler warnings C4000 - C5999",
-    "Title": "",
-    "Code": "C4000",
-    "Id": "C4000",
-    "Link": "https://github.com/MicrosoftDocs/cpp-docs/blob/master/docs/error-messages/compiler-warnings/compiler-warnings-c4000-c5999.md"
-  },
+  },,
   {
     "Name": "BSCMAKE Error BK1503",
     "Title": "cannot write to file 'filename' [: reason]",

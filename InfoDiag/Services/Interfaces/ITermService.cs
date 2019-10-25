@@ -1,4 +1,4 @@
-﻿using Services.Models;
+using Services.Models;
 
 namespace Services.Interfaces
 {
@@ -7,5 +7,7 @@ namespace Services.Interfaces
         ServiceCallResult Create(string alias);
 
         ServiceCallResult CreateMultiple(string startAlias, int number);
+
+        ServiceCallResult CreateCurrentTerm();
     }
 }

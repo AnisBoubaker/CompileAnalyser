@@ -1,6 +1,7 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Data.SeedModels;
 using Entity;
+using Entity.DTO;
 
 namespace Services.Profiles
 {
@@ -9,6 +10,7 @@ namespace Services.Profiles
         public ErrorCodeProfile()
         {
             CreateMap<ErrorSeedModel, ErrorCode>().ForMember(dest => dest.Description, opt => opt.MapFrom(source => source.Title));
+            CreateMap<ErrorCode, ErrorCodeDTO>();
         }
     }
 }

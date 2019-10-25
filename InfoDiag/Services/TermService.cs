@@ -1,7 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using AutoMapper;
 using Constants;
 using Entity;
+using Entity.DTO;
+using Repositories.Interfaces;
 using Services.Interfaces;
 using Services.Models;
 
@@ -9,6 +12,15 @@ namespace Services
 {
     public class TermService : BaseService, ITermService
     {
+        private readonly ITermRepository _termRepository;
+        private readonly IMapper _mapper;
+
+        public TermService(ITermRepository termRepository, IMapper mapper)
+        {
+            _termRepository = termRepository;
+            _mapper = mapper;
+        }
+
         public ServiceCallResult Create(string alias)
         {
             alias = alias.ToUpper();
@@ -17,9 +29,40 @@ namespace Services
             {
                 Alias = alias,
                 Id = alias,
-                TermType = FindTermType(alias) ?? TermTypeEnum.Fall,
+                TermType = FindTermType(alias),
                 Year = int.Parse(alias.Substring(1)),
             };
+
+            _termRepository.Insert(term);
+
+            return Success(_mapper.Map<TermDto>(term));
+        }
+
+        public ServiceCallResult CreateCurrentTerm()
+        {
+            var currentYear = DateTime.Now.Year;
+            var currentMonth = DateTime.Now.Month;
+            string currentAlias;
+
+            if (currentMonth < 5)
+            {
+                currentAlias = "H" + currentYear;
+            }
+            else if (currentMonth < 8)
+            {
+                currentAlias = "E" + currentYear;
+            }
+            else
+            {
+                currentAlias = "A" + currentYear;
+            }
+
+            _termRepository.Insert(new Term
+            {
+                Alias = currentAlias,
+                Year = currentYear,
+                TermType = FindTermType(currentAlias),
+            });
 
             return Success();
         }
@@ -27,20 +70,41 @@ namespace Services
         public ServiceCallResult CreateMultiple(string startAlias, int number)
         {
             var aliases = CreateAliases(startAlias, number);
+            var terms = new List<Term>();
+            foreach (var alias in aliases)
+            {
+                terms.Add(new Term
+                {
+                    Alias = alias,
+                    TermType = FindTermType(alias),
+                    Year = int.Parse(alias.Substring(1)),
+                });
+            }
+
             return Success();
         }
 
         private IEnumerable<string> CreateAliases(string startAlias, int number)
         {
-            var year = int.Parse(startAlias.Substring(1));
-            var type = FindTermType(startAlias);
+            var aliases = new List<string>(number)
+            {
+                startAlias,
+            };
+            var i = 1;
 
-            return null;
+            while (i != number)
+            {
+                startAlias = NextAlias(startAlias);
+                aliases.Add(startAlias);
+                i++;
+            }
+
+            return aliases;
         }
 
-        private TermTypeEnum? FindTermType(string alias)
+        private TermTypeEnum FindTermType(string alias)
         {
-            TermTypeEnum? result = null;
+            TermTypeEnum result = TermTypeEnum.Winter;
             switch (alias.ToCharArray()[0])
             {
                 case 'H':
@@ -57,19 +121,19 @@ namespace Services
             return result;
         }
 
-        private char FindTermTypePrefix(TermTypeEnum tte)
+        private string FindTermTypePrefix(TermTypeEnum tte)
         {
-            char result = ' ';
+            string result = " ";
             switch (tte)
             {
                 case TermTypeEnum.Winter:
-                    result = 'H';
+                    result = "H";
                     break;
                 case TermTypeEnum.Fall:
-                    result = 'A';
+                    result = "A";
                     break;
                 case TermTypeEnum.Summer:
-                    result = 'E';
+                    result = "E";
                     break;
             }
 
@@ -79,6 +143,19 @@ namespace Services
         private TermTypeEnum NextTermType(TermTypeEnum tte)
         {
             return (TermTypeEnum)(((int)tte + 1) % 3);
+        }
+
+        private string NextAlias(string current)
+        {
+            var year = int.Parse(current.Substring(1));
+            var type = NextTermType(FindTermType(current));
+
+            if (type == TermTypeEnum.Winter)
+            {
+                year++;
+            }
+
+            return FindTermTypePrefix(type) + year;
         }
     }
 }

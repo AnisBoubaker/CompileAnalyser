@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +20,10 @@ namespace Services.Configurations
             services.AddScoped<IErrorCodeService, ErrorCodeService>();
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<IInstitutionService, InstitutionService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<ITermService, TermService>();
+            services.AddTransient<ISeedService, SeedService>();
         }
     }
 }

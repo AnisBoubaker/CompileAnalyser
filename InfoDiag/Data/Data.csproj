@@ -17,11 +17,15 @@
   <ItemGroup>
     <Compile Remove="Migrations\20190526010721_error-code.cs" />
     <Compile Remove="Migrations\20190526010721_error-code.Designer.cs" />
+    <Compile Remove="Migrations\20191024192117_LinkUserToStructure.cs" />
+    <Compile Remove="Migrations\20191024192117_LinkUserToStructure.Designer.cs" />
+    <Compile Remove="Migrations\20191025014744_INIR.cs" />
+    <Compile Remove="Migrations\20191025014744_INIR.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.0.0-preview5.19224.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0-preview5.19224.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

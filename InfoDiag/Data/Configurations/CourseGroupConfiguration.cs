@@ -1,4 +1,4 @@
-﻿using Entity;
+using Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,6 +12,8 @@ namespace Data.Configurations
 
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
+            builder.HasMany(x => x.CourseGroupClients);
+            builder.Ignore(x => x.Clients);
         }
     }
 }

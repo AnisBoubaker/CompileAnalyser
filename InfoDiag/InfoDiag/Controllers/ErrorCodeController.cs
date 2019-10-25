@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,18 +12,26 @@ namespace InfoDiag.Controllers
     [ApiController]
     public class ErrorCodeController : ControllerBase
     {
-        private IErrorCodeService errorCodeService;
+        private readonly IErrorCodeService _errorCodeService;
 
         public ErrorCodeController(IErrorCodeService errorCodeService)
         {
-            this.errorCodeService = errorCodeService;
+            _errorCodeService = errorCodeService;
         }
 
-        [HttpGet("seed")]
+        [HttpPost("seed")]
         public IActionResult Seed()
         {
-            errorCodeService.SeedErrorCodes();
+            _errorCodeService.SeedErrorCodes();
             return Ok();
+        }
+
+        [HttpGet("all")]
+        public IActionResult All()
+        {
+            var errorCodes = _errorCodeService.All();
+
+            return Ok(errorCodes);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Entity
 {
@@ -19,6 +20,12 @@ namespace Entity
         // This should have a format as AAA111-A2019-1
         public string Alias { get; set; }
 
-        public virtual ICollection<CourseGroupClient> CourseGroupClient { get; set; }
+        public virtual ICollection<CourseGroupClient> CourseGroupClients { get; set; }
+
+        public IEnumerable<Client> Clients => CourseGroupClients.Select(cgc => cgc.Client);
+
+        public int UserId { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

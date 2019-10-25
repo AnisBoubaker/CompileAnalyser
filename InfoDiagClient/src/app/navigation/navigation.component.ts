@@ -29,7 +29,13 @@ export class NavigationComponent {
     }
   }
 
+  click(sideNav: any) {
+    // hack to make the drawer work... 
+    sideNav._drawers.first.toggle()
+  }
+
   logout() {
     this.authService.logout();
+    location.reload();
   }
 }
