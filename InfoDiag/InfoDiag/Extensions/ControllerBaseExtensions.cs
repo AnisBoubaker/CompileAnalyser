@@ -12,6 +12,11 @@ namespace InfoDiag.Extensions
     {
         public static UserDto UserDto(this ControllerBase cb)
         {
+            if (!cb.User.Claims.Any())
+            {
+                return null;
+            }
+
             return new UserDto
             {
                 Email = cb.User.Claims.Where(c => c.Type == ClaimTypes.Email).Single().Value,

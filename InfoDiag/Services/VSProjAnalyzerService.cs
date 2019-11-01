@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -11,18 +11,18 @@ namespace Services
 {
     public class VSProjAnalyzerService : BaseService, IVSProjAnalyzerService
     {
-        private readonly IClientRepository clientRepository;
-        private readonly IInstitutionRepository institutionRepository;
-        private readonly ICourseService courseService;
+        private readonly IClientRepository _clientRepository;
+        private readonly IInstitutionRepository _institutionRepository;
+        private readonly ICourseService _courseService;
 
         public VSProjAnalyzerService(
             IClientRepository clientRepository,
             IInstitutionRepository institutionRepository,
             ICourseService courseService)
         {
-            this.clientRepository = clientRepository;
-            this.institutionRepository = institutionRepository;
-            this.courseService = courseService;
+            _clientRepository = clientRepository;
+            _institutionRepository = institutionRepository;
+            _courseService = courseService;
         }
 
         public ServiceCallResult<int> Process(string projPath)
@@ -41,14 +41,14 @@ namespace Services
 
             (string first, string last, string email, string institutionAlias, string courseAlias) = result.Value;
 
-            var institution = institutionRepository.AllAsQueryable.Where(i => i.Alias == institutionAlias).FirstOrDefault();
+            var institution = _institutionRepository.AllAsQueryable.Where(i => i.Alias == institutionAlias).FirstOrDefault();
 
             if (institution == null)
             {
                 return Error<int>("Institution doesn't exist");
             }
 
-            var client = clientRepository.AllAsQueryable.Where(c => c.Email == email).FirstOrDefault();
+            var client = _clientRepository.AllAsQueryable.Where(c => c.Email == email).FirstOrDefault();
 
             if (client != null)
             {
@@ -63,10 +63,10 @@ namespace Services
                     Email = email,
                 };
 
-                client = clientRepository.Insert(client);
+                client = _clientRepository.Insert(client);
             }
 
-            if (courseService.ProcessCourseGroupAlias(courseAlias, client.Id).Failed)
+            if (_courseService.ProcessCourseGroupAlias(courseAlias, client.Id).Failed)
             {
                 return Error<int>("An error occured while verifying the course");
             }
@@ -150,7 +150,7 @@ namespace Services
 
         if (hasChanged)
         {
-            clientRepository.Update(client);
+            _clientRepository.Update(client);
         }
     }
 }

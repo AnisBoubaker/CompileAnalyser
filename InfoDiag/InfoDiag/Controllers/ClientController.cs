@@ -5,7 +5,6 @@ using Services.Interfaces;
 
 namespace InfoDiag.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ClientController : ControllerBase
@@ -21,6 +20,12 @@ namespace InfoDiag.Controllers
         public IActionResult GetAllClients()
         {
             var user = this.UserDto();
+
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
             return Ok(_clientService.GetAllClients(user.Email, user.Role));
         }
     }

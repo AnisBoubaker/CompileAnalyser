@@ -69,7 +69,7 @@ namespace Services
                 term = _termRepository.AllAsQueryable.FirstOrDefault();
             }
 
-            //
+            // Generate a course group of each
         }
 
         private Institution SeedInstitution()

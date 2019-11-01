@@ -14152,7 +14152,7 @@
     "Code": "C4244",
     "Id": "C4244",
     "Link": "https://github.com/MicrosoftDocs/cpp-docs/blob/master/docs/error-messages/compiler-warnings/compiler-warning-levels-3-and-4-c4244.md"
-  },,
+  },
   {
     "Name": "BSCMAKE Error BK1503",
     "Title": "cannot write to file 'filename' [: reason]",

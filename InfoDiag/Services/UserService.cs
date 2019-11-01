@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using AutoMapper;
@@ -55,6 +56,28 @@ namespace Services.Configurations
             }
 
             return false;
+        }
+
+        public IEnumerable<int> RelatedUserIds(int id)
+        {
+            if (id == 0)
+            {
+                return null;
+            }
+
+            var query = _userRepository.AllAsQueryable.Where(u => u.Id == id);
+
+            for (int i = 0; i < 2; i++)
+            {
+                query.Concat(query.SelectMany(u => u.Employees));
+            }
+
+            return query.Select(u => u.Id);
+        }
+
+        public IEnumerable<int> RelatedUserIds(string email)
+        {
+            return RelatedUserIds(_userRepository.AllAsQueryable.Where(u => u.Email == email).Select(u => u.Id).FirstOrDefault());
         }
 
         private string EncryptPassword(string password)

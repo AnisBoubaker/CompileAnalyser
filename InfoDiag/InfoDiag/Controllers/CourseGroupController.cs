@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Services.Interfaces;
 
 namespace InfoDiag.Controllers
 {
@@ -8,5 +9,15 @@ namespace InfoDiag.Controllers
     [ApiController]
     public class CourseGroupController : ControllerBase
     {
+        public CourseGroupController(ICourseGroupService courseGroupService)
+        {
+
+        }
+
+        [HttpGet("all")]
+        public IActionResult GetAllCourseGroup()
+        {
+            return Ok();
+        }
     }
 }

@@ -14,7 +14,8 @@
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" fixedTopGap="64">
     <mat-action-list>
       <button mat-list-item (click)="redirect('student')"> Étudiants </button>
-      <button mat-list-item (click)="redirect('group')"> Groups </button>
+      <button mat-list-item (click)="redirect('errorCode')"> Codes d'erreur </button>
+      <button mat-list-item (click)="redirect('group')"> Groupes </button>
       <button  mat-list-item (click)="logout()">
         Déconnecter 
         <span class="fill-space"> </span>

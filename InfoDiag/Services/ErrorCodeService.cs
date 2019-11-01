@@ -36,7 +36,9 @@ namespace Services
 
             var json = File.ReadAllText("../error.json");
 
-            var seedData = _mapper.Map<IEnumerable<ErrorCode>>(JsonConvert.DeserializeObject<IEnumerable<ErrorSeedModel>>(json));
+            var jsonnr = JsonConvert.DeserializeObject<IEnumerable<ErrorSeedModel>>(json);
+
+            var seedData = _mapper.Map<IEnumerable<ErrorCode>>(jsonnr).ToList();
 
             var groups = seedData.GroupBy(d => d.Id).Where(g => g.Count() > 1);
 
