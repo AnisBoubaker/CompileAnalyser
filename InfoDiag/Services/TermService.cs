@@ -1,15 +1,15 @@
-using System;
-using System.Collections.Generic;
-using AutoMapper;
-using Constants;
-using Entity;
-using Entity.DTO;
-using Repositories.Interfaces;
-using Services.Interfaces;
-using Services.Models;
-
 namespace Services
 {
+    using System;
+    using System.Collections.Generic;
+    using AutoMapper;
+    using Constants;
+    using Entity;
+    using Entity.DTO;
+    using Repositories.Interfaces;
+    using Services.Interfaces;
+    using Services.Models;
+
     public class TermService : BaseService, ITermService
     {
         private readonly ITermRepository _termRepository;

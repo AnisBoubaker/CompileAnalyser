@@ -1,8 +1,8 @@
-﻿using System;
-using Services.Models;
-
-namespace Services
+﻿namespace Services
 {
+    using System;
+    using Services.Models;
+
     public class BaseService
     {
         protected ServiceCallResult<T> Success<T>(T value)

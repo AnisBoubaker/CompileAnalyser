@@ -1,7 +1,7 @@
-﻿using Entity;
-
-namespace Repositories.Interfaces
+﻿namespace Repositories.Interfaces
 {
+    using Entity;
+
     public interface ICourseRepository : IRepository<Course, string>
     {
     }

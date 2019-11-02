@@ -1,12 +1,12 @@
-﻿using System;
-using System.Linq;
-using AutoMapper;
-using Constants;
-using Entity;
-using Services.Models;
-
 namespace Services.Profiles
 {
+    using System;
+    using System.Linq;
+    using AutoMapper;
+    using Constants;
+    using Entity;
+    using Services.Models;
+
     public class CompilationLineProfile : Profile
     {
         public CompilationLineProfile()
@@ -19,19 +19,14 @@ namespace Services.Profiles
 
         public static CompilationErrorType MapCompilationError(string value)
         {
-            switch (value)
+            return value switch
             {
-                case "warning":
-                    return CompilationErrorType.CompilerWarning;
-                case "error":
-                    return CompilationErrorType.CompilerError;
-                case "fatal":
-                    return CompilationErrorType.CompilerFatal;
-                case "note":
-                    return CompilationErrorType.Note;
-                default:
-                    return CompilationErrorType.Other;
-            }
+                "warning" => CompilationErrorType.CompilerWarning,
+                "error" => CompilationErrorType.CompilerError,
+                "fatal" => CompilationErrorType.CompilerFatal,
+                "note" => CompilationErrorType.Note,
+                _ => CompilationErrorType.Other,
+            };
         }
 
         public static CompilationErrorLine MapCompilationErrorLine(string text)

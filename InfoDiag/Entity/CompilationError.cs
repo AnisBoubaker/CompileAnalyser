@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using Constants;
-
-namespace Entity
+﻿namespace Entity
 {
+    using System.Collections.Generic;
+    using Constants;
+
     public class CompilationError : IBaseEntity<long>
     {
         public int CompilationId { get; set; }

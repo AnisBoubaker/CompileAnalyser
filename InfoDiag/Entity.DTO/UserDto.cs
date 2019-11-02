@@ -1,8 +1,8 @@
-using System.Security.Claims;
-using Constants.Enums;
-
 namespace Entity.DTO
 {
+    using System.Security.Claims;
+    using Constants.Enums;
+
     public class UserDto
     {
         public int Id { get; set; }

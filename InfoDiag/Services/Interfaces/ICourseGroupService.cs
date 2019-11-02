@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Services.Interfaces
 {
+    using System.Collections.Generic;
+    using Entity.DTO;
+
     public interface ICourseGroupService
     {
+        IEnumerable<CourseGroupDto> GetAll();
     }
 }

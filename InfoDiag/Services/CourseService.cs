@@ -1,12 +1,12 @@
-using System.Linq;
-using System.Text.RegularExpressions;
-using Microsoft.EntityFrameworkCore;
-using Repositories.Interfaces;
-using Services.Interfaces;
-using Services.Models;
-
 namespace Services
 {
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using Microsoft.EntityFrameworkCore;
+    using Repositories.Interfaces;
+    using Services.Interfaces;
+    using Services.Models;
+
     public class CourseService : BaseService, ICourseService
     {
         private readonly Regex aliasRegex = new Regex("^{\\w}-{\\w}-{\\d}$");

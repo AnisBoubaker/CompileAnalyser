@@ -1,15 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using AutoMapper;
-using Entity.DTO;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using Repositories.Interfaces;
-using Services.Interfaces;
-
 namespace Services.Configurations
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Security.Cryptography;
+    using AutoMapper;
+    using Entity.DTO;
+    using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+    using Repositories.Interfaces;
+    using Services.Interfaces;
+
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;

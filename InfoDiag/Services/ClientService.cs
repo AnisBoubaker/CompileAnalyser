@@ -1,40 +1,33 @@
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
-using Constants.Enums;
-using Entity.DTO;
-using Repositories.Interfaces;
-using Services.Interfaces;
-
 namespace Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using AutoMapper;
+    using Constants.Enums;
+    using Entity.DTO;
+    using Repositories.Interfaces;
+    using Services.Interfaces;
+
     public class ClientService : IClientService
     {
         private readonly IClientRepository _clientRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
-        public ClientService(IClientRepository clientRepository, IUserRepository userRepository, IMapper mapper)
+        public ClientService(IClientRepository clientRepository, IUserRepository userRepository, IUserService userService, IMapper mapper)
         {
             _clientRepository = clientRepository;
             _userRepository = userRepository;
+            _userService = userService;
             _mapper = mapper;
         }
 
-        public IEnumerable<ClientDTO> GetAllClients(string userEmail, UserRole userRole)
+        public IEnumerable<ClientDTO> GetAllClients(string userEmail)
         {
-            var userQuery = _userRepository.AllAsQueryable.Where(u => u.Email == userEmail);
-            var baseClientQuery = userQuery.SelectMany(u => u.CourseGroups).SelectMany(cg => cg.CourseGroupClients).Select(cgc => cgc.Client);
-            if (userRole != UserRole.Teacher)
-            {
-                baseClientQuery.Concat(userQuery.SelectMany(u => u.Employees).SelectMany(e => e.CourseGroups).SelectMany(cg => cg.CourseGroupClients).Select(cgc => cgc.Client));
-                if (userRole == UserRole.Admin)
-                {
-                    baseClientQuery.Concat(userQuery.SelectMany(u => u.Employees).SelectMany(u => u.Employees).SelectMany(e => e.CourseGroups).SelectMany(cg => cg.CourseGroupClients).Select(cgc => cgc.Client));
-                }
-            }
+            var userIds = _userService.RelatedUserIds(userEmail);
 
-            return _mapper.Map<IEnumerable<ClientDTO>>(baseClientQuery);
+            return _mapper.Map<IEnumerable<ClientDTO>>(_userRepository.AllAsQueryable.Where(u => userIds.Contains(u.Id)).SelectMany(u => u.CourseGroups).SelectMany(cg => cg.Clients));
         }
     }
 }

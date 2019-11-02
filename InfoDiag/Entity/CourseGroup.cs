@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using System.Linq;
-
 namespace Entity
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class CourseGroup : IBaseEntity<int>
     {
         public int Id { get; set; }

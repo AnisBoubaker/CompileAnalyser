@@ -1,1 +1,64 @@
-<p>group-list works!</p>
+<div class="title-row">
+  <h1>VosGroupes</h1>
+</div>
+<div [hidden]="!loaded" class="mat-elevation-z8">
+  <table
+    mat-table
+    *ngIf="loaded && errorCodes.data.length > 0; else elseBlock"
+    [dataSource]="errorCodes"
+  >
+    <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>Code</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Nom</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Description</th>
+      <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="link">
+      <th mat-header-cell *matHeaderCellDef>Documentation</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-raised-button color="primary" (click)="goto(element.link)">
+          [...]
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <ng-template #elseBlock>
+    <div class="no-element" *ngIf="searchbar.length === 0; else elseBlock2">
+      <h3>
+        Aucun code d'erreur n'existe, cliquer ici :
+      </h3>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="seed()"
+        [disabled]="loading"
+      >
+        Générer codes d'erreur
+      </button>
+    </div></ng-template
+  >
+  <ng-template #elseBlock2>
+    <div class="no-element">
+      <h3>
+        Aucun code d'erreur ne correspond à votre recherche ({{ searchbar }})
+      </h3>
+    </div></ng-template
+  >
+  <mat-paginator [pageSizeOptions]="[10, 20]"></mat-paginator>
+</div>

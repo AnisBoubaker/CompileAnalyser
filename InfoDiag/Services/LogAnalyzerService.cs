@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Text.RegularExpressions;
-using Services.Interfaces;
-using Services.Models;
-
-namespace Services
+﻿namespace Services
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Text.RegularExpressions;
+    using Services.Interfaces;
+    using Services.Models;
+
     internal class LogAnalyzerService : BaseService, ILogAnalyzerService
     {
         private const int FileNameGroup = 1;

@@ -1,12 +1,12 @@
-using System.Reflection;
-using AutoMapper;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Repositories.Configurations;
-using Services.Interfaces;
-
 namespace Services.Configurations
 {
+    using System.Reflection;
+    using AutoMapper;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Repositories.Configurations;
+    using Services.Interfaces;
+
     public class ServicesConfiguration
     {
         public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
