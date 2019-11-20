@@ -12,7 +12,7 @@ import { GroupService } from 'src/app/services/group.service';
 export class GroupListComponent implements OnInit {
   loaded = false;
   groups: MatTableDataSource<Group>;
-  displayedColumns: string[] = ['id', 'name', 'description', 'link'];
+  displayedColumns: string[] = ['alias','teacher'];
   base: Group[];
   searchbar = '';
   searchLoading = false;

@@ -26,7 +26,7 @@ namespace InfoDiag.Controllers
                 return Unauthorized();
             }
 
-            return Ok(_clientService.GetAllClients(user.Email, user.Role));
+            return Ok(_clientService.GetAllClients(user.Email));
         }
     }
 }
