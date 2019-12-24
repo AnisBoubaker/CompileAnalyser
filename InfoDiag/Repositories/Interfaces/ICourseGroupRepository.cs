@@ -1,8 +1,8 @@
-﻿namespace Repositories.Interfaces
-{
-    using Entity;
+using Entity;
 
-    public interface ICourseGroupRepository : IRepository<CourseGroup, int>
+namespace Repositories.Interfaces
+{
+    public interface ICourseGroupRepository : IRepository<CourseGroup, string>
     {
     }
 }

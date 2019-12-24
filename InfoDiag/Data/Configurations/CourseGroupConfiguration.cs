@@ -1,9 +1,9 @@
+using Entity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
 namespace Data.Configurations
 {
-    using Entity;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
     public class CourseGroupConfiguration : IEntityTypeConfiguration<CourseGroup>
     {
         public void Configure(EntityTypeBuilder<CourseGroup> builder)
@@ -11,9 +11,10 @@ namespace Data.Configurations
             builder.ToTable("CourseGroup");
 
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.HasMany(x => x.CourseGroupClients);
             builder.Ignore(x => x.Clients);
+            builder.HasMany(x => x.CourseGroupUsers);
+            builder.Ignore(x => x.Users);
         }
     }
 }

@@ -1,11 +1,11 @@
+using System;
+using Constants.Enums;
+using Entity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
 namespace Data.Configurations
 {
-    using System;
-    using Constants.Enums;
-    using Entity;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
     internal class UserConfiguration : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
@@ -22,7 +22,8 @@ namespace Data.Configurations
 
             builder.HasAlternateKey(x => x.Email);
 
-            builder.HasMany(x => x.Employees).WithOne(x => x.Manager).HasForeignKey(x => x.ManagerId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasMany(x => x.CourseGroupUsers);
+            builder.Ignore(x => x.CourseGroups);
         }
     }
 }

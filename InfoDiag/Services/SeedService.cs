@@ -1,12 +1,14 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Constants.Enums;
+using Constants.Extentions;
+using Entity;
+using Repositories.Interfaces;
+using Services.Interfaces;
+
 namespace Services
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using Constants.Enums;
-    using Entity;
-    using Repositories.Interfaces;
-    using Services.Interfaces;
-
     public class SeedService : ISeedService
     {
         private const string _seedPassword = "9TwlonUcSEeLv08D7nSzjU0XL1dNi/NXjBdYutbI8SMMiJG2hf10/Q68YUAxVq+a"; // 1234
@@ -16,26 +18,45 @@ namespace Services
         private readonly ICourseRepository _courseRepository;
         private readonly ITermRepository _termRepository;
         private readonly ITermService _termService;
+        private readonly ICourseGroupRepository _courseGroupRepository;
+        private readonly ICodingLanguageRepository _codingLanguageRepository;
 
         public SeedService(
             IUserRepository userRepository,
             IInstitutionRepository institutionRepository,
             ICourseRepository courseRepository,
             ITermRepository termRepository,
-            ITermService termService)
+            ITermService termService,
+            ICourseGroupRepository courseGroupRepository,
+            ICodingLanguageRepository codingLanguageRepository)
         {
             _userRepository = userRepository;
             _institutionRepository = institutionRepository;
             _courseRepository = courseRepository;
             _termRepository = termRepository;
             _termService = termService;
+            _courseGroupRepository = courseGroupRepository;
+            _codingLanguageRepository = codingLanguageRepository;
         }
 
         public void Seed()
         {
+            User admin = null;
+            User coordo = null;
+            User teacher = null;
+
             if (!_userRepository.AllAsQueryable.Any())
             {
-                SeedTeacher(SeedCoordo(SeedAdminUser()));
+                admin = SeedAdminUser();
+                coordo = SeedCoordo();
+                teacher = SeedTeacher();
+            }
+            else
+            {
+                var userByRoles = _userRepository.AllAsQueryable.ToList().GroupBy(u => u.Role).Select(g => new { Role = g.Key, Element = g.First() });
+                admin = userByRoles.First(ubr => ubr.Role == UserRole.Admin).Element;
+                coordo = userByRoles.First(ubr => ubr.Role == UserRole.Coordinator).Element;
+                teacher = userByRoles.First(ubr => ubr.Role == UserRole.Teacher).Element;
             }
 
             var institution = _institutionRepository.AllAsQueryable.FirstOrDefault();
@@ -45,17 +66,21 @@ namespace Services
                 institution = SeedInstitution();
             }
 
+            var langs = SeedLanguages();
+
             if (!_courseRepository.AllAsQueryable.Any())
             {
                 institution.Courses = new List<Course>
                 {
                     _courseRepository.Insert(new Course
                     {
-                        Name = "INF147",
+                        Id = "INF147",
+                        CodingLanguageId = langs.First(l => l.Code == CodingLanguageEnum.CPP).Id,
                     }),
                     _courseRepository.Insert(new Course
                     {
-                        Name = "INF155",
+                        Id = "INF155",
+                        CodingLanguageId = langs.First(l => l.Code == CodingLanguageEnum.CPP).Id,
                     }),
                 };
                 _institutionRepository.Update(institution);
@@ -70,6 +95,70 @@ namespace Services
             }
 
             // Generate a course group of each
+            if (!_courseGroupRepository.AllAsQueryable.Any())
+            {
+                var course = institution.Courses.ElementAt(0);
+                var group = new CourseGroup
+                {
+                    GroupNumber = 98,
+                    CourseId = course.Id,
+                    TermId = term.Id,
+                };
+
+                _courseGroupRepository.Insert(group);
+
+                Assign(group, admin, coordo, teacher);
+
+                course = institution.Courses.ElementAt(1);
+                group = new CourseGroup
+                {
+                    GroupNumber = 99,
+                    CourseId = course.Id,
+                    TermId = term.Id,
+                };
+
+                _courseGroupRepository.Insert(group);
+
+                Assign(group, admin);
+            }
+        }
+
+        private IEnumerable<CodingLanguage> SeedLanguages()
+        {
+            if (_codingLanguageRepository.AllAsQueryable.Any())
+            {
+                return _codingLanguageRepository.All;
+            }
+
+            var dic = EnumExtensions.ToTupple(typeof(CodingLanguageEnum));
+
+            var toInsert = dic.Select(t => new CodingLanguage 
+            {
+                Code = (CodingLanguageEnum)t.key,
+                Name = t.value,
+            });
+
+            return _codingLanguageRepository.Insert(toInsert);
+        }
+
+        // this could and maybe should be made the other way around
+        private void Assign(CourseGroup group, params User[] users)
+        {
+            foreach (var user in users)
+            {
+                if (user.CourseGroupUsers == null)
+                {
+                    user.CourseGroupUsers = new List<CourseGroupUser>();
+                }
+
+                user.CourseGroupUsers.Add(new CourseGroupUser
+                {
+                    CourseGroupId = group.Id,
+                    UserId = user.Id,
+                });
+
+                _userRepository.Update(user);
+            }
         }
 
         private Institution SeedInstitution()
@@ -81,7 +170,7 @@ namespace Services
             });
         }
 
-        private User SeedCoordo(User admin)
+        private User SeedCoordo()
         {
             return _userRepository.Insert(new User
             {
@@ -90,11 +179,10 @@ namespace Services
                 LastName = "coordo",
                 Role = UserRole.Coordinator,
                 Password = _seedPassword,
-                ManagerId = admin.Id,
             });
         }
 
-        private User SeedTeacher(User coodro)
+        private User SeedTeacher()
         {
             return _userRepository.Insert(new User
             {
@@ -103,7 +191,6 @@ namespace Services
                 LastName = "teacher",
                 Role = UserRole.Teacher,
                 Password = _seedPassword,
-                ManagerId = coodro.Id,
             });
         }
 

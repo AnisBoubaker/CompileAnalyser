@@ -1,8 +1,8 @@
-﻿namespace Entity
-{
-    using System;
-    using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
+namespace Entity
+{
     public class Compilation : IBaseEntity<int>
     {
         public int Id { get; set; }

@@ -1,9 +1,9 @@
-﻿namespace Services.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
+namespace Services.Models
+{
     public class LogLine
     {
         public string FileName { get; set; }

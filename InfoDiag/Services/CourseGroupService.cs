@@ -1,11 +1,11 @@
+using System.Collections.Generic;
+using AutoMapper;
+using Entity.DTO;
+using Repositories.Interfaces;
+using Services.Interfaces;
+
 namespace Services
 {
-    using System.Collections.Generic;
-    using AutoMapper;
-    using Entity.DTO;
-    using Repositories.Interfaces;
-    using Services.Interfaces;
-
     public class CourseGroupService : ICourseGroupService
     {
         private readonly ICourseGroupRepository _courseGroupRepository;
@@ -15,6 +15,11 @@ namespace Services
         {
             _courseGroupRepository = courseGroupRepository;
             _mapper = mapper;
+        }
+
+        public void Assign(AssignCourseGroupDto dto)
+        {
+            throw new System.NotImplementedException();
         }
 
         public IEnumerable<CourseGroupDto> GetAll()

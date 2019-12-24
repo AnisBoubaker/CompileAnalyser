@@ -1,8 +1,9 @@
+using System.Collections.Generic;
+using System.Linq;
+using Constants.Enums;
+
 namespace Entity
 {
-    using System.Collections.Generic;
-    using Constants.Enums;
-
     public class User : IBaseEntity<int>
     {
         public int Id { get; set; }
@@ -17,12 +18,8 @@ namespace Entity
 
         public string Password { get; set; }
 
-        public virtual ICollection<User> Employees { get; set; }
+        public virtual ICollection<CourseGroupUser> CourseGroupUsers { get; set; }
 
-        public virtual ICollection<CourseGroup> CourseGroups { get; set; }
-
-        public virtual User Manager { get; set; }
-
-        public int? ManagerId { get; set; }
+        public IEnumerable<CourseGroup> CourseGroups => CourseGroupUsers.Select(cgu => cgu.CourseGroup);
     }
 }

@@ -1,13 +1,12 @@
-﻿namespace Entity
-{
-    using System.Collections.Generic;
-    using Constants;
+using System.Collections.Generic;
+using Constants;
 
+namespace Entity
+{
     public class Term : IBaseEntity<string>
     {
+        // Should be in the format A2020
         public string Id { get; set; }
-
-        public string Alias { get; set; }
 
         public TermTypeEnum TermType { get; set; }
 

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -15,12 +15,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20190526010721_error-code.cs" />
-    <Compile Remove="Migrations\20190526010721_error-code.Designer.cs" />
-    <Compile Remove="Migrations\20191024192117_LinkUserToStructure.cs" />
-    <Compile Remove="Migrations\20191024192117_LinkUserToStructure.Designer.cs" />
-    <Compile Remove="Migrations\20191025014744_INIR.cs" />
-    <Compile Remove="Migrations\20191025014744_INIR.Designer.cs" />
+    <Compile Remove="Migrations\20191222161712_Init.cs" />
+    <Compile Remove="Migrations\20191222161712_Init.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

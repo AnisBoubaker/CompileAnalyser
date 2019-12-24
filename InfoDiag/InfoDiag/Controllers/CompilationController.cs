@@ -1,9 +1,9 @@
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Services.Interfaces;
+
 namespace InfoDiag.Controllers
 {
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
-    using Services.Interfaces;
-
     /// <summary>
     /// Get and post compilations
     /// </summary>

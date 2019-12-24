@@ -1,14 +1,14 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Xml;
+using Entity;
+using Repositories.Interfaces;
+using Services.Interfaces;
+using Services.Models;
+
 namespace Services
 {
-    using System;
-    using System.IO;
-    using System.Linq;
-    using System.Xml;
-    using Entity;
-    using Repositories.Interfaces;
-    using Services.Interfaces;
-    using Services.Models;
-
     public class VSProjAnalyzerService : BaseService, IVSProjAnalyzerService
     {
         private readonly IClientRepository _clientRepository;

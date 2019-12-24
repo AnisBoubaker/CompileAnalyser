@@ -1,9 +1,9 @@
-﻿namespace Services
-{
-    using Entity.DTO;
-    using Services.Interfaces;
-    using Services.Models;
+﻿using Entity.DTO;
+using Services.Interfaces;
+using Services.Models;
 
+namespace Services
+{
     public class InstitutionService : BaseService, IInstitutionService
     {
         public ServiceCallResult AddCourse(CourseDto dto)

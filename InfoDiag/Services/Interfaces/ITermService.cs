@@ -1,7 +1,7 @@
+using Services.Models;
+
 namespace Services.Interfaces
 {
-    using Services.Models;
-
     public interface ITermService
     {
         ServiceCallResult Create(string alias);

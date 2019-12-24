@@ -1,10 +1,12 @@
+using System.Collections.Generic;
+using Entity.DTO;
+
 namespace Services.Interfaces
 {
-    using System.Collections.Generic;
-    using Entity.DTO;
-
     public interface ICourseGroupService
     {
         IEnumerable<CourseGroupDto> GetAll();
+
+        void Assign(AssignCourseGroupDto dto);
     }
 }

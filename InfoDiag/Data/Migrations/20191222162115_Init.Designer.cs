@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(InfoDiagContext))]
-    [Migration("20191025014825_Init")]
+    [Migration("20191222162115_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -121,9 +121,6 @@ namespace Data.Migrations
                     b.Property<int?>("InstitutionId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("InstitutionId");
@@ -133,10 +130,8 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entity.CourseGroup", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Alias")
                         .HasColumnType("nvarchar(max)");
@@ -150,16 +145,11 @@ namespace Data.Migrations
                     b.Property<string>("TermId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CourseId");
 
                     b.HasIndex("TermId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("CourseGroup");
                 });
@@ -169,8 +159,8 @@ namespace Data.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CourseGroupId")
-                        .HasColumnType("int");
+                    b.Property<string>("CourseGroupId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ClientId", "CourseGroupId");
 
@@ -179,9 +169,25 @@ namespace Data.Migrations
                     b.ToTable("CourseGroupClient");
                 });
 
+            modelBuilder.Entity("Entity.CourseGroupUser", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CourseGroupId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "CourseGroupId");
+
+                    b.HasIndex("CourseGroupId");
+
+                    b.ToTable("CourseGroupUser");
+                });
+
             modelBuilder.Entity("Entity.ErrorCode", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
@@ -221,9 +227,6 @@ namespace Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Alias")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("TermType")
                         .HasColumnType("int");
 
@@ -252,9 +255,6 @@ namespace Data.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ManagerId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
@@ -265,8 +265,6 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.HasAlternateKey("Email");
-
-                    b.HasIndex("ManagerId");
 
                     b.ToTable("User");
                 });
@@ -316,12 +314,6 @@ namespace Data.Migrations
                     b.HasOne("Entity.Term", "Term")
                         .WithMany("CourseGroups")
                         .HasForeignKey("TermId");
-
-                    b.HasOne("Entity.User", "User")
-                        .WithMany("CourseGroups")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entity.CourseGroupClient", b =>
@@ -339,12 +331,19 @@ namespace Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.User", b =>
+            modelBuilder.Entity("Entity.CourseGroupUser", b =>
                 {
-                    b.HasOne("Entity.User", "Manager")
-                        .WithMany("Employees")
-                        .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                    b.HasOne("Entity.CourseGroup", "CourseGroup")
+                        .WithMany("CourseGroupUsers")
+                        .HasForeignKey("CourseGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entity.User", "User")
+                        .WithMany("CourseGroupUsers")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

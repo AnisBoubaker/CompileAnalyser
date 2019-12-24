@@ -1,4 +1,4 @@
-﻿namespace Constants
+namespace Constants.Enums
 {
     public enum CompilationErrorType
     {

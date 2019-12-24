@@ -43,6 +43,24 @@ namespace Data.Migrations
                     b.ToTable("Client");
                 });
 
+            modelBuilder.Entity("Entity.CodingLanguage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Code")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CodingLanguage");
+                });
+
             modelBuilder.Entity("Entity.Compilation", b =>
                 {
                     b.Property<int>("Id")
@@ -116,13 +134,15 @@ namespace Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("CodingLanguageId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("InstitutionId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("CodingLanguageId");
 
                     b.HasIndex("InstitutionId");
 
@@ -131,13 +151,8 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entity.CourseGroup", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Alias")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CourseId")
                         .HasColumnType("nvarchar(450)");
@@ -148,16 +163,11 @@ namespace Data.Migrations
                     b.Property<string>("TermId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CourseId");
 
                     b.HasIndex("TermId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("CourseGroup");
                 });
@@ -167,8 +177,8 @@ namespace Data.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CourseGroupId")
-                        .HasColumnType("int");
+                    b.Property<string>("CourseGroupId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ClientId", "CourseGroupId");
 
@@ -177,10 +187,28 @@ namespace Data.Migrations
                     b.ToTable("CourseGroupClient");
                 });
 
+            modelBuilder.Entity("Entity.CourseGroupUser", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CourseGroupId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "CourseGroupId");
+
+                    b.HasIndex("CourseGroupId");
+
+                    b.ToTable("CourseGroupUser");
+                });
+
             modelBuilder.Entity("Entity.ErrorCode", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CodingLanguageId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -192,6 +220,8 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CodingLanguageId");
 
                     b.ToTable("ErrorCode");
                 });
@@ -218,9 +248,6 @@ namespace Data.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Alias")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TermType")
                         .HasColumnType("int");
@@ -250,9 +277,6 @@ namespace Data.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ManagerId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
@@ -263,8 +287,6 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.HasAlternateKey("Email");
-
-                    b.HasIndex("ManagerId");
 
                     b.ToTable("User");
                 });
@@ -300,6 +322,12 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entity.Course", b =>
                 {
+                    b.HasOne("Entity.CodingLanguage", "CodingLanguage")
+                        .WithMany("Courses")
+                        .HasForeignKey("CodingLanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Entity.Institution", null)
                         .WithMany("Courses")
                         .HasForeignKey("InstitutionId");
@@ -314,12 +342,6 @@ namespace Data.Migrations
                     b.HasOne("Entity.Term", "Term")
                         .WithMany("CourseGroups")
                         .HasForeignKey("TermId");
-
-                    b.HasOne("Entity.User", "User")
-                        .WithMany("CourseGroups")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entity.CourseGroupClient", b =>
@@ -337,12 +359,28 @@ namespace Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.User", b =>
+            modelBuilder.Entity("Entity.CourseGroupUser", b =>
                 {
-                    b.HasOne("Entity.User", "Manager")
-                        .WithMany("Employees")
-                        .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                    b.HasOne("Entity.CourseGroup", "CourseGroup")
+                        .WithMany("CourseGroupUsers")
+                        .HasForeignKey("CourseGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entity.User", "User")
+                        .WithMany("CourseGroupUsers")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Entity.ErrorCode", b =>
+                {
+                    b.HasOne("Entity.CodingLanguage", "CodingLanguage")
+                        .WithMany("ErrorCodes")
+                        .HasForeignKey("CodingLanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

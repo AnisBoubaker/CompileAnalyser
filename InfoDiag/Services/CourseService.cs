@@ -1,12 +1,12 @@
+using System.Linq;
+using System.Text.RegularExpressions;
+using Microsoft.EntityFrameworkCore;
+using Repositories.Interfaces;
+using Services.Interfaces;
+using Services.Models;
+
 namespace Services
 {
-    using System.Linq;
-    using System.Text.RegularExpressions;
-    using Microsoft.EntityFrameworkCore;
-    using Repositories.Interfaces;
-    using Services.Interfaces;
-    using Services.Models;
-
     public class CourseService : BaseService, ICourseService
     {
         private readonly Regex aliasRegex = new Regex("^{\\w}-{\\w}-{\\d}$");
@@ -33,14 +33,14 @@ namespace Services
                 return Error("Course cannot be found");
             }
 
-            var courseGroup = courseGroupRepository.AllAsQueryable.Where(cg => cg.CourseId == course.Id && cg.Alias == alias).FirstOrDefault();
+            var courseGroup = courseGroupRepository.AllAsQueryable.Where(cg => cg.CourseId == course.Id && cg.Id == alias).FirstOrDefault();
 
             if (courseGroup == null)
             {
                 return Error("Course group cannot be found");
             }
 
-            if (courseGroup.Term.Alias != termAlias)
+            if (courseGroup.Term.Id != termAlias)
             {
                 return Error("Term cannot be found");
             }

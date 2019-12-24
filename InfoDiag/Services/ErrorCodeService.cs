@@ -1,24 +1,27 @@
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using AutoMapper;
+using Constants.Enums;
+using Data.SeedModels;
+using Entity;
+using Entity.DTO;
+using Newtonsoft.Json;
+using Repositories.Interfaces;
+using Services.Interfaces;
+
 namespace Services
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using AutoMapper;
-    using Data.SeedModels;
-    using Entity;
-    using Entity.DTO;
-    using Newtonsoft.Json;
-    using Repositories.Interfaces;
-    using Services.Interfaces;
-
     internal class ErrorCodeService : BaseService, IErrorCodeService
     {
         private readonly IErrorCodeRepository _errorCodeRepository;
+        private readonly ICodingLanguageRepository _codingLanguageRepository;
         private readonly IMapper _mapper;
 
-        public ErrorCodeService(IErrorCodeRepository errorCodeRepository, IMapper mapper)
+        public ErrorCodeService(IErrorCodeRepository errorCodeRepository, ICodingLanguageRepository codingLanguageRepository, IMapper mapper)
         {
             _errorCodeRepository = errorCodeRepository;
+            _codingLanguageRepository = codingLanguageRepository;
             _mapper = mapper;
         }
 
@@ -34,23 +37,30 @@ namespace Services
                 return;
             }
 
-            var json = File.ReadAllText("../error.json");
+            SeedCPPErrors();
+        }
+
+        private void SeedCPPErrors()
+        {
+            var json = File.ReadAllText("../cpperror.json");
+
+            var seedData = ProcessJson(json, CodingLanguageEnum.CPP);
+
+            _errorCodeRepository.Insert(seedData);
+        }
+
+        private IEnumerable<ErrorCode> ProcessJson(string json, CodingLanguageEnum codingLanguage)
+        {
+            var lang = _codingLanguageRepository.AllAsQueryable.SingleOrDefault(cl => cl.Code == codingLanguage)?.Id;
+
+            if (!lang.HasValue)
+            {
+                return null;
+            }
 
             var jsonnr = JsonConvert.DeserializeObject<IEnumerable<ErrorSeedModel>>(json);
 
-            var seedData = _mapper.Map<IEnumerable<ErrorCode>>(jsonnr).ToList();
-
-            var groups = seedData.GroupBy(d => d.Id).Where(g => g.Count() > 1);
-
-            var dups = seedData.Where(e => groups.Any(g => g.Key == e.Id));
-
-            var i = 2;
-            foreach (var dup in dups)
-            {
-                dup.Id = dup.Id + "L" + i;
-            }
-
-            _errorCodeRepository.Insert(seedData);
+            return _mapper.Map<IEnumerable<ErrorCode>>(jsonnr, opt => opt.Items["lang"] = lang.Value).ToList();
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿namespace Data.Configurations
-{
-    using Entity;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Entity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+namespace Data.Configurations
+{
     internal class CompilationErrorConfiguration : IEntityTypeConfiguration<CompilationError>
     {
         public void Configure(EntityTypeBuilder<CompilationError> builder)

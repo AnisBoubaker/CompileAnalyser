@@ -1,8 +1,8 @@
+using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
 namespace Data.Migrations
 {
-    using System;
-    using Microsoft.EntityFrameworkCore.Migrations;
-
     public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -56,7 +56,6 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Alias = table.Column<string>(nullable: true),
                     TermType = table.Column<int>(nullable: false),
                     Year = table.Column<int>(nullable: false),
                 },
@@ -76,17 +75,11 @@ namespace Data.Migrations
                     Email = table.Column<string>(nullable: false),
                     Role = table.Column<string>(nullable: false),
                     Password = table.Column<string>(nullable: true),
-                    ManagerId = table.Column<int>(nullable: true),
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.Id);
                     table.UniqueConstraint("AK_User_Email", x => x.Email);
-                    table.ForeignKey(
-                        name: "FK_User_User_ManagerId",
-                        column: x => x.ManagerId,
-                        principalTable: "User",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -114,7 +107,6 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
                     InstitutionId = table.Column<int>(nullable: true),
                 },
                 constraints: table =>
@@ -160,13 +152,11 @@ namespace Data.Migrations
                 name: "CourseGroup",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(nullable: false),
                     CourseId = table.Column<string>(nullable: true),
                     TermId = table.Column<string>(nullable: true),
                     GroupNumber = table.Column<int>(nullable: false),
                     Alias = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -183,12 +173,6 @@ namespace Data.Migrations
                         principalTable: "Term",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_CourseGroup_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -216,7 +200,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     ClientId = table.Column<int>(nullable: false),
-                    CourseGroupId = table.Column<int>(nullable: false),
+                    CourseGroupId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -231,6 +215,30 @@ namespace Data.Migrations
                         name: "FK_CourseGroupClient_CourseGroup_CourseGroupId",
                         column: x => x.CourseGroupId,
                         principalTable: "CourseGroup",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CourseGroupUser",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(nullable: false),
+                    CourseGroupId = table.Column<string>(nullable: false),
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseGroupUser", x => new { x.UserId, x.CourseGroupId });
+                    table.ForeignKey(
+                        name: "FK_CourseGroupUser_CourseGroup_CourseGroupId",
+                        column: x => x.CourseGroupId,
+                        principalTable: "CourseGroup",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CourseGroupUser_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -271,19 +279,14 @@ namespace Data.Migrations
                 column: "TermId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseGroup_UserId",
-                table: "CourseGroup",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CourseGroupClient_CourseGroupId",
                 table: "CourseGroupClient",
                 column: "CourseGroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_User_ManagerId",
-                table: "User",
-                column: "ManagerId");
+                name: "IX_CourseGroupUser_CourseGroupId",
+                table: "CourseGroupUser",
+                column: "CourseGroupId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -295,10 +298,16 @@ namespace Data.Migrations
                 name: "CourseGroupClient");
 
             migrationBuilder.DropTable(
+                name: "CourseGroupUser");
+
+            migrationBuilder.DropTable(
                 name: "CompilationError");
 
             migrationBuilder.DropTable(
                 name: "CourseGroup");
+
+            migrationBuilder.DropTable(
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "Compilation");
@@ -311,9 +320,6 @@ namespace Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Term");
-
-            migrationBuilder.DropTable(
-                name: "User");
 
             migrationBuilder.DropTable(
                 name: "Client");

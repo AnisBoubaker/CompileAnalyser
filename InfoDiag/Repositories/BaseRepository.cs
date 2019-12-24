@@ -1,13 +1,13 @@
-﻿namespace Repositories
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Linq.Expressions;
-    using Entity;
-    using Microsoft.EntityFrameworkCore;
-    using Repositories.Interfaces;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using Entity;
+using Microsoft.EntityFrameworkCore;
+using Repositories.Interfaces;
 
+namespace Repositories
+{
     /// <summary>
     ///     This class serves has a base for any repository. Any modification to this will have an effect on every class using
     ///     it.

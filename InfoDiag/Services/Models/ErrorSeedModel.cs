@@ -1,9 +1,9 @@
-﻿namespace Data.SeedModels
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
+namespace Data.SeedModels
+{
     internal class ErrorSeedModel
     {
         public string Name { get; set; }

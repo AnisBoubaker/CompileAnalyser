@@ -1,15 +1,15 @@
+using System;
+using System.Collections.Generic;
+using AutoMapper;
+using Constants;
+using Entity;
+using Entity.DTO;
+using Repositories.Interfaces;
+using Services.Interfaces;
+using Services.Models;
+
 namespace Services
 {
-    using System;
-    using System.Collections.Generic;
-    using AutoMapper;
-    using Constants;
-    using Entity;
-    using Entity.DTO;
-    using Repositories.Interfaces;
-    using Services.Interfaces;
-    using Services.Models;
-
     public class TermService : BaseService, ITermService
     {
         private readonly ITermRepository _termRepository;
@@ -27,7 +27,6 @@ namespace Services
 
             var term = new Term
             {
-                Alias = alias,
                 Id = alias,
                 TermType = FindTermType(alias),
                 Year = int.Parse(alias.Substring(1)),
@@ -40,7 +39,7 @@ namespace Services
 
         public ServiceCallResult CreateCurrentTerm()
         {
-            var currentYear = DateTime.Now.Year;
+            var currentYear = DateTime.Now.Year % 100;
             var currentMonth = DateTime.Now.Month;
             string currentAlias;
 
@@ -59,7 +58,7 @@ namespace Services
 
             _termRepository.Insert(new Term
             {
-                Alias = currentAlias,
+                Id = currentAlias,
                 Year = currentYear,
                 TermType = FindTermType(currentAlias),
             });
@@ -75,7 +74,7 @@ namespace Services
             {
                 terms.Add(new Term
                 {
-                    Alias = alias,
+                    Id = alias,
                     TermType = FindTermType(alias),
                     Year = int.Parse(alias.Substring(1)),
                 });

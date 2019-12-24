@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Data.Configurations;
+using Entity;
+using Microsoft.EntityFrameworkCore;
+
 namespace Data
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using Data.Configurations;
-    using Entity;
-    using Microsoft.EntityFrameworkCore;
-
     public class InfoDiagContext : DbContext
     {
         public DbSet<Client> Clients { get; set; }
@@ -29,6 +29,8 @@ namespace Data
 
         public DbSet<User> Users { get; set; }
 
+        public DbSet<CodingLanguage> CodingLanguages { get; set; }
+
         public InfoDiagContext(DbContextOptions<InfoDiagContext> options)
             : base(options)
         {
@@ -44,9 +46,11 @@ namespace Data
             modelBuilder.ApplyConfiguration(new CourseConfiguration());
             modelBuilder.ApplyConfiguration(new CourseGroupConfiguration());
             modelBuilder.ApplyConfiguration(new CourseGroupClientConfiguration());
+            modelBuilder.ApplyConfiguration(new CourseGroupUserConfiguration());
             modelBuilder.ApplyConfiguration(new InstitutionConfiguration());
             modelBuilder.ApplyConfiguration(new TermConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new CodingLanguageConfiguration());
         }
     }
 }

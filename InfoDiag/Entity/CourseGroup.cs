@@ -1,11 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace Entity
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    public class CourseGroup : IBaseEntity<int>
+    public class CourseGroup : IBaseEntity<string>
     {
-        public int Id { get; set; }
+        // This should have a format as AAA111-A2019-1
+        public string Id { get; set; }
 
         public string CourseId { get; set; }
 
@@ -15,17 +17,15 @@ namespace Entity
 
         public virtual Term Term { get; set; }
 
+        // must be positive and less then 100
         public int GroupNumber { get; set; }
-
-        // This should have a format as AAA111-A2019-1
-        public string Alias { get; set; }
 
         public virtual ICollection<CourseGroupClient> CourseGroupClients { get; set; }
 
         public IEnumerable<Client> Clients => CourseGroupClients.Select(cgc => cgc.Client);
 
-        public int UserId { get; set; }
+        public virtual ICollection<CourseGroupUser> CourseGroupUsers { get; set; }
 
-        public virtual User User { get; set; }
+        public IEnumerable<User> Users => CourseGroupUsers.Select(cgu => cgu.User);
     }
 }

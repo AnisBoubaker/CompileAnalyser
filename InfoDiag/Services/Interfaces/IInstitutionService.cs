@@ -1,8 +1,8 @@
-﻿namespace Services.Interfaces
-{
-    using Entity.DTO;
-    using Services.Models;
+﻿using Entity.DTO;
+using Services.Models;
 
+namespace Services.Interfaces
+{
     public interface IInstitutionService
     {
         ServiceCallResult CreateInstitution(InstitutionDto dto);

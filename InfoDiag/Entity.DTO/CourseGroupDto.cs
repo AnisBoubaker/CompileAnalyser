@@ -1,9 +1,9 @@
-﻿namespace Entity.DTO
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
+namespace Entity.DTO
+{
     public class CourseGroupDto
     {
     }
