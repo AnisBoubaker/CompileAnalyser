@@ -39,6 +39,7 @@ namespace InfoDiag
                         };
                     });
 
+            // this will need to be changed TODO
             services.AddCors(options => options.AddPolicy(
                                                           "CorsPolicy",
                                                           builder =>

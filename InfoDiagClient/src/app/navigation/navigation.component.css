@@ -31,3 +31,7 @@
 .white-icon {
   color: white;
 }
+
+mat-sidenav-content {
+  padding: 10px;
+}

@@ -25,7 +25,7 @@
     height: -webkit-fill-available;
     display: flex;
     flex-direction: column;
-    background-image: url("https://infodiag.etsmtl.ca/img/header-bg.jpg");
+    /* background-image: url("https://infodiag.etsmtl.ca/img/header-bg.jpg"); */
     background-repeat: no-repeat;
     background-size: cover;
     padding: -1rem;

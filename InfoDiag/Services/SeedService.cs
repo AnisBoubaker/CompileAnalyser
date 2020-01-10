@@ -138,7 +138,8 @@ namespace Services
                 Name = t.value,
             });
 
-            return _codingLanguageRepository.Insert(toInsert);
+            // This toList is necessary because we need an early eval on the output
+            return _codingLanguageRepository.Insert(toInsert).ToList();
         }
 
         // this could and maybe should be made the other way around

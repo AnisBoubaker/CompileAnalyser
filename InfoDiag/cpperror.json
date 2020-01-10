@@ -12663,13 +12663,6 @@
     "Link": "https://github.com/MicrosoftDocs/cpp-docs/blob/master/docs/error-messages/compiler-warnings/compiler-warning-level-2-c4156.md"
   },
   {
-    "Name": "Compiler Warning (level 2) C4244",
-    "Title": "'argument' : conversion from 'type1' to 'type2', possible loss of data",
-    "Code": "C4244",
-    "Id": "C4244",
-    "Link": "https://github.com/MicrosoftDocs/cpp-docs/blob/master/docs/error-messages/compiler-warnings/compiler-warning-level-2-c4244.md"
-  },
-  {
     "Name": "Compiler Warning (level 2) C4250",
     "Title": "'class1' : inherits 'class2::member' via dominance",
     "Code": "C4250",
