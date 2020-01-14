@@ -1,18 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GroupListComponent } from './group-list/group-list.component';
-import { NewGroupComponent } from './new-group/new-group.component';
+import { EditGroupComponent } from './edit-group/edit-group.component';
 import { GroupComponent } from './group.component';
-import { MatTableModule, MatPaginatorModule } from '@angular/material';
+import { MatTableModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatDialogModule } from '@angular/material';
 
 
 
 @NgModule({
-  declarations: [GroupListComponent, NewGroupComponent, GroupComponent],
+  declarations: [GroupListComponent, EditGroupComponent, GroupComponent],
   imports: [
     CommonModule,
     MatTableModule,
-    MatPaginatorModule
-  ]
+    MatPaginatorModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDialogModule
+  ],
+  entryComponents: [EditGroupComponent]
 })
 export class GroupModule { }

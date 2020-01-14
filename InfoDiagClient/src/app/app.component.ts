@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './services/authentication.service';
 import { User } from './generic/models/user';
+import { decode } from 'jsonwebtoken';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +10,13 @@ import { User } from './generic/models/user';
 })
 export class AppComponent {
   title = 'InfoDiagClient';
-  currentUser: User;
+  currentUser: any;
 
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService
   ) {
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.authenticationService.currentUserToken.subscribe(x => this.currentUser = decode(x.token));
   }
 
   logout() {

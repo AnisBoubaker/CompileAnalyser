@@ -11,12 +11,12 @@ export class ErrorCodeService {
     constructor(private http: HttpClient) {
     }
 
-    getErrorCodes() : Observable<ErrorCode[]> {
+    getErrorCodes(): Observable<ErrorCode[]> {
         return this.http.get<ErrorCode[]>(`${environment.apiUrl}/api/errorcode/all`)
         .pipe(first());
     }
 
-    seed() : Observable<void> {
+    seed(): Observable<void> {
         return this.http.post<void>(`${environment.apiUrl}/api/errorcode/seed`, {})
         .pipe(first());
     }

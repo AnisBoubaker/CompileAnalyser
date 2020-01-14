@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Entity.DTO;
 using Repositories.Interfaces;
@@ -8,11 +9,13 @@ namespace Services
 {
     public class CourseGroupService : ICourseGroupService
     {
+        private readonly IUserRepository _userRepository;
         private readonly ICourseGroupRepository _courseGroupRepository;
         private readonly IMapper _mapper;
 
-        public CourseGroupService(ICourseGroupRepository courseGroupRepository, IMapper mapper)
+        public CourseGroupService(ICourseGroupRepository courseGroupRepository, IUserRepository userRepository, IMapper mapper)
         {
+            _userRepository = userRepository;
             _courseGroupRepository = courseGroupRepository;
             _mapper = mapper;
         }
@@ -22,9 +25,13 @@ namespace Services
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<CourseGroupDto> GetAll()
+        public IEnumerable<CourseGroupDto> GetAll(string userEmail)
         {
-            return _mapper.Map<IEnumerable<CourseGroupDto>>(_courseGroupRepository.All);
+            var cgids = _userRepository.AllAsQueryable
+                .Where(u => u.Email == userEmail)
+                .SelectMany(u => u.CourseGroupUsers).Select(cg => cg.CourseGroupId);
+
+            return _mapper.Map<IEnumerable<CourseGroupDto>>(_courseGroupRepository.AllAsQueryable.Where(cg => cgids.Contains(cg.Id)));
         }
     }
 }

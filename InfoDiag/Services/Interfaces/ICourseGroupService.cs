@@ -5,7 +5,7 @@ namespace Services.Interfaces
 {
     public interface ICourseGroupService
     {
-        IEnumerable<CourseGroupDto> GetAll();
+        IEnumerable<CourseGroupDto> GetAll(string userEmail);
 
         void Assign(AssignCourseGroupDto dto);
     }

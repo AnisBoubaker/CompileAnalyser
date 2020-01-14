@@ -3,16 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { first } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-import { Student } from '../generic/models/student';
+import { User } from '../generic/models/user';
 
 @Injectable({ providedIn: 'root' })
-export class StudentService {
+export class UserService {
 
     constructor(private http: HttpClient) {
     }
 
-    getStudents(): Observable<Student[]> {
-        return this.http.get<Student[]>(`${environment.apiUrl}/api/client/all`)
+    getUsers(): Observable<User[]> {
+        return this.http.get<User[]>(`${environment.apiUrl}/api/user/all`)
         .pipe(first());
     }
 }

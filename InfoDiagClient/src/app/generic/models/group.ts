@@ -1,5 +1,6 @@
 export interface Group {
-    id: number;
-    alias: string;
-    teacher: string;
+    id: string;
+    courseId: string;
+    termId: string;
+    groupNumber: number;
 }

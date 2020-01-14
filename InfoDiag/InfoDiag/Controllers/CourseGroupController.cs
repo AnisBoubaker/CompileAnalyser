@@ -1,11 +1,11 @@
 using Entity.DTO;
+using InfoDiag.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 
 namespace InfoDiag.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CourseGroupController : ControllerBase
@@ -24,7 +24,14 @@ namespace InfoDiag.Controllers
         [HttpGet("all")]
         public IActionResult GetAllCourseGroup()
         {
-            var courseGroups = _courseGroupService.GetAll();
+            var user = this.UserDto();
+
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            var courseGroups = _courseGroupService.GetAll(user.Email);
             return Ok(courseGroups);
         }
 

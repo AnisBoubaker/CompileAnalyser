@@ -70,17 +70,18 @@ namespace Services
 
             if (!_courseRepository.AllAsQueryable.Any())
             {
+                int id = langs.First(l => l.Code == CodingLanguageEnum.CPP).Id;
                 institution.Courses = new List<Course>
                 {
                     _courseRepository.Insert(new Course
                     {
                         Id = "INF147",
-                        CodingLanguageId = langs.First(l => l.Code == CodingLanguageEnum.CPP).Id,
+                        CodingLanguageId = id,
                     }),
                     _courseRepository.Insert(new Course
                     {
                         Id = "INF155",
-                        CodingLanguageId = langs.First(l => l.Code == CodingLanguageEnum.CPP).Id,
+                        CodingLanguageId = id,
                     }),
                 };
                 _institutionRepository.Update(institution);
@@ -125,21 +126,19 @@ namespace Services
 
         private IEnumerable<CodingLanguage> SeedLanguages()
         {
-            if (_codingLanguageRepository.AllAsQueryable.Any())
+            if (!_codingLanguageRepository.AllAsQueryable.Any())
             {
-                return _codingLanguageRepository.All;
+                var dic = EnumExtensions.ToTupple(typeof(CodingLanguageEnum));
+
+                var toInsert = dic.Select(t => new CodingLanguage
+                {
+                    Code = (CodingLanguageEnum)t.key,
+                    Name = t.value,
+                });
+                _codingLanguageRepository.Insert(toInsert);
             }
 
-            var dic = EnumExtensions.ToTupple(typeof(CodingLanguageEnum));
-
-            var toInsert = dic.Select(t => new CodingLanguage 
-            {
-                Code = (CodingLanguageEnum)t.key,
-                Name = t.value,
-            });
-
-            // This toList is necessary because we need an early eval on the output
-            return _codingLanguageRepository.Insert(toInsert).ToList();
+            return _codingLanguageRepository.All;
         }
 
         // this could and maybe should be made the other way around

@@ -4,6 +4,7 @@ import { first } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { Group } from '../generic/models/group';
+import { User } from '../generic/models/user';
 
 @Injectable({ providedIn: 'root' })
 export class GroupService {
@@ -11,8 +12,13 @@ export class GroupService {
     constructor(private http: HttpClient) {
     }
 
-    getGroups() : Observable<Group[]> {
+    getGroups(): Observable<Group[]> {
         return this.http.get<Group[]>(`${environment.apiUrl}/api/courseGroup/all`)
+        .pipe(first());
+    }
+
+    getPermitedUsers(courseGroupId: number): Observable<User[]> {
+        return this.http.get<User[]>(`{${environment.apiUrl}/api/courseGroup/users}`, {params:{courseGroupId: '' + courseGroupId}})
         .pipe(first());
     }
 }

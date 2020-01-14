@@ -11,7 +11,7 @@ export class CourseService {
     constructor(private http: HttpClient) {
     }
 
-    getCourses() : Observable<Group[]> {
+    getCourses(): Observable<Group[]> {
         return this.http.get<Group[]>(`${environment.apiUrl}/api/course/all`)
         .pipe(first());
     }

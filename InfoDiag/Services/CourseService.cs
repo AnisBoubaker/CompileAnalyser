@@ -40,7 +40,7 @@ namespace Services
                 return Error("Course group cannot be found");
             }
 
-            if (courseGroup.Term.Id != termAlias)
+            if (courseGroup.TermId != termAlias)
             {
                 return Error("Term cannot be found");
             }

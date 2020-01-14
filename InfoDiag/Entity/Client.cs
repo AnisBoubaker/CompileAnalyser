@@ -17,6 +17,7 @@ namespace Entity
 
         public virtual ICollection<CourseGroupClient> CourseGroupClients { get; set; }
 
+        // don't use this in a linq query
         public IEnumerable<CourseGroup> CourseGroups => CourseGroupClients.Select(cgc => cgc.CourseGroup);
     }
 }

@@ -22,10 +22,12 @@ namespace Entity
 
         public virtual ICollection<CourseGroupClient> CourseGroupClients { get; set; }
 
+        // don't use this in a linq query
         public IEnumerable<Client> Clients => CourseGroupClients.Select(cgc => cgc.Client);
 
         public virtual ICollection<CourseGroupUser> CourseGroupUsers { get; set; }
 
+        // don't use this in a linq query
         public IEnumerable<User> Users => CourseGroupUsers.Select(cgu => cgu.User);
     }
 }
