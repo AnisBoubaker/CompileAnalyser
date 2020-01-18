@@ -26,6 +26,8 @@ namespace Repositories.Configurations
             services.AddScoped<ITermRepository, TermRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICodingLanguageRepository, CodingLanguageRepository>();
+            services.AddScoped<IStatsRepository, StatsRepository>();
+            services.AddScoped<IStatLineRepository, StatLineRepository>();
         }
     }
 }

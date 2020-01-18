@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
 using Data.Configurations;
 using Entity;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +28,10 @@ namespace Data
 
         public DbSet<CodingLanguage> CodingLanguages { get; set; }
 
+        public DbSet<Stats> Stats { get; set; }
+
+        public DbSet<StatLine> StatLines { get; set; }
+
         public InfoDiagContext(DbContextOptions<InfoDiagContext> options)
             : base(options)
         {
@@ -51,6 +52,8 @@ namespace Data
             modelBuilder.ApplyConfiguration(new TermConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new CodingLanguageConfiguration());
+            modelBuilder.ApplyConfiguration(new StatsConfiguration());
+            modelBuilder.ApplyConfiguration(new StatLineConfiguration());
         }
     }
 }
