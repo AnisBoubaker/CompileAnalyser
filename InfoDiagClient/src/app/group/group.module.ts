@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { GroupListComponent } from './group-list/group-list.component';
-import { EditGroupComponent } from './edit-group/edit-group.component';
-import { GroupComponent } from './group.component';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { GroupListComponent } from "./group-list/group-list.component";
+import { EditGroupComponent } from "./edit-group/edit-group.component";
+import { GroupComponent } from "./group.component";
 import {
   MatTableModule,
   MatPaginatorModule,
@@ -10,9 +10,8 @@ import {
   MatIconModule,
   MatDialogModule,
   MatSelectModule,
-  MatListModule } from '@angular/material';
-
-
+  MatListModule
+} from "@angular/material";
 
 @NgModule({
   declarations: [GroupListComponent, EditGroupComponent, GroupComponent],
@@ -28,4 +27,4 @@ import {
   ],
   entryComponents: [EditGroupComponent]
 })
-export class GroupModule { }
+export class GroupModule {}

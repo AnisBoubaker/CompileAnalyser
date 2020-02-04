@@ -16,7 +16,7 @@ namespace InfoDiag.Controllers
             _statService = statService;
         }
 
-        // GET: api/StatsIStatService
+        // GET: api/Stats
         [HttpGet]
         public IEnumerable<StatDto> Get()
         {
