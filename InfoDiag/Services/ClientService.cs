@@ -35,5 +35,20 @@ namespace Services
 
             return _mapper.Map<IEnumerable<ClientDTO>>(clients);
         }
+
+        public ClientDTO GetClient(string userEmail, int id)
+        {
+            var cgids = _userRepository.AllAsQueryable
+                .Where(u => u.Email == userEmail)
+                .SelectMany(u => u.CourseGroupUsers).Select(cg => cg.CourseGroupId);
+
+            var client = _clientRepository.AllAsQueryable
+                .Where(c => c.CourseGroupClients
+                .Select(cg => cg.CourseGroupId)
+                .Any(cg => cgids.Any(cgid => cgid == cg)))
+                .FirstOrDefault(c => c.Id == id);
+
+            return _mapper.Map<ClientDTO>(client);
+        }
     }
 }

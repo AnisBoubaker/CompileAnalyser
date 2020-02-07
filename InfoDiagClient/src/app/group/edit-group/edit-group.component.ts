@@ -32,4 +32,8 @@ export class EditGroupComponent implements OnInit {
   ngOnInit() {
     this.userService.getUsers().subscribe(users => {});
   }
+
+  adjustTeacher(selected) {
+    console.log(selected);
+  }
 }

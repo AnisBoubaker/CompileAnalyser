@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { Student } from "../generic/models/student";
+import { StudentService } from "../services/student.service";
 
 @Component({
   selector: "app-student",
@@ -8,12 +10,17 @@ import { Component, OnInit } from "@angular/core";
 export class StudentComponent implements OnInit {
   stats: any = [];
   stats2 = "allo";
-  constructor() {}
+  currentStudent: Student;
+  constructor(private studentService: StudentService) {}
 
   /**
    * type = ce qui me dit si les true et false sont ensemble
    */
   ngOnInit() {
+    // TODO : GET LE ID DU STUDENT PAR LE URL
+    this.studentService.getStudent(1).subscribe(rep => {
+      this.currentStudent = rep;
+    });
     this.stats = {
       date: Date.now(),
       lines: [
