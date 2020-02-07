@@ -19,8 +19,8 @@ export class EditGroupComponent implements OnInit {
     ? "Modification de " + this.data.id
     : "Ajouter un cours group";
   possibleUsers = [
-    { firstName: "Samuel", LastName: "Leclerc" },
-    { firstName: "Nicolas", LastName: "Charland" }
+    { firstName: "Samuel", lastName: "Leclerc" },
+    { firstName: "Nicolas", lastName: "Charland" }
   ];
   loaded = false;
   constructor(
