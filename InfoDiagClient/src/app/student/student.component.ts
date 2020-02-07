@@ -18,34 +18,60 @@ export class StudentComponent implements OnInit {
       date: Date.now(),
       lines: [
         {
-          nbOccurence: 3,
+          nbOccurence: 4,
           name: "a Type",
           type: 2,
           isErrorCode: false
         },
         {
           nbOccurence: 1,
-          name: "an error",
+          name: "Ein",
           type: 2,
           isErrorCode: true
         },
         {
-          nbOccurence: 2,
-          name: "an error2",
+          nbOccurence: 1,
+          name: "Zwei",
+          type: 2,
+          isErrorCode: true
+        },
+        {
+          nbOccurence: 3,
+          name: "another Type of error",
+          type: 3,
+          isErrorCode: false
+        },
+        {
+          nbOccurence: 10,
+          name: "First",
+          type: 3,
+          isErrorCode: true
+        },
+        {
+          nbOccurence: 1,
+          name: "Drei",
+          type: 2,
+          isErrorCode: true
+        },
+        {
+          nbOccurence: 20,
+          name: "Second",
+          type: 3,
+          isErrorCode: true
+        },
+        {
+          nbOccurence: 10,
+          name: "Third error!!!",
+          type: 3,
+          isErrorCode: true
+        },
+        {
+          nbOccurence: 1,
+          name: "Vier",
           type: 2,
           isErrorCode: true
         }
       ]
     };
-  }
-  displayStats() {
-    let line = this.stats.lines;
-    line.forEach(element => {
-      console.log(element.nbOccurence);
-    });
-    //const o = this.stats.lines;
-    //o.array.forEach(element => {
-    //console.log(element);
-    //});
   }
 }

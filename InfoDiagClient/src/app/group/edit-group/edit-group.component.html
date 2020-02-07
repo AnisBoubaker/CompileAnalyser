@@ -1,12 +1,8 @@
 <div class="title-row">
-    <h1>{{ title }}</h1>
+  <h1>{{ title }}</h1>
 </div>
 <mat-selection-list #users>
-    <mat-list-option *ngFor="let user of possibleUsers" [value]="user">
-        {{user.firstName + " " + user.lastName}}
-    </mat-list-option>
+  <mat-list-option *ngFor="let user of possibleUsers" [value]="user">
+    {{ user.firstName + " " + user.lastName }}
+  </mat-list-option>
 </mat-selection-list>
-
-<p>
-    Options selected: {{shoes.selectedOptions.selected.length}}
-</p>
