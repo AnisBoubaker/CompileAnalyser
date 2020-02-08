@@ -72,7 +72,16 @@ namespace Services
             {
                 var innerFiles = archive.Entries;
                 innerFiles.Where(f => f.FullName.Contains(".vcxproj")).FirstOrDefault()?.ExtractToFile(projPath, true);
-                innerFiles.Where(f => f.FullName.Contains(".log")).FirstOrDefault()?.ExtractToFile(logPath, true);
+                using (Stream concat = File.OpenWrite(logPath))
+                {
+                    innerFiles.Where(f => f.FullName.Contains(".log")).ToList()
+                        .ForEach(f =>
+                        {
+                            using var fs = f.Open();
+                            fs.CopyTo(concat);
+                        });
+                }
+
                 innerFiles.Where(f => f.FullName.Contains(".h") || f.FullName.Contains(".c")).ToList().ForEach(f =>
                 {
                     if (!Directory.Exists(programPath))
