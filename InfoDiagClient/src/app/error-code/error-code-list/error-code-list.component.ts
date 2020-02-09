@@ -17,7 +17,7 @@ export class ErrorCodeListComponent implements OnInit {
   searchbar = '';
   searchLoading = false;
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private errorCodeService: ErrorCodeService,

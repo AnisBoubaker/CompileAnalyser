@@ -21,7 +21,7 @@ export class GroupListComponent implements OnInit {
   searchLoading = false;
   isAdmin = Number(Role[this.auth.currentUserValue.Role]) === Role.Admin;
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private groupService: GroupService,
