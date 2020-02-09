@@ -11,6 +11,8 @@ import { MatListModule } from "@angular/material/list";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSelectModule } from "@angular/material/select";
 import { MatTableModule } from "@angular/material/table";
+import { StatsService } from '../services/stat.service';
+import { GroupService } from '../services/group.service';
 
 @NgModule({
   declarations: [GroupListComponent, EditGroupComponent, GroupComponent],
@@ -25,6 +27,7 @@ import { MatTableModule } from "@angular/material/table";
     MatListModule,
     StatsModule
   ],
-  entryComponents: [EditGroupComponent]
+  entryComponents: [EditGroupComponent],
+  providers: [StatsService, GroupService]
 })
 export class GroupModule {}

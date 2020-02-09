@@ -36,7 +36,7 @@ namespace Services
         {
             var compilationIds = _compilationRepository.AllAsQueryable.Where(c => c.ClientId == clientId).Select(c => c.Id);
 
-            var stats = _statsRepository.AllAsQueryable.Where(s => compilationIds.Contains(s.CompilationId));
+            var stats = _statsRepository.AllAsQueryable.Include(s => s.Lines).Where(s => compilationIds.Contains(s.CompilationId)).ToList();
 
             if (from.HasValue && to.HasValue)
             {

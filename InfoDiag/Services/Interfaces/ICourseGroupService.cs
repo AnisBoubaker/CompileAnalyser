@@ -6,10 +6,12 @@ namespace Services.Interfaces
 
     public interface ICourseGroupService
     {
-        IEnumerable<CourseGroupDto> GetAll(string userEmail);
+        ServiceCallResult<IEnumerable<CourseGroupDto>> GetAll(string userEmail);
 
         ServiceCallResult Assign(int userId, string groupCourseId);
 
         ServiceCallResult AddStudent(int clientId, string groupCourseId);
+
+        ServiceCallResult<CourseGroupDto> Get(string email, string groupId);
     }
 }

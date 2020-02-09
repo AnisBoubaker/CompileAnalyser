@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
+import { Stats } from "../generic/models/stats"
 
 @Component({
   selector: "app-stats",
@@ -6,35 +7,27 @@ import { Component, OnInit, Input } from "@angular/core";
   styleUrls: ["./stats.component.css"]
 })
 export class StatsComponent implements OnInit {
-  @Input() stats: any = [];
+  @Input() stats: Stats[] = [];
 
   panelOpenState = false;
   display: any = [];
-  localStats: any;
   constructor() {}
 
   ngOnInit() {
-    this.localStats = JSON.parse(JSON.stringify(this.stats));
-    this.createDisplay();
-    this.removeDisplayFromStats();
-    this.addCorresponding();
-    console.log(this.display);
+    this.createDisplay(JSON.parse(JSON.stringify(this.stats)));
   }
-  createDisplay() {
-    this.localStats.lines.forEach(element => {
+
+  createDisplay(toUse) {
+    toUse.lines.forEach(element => {
       if (!element.isErrorCode) {
         this.display.push(element);
       }
     });
-  }
-  removeDisplayFromStats() {
-    this.localStats.lines = this.localStats.lines.filter(
+    toUse.lines = toUse.lines.filter(
       val => !this.display.includes(val)
     );
-  }
-  addCorresponding() {
     this.display.forEach(element => {
-      element.subs = this.localStats.lines.filter(
+      element.subs = toUse.lines.filter(
         val => val.type === element.type
       );
     });

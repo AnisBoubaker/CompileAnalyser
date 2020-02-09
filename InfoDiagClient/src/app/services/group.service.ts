@@ -17,6 +17,11 @@ export class GroupService {
         .pipe(first());
     }
 
+    getGroup(id: string): Observable<Group> {
+        return this.http.get<Group>(`${environment.apiUrl}/api/courseGroup`, {params: {groupId: id}})
+        .pipe(first());
+    }
+
     getPermitedUsers(courseGroupId: number): Observable<User[]> {
         return this.http.get<User[]>(`{${environment.apiUrl}/api/courseGroup/users}`, {params:{courseGroupId: '' + courseGroupId}})
         .pipe(first());

@@ -59,13 +59,13 @@ namespace Services
             return Success();
         }
 
-        public IEnumerable<CourseGroupDto> GetAll(string userEmail)
+        public ServiceCallResult<IEnumerable<CourseGroupDto>> GetAll(string userEmail)
         {
             var cgids = _userRepository.AllAsQueryable
                 .Where(u => u.Email == userEmail)
                 .SelectMany(u => u.CourseGroupUsers).Select(cg => cg.CourseGroupId);
 
-            return _mapper.Map<IEnumerable<CourseGroupDto>>(_courseGroupRepository.AllAsQueryable.Where(cg => cgids.Contains(cg.Id)));
+            return Success(_mapper.Map<IEnumerable<CourseGroupDto>>(_courseGroupRepository.AllAsQueryable.Where(cg => cgids.Contains(cg.Id))));
         }
 
         public ServiceCallResult AddStudent(int clientId, string groupCourseId)
@@ -86,6 +86,20 @@ namespace Services
             _courseGroupRepository.Update(cg);
 
             return Success();
+        }
+
+        public ServiceCallResult<CourseGroupDto> Get(string email, string groupId)
+        {
+            if (_userRepository.AllAsQueryable
+                .Where(u => u.Email == email)
+                .SelectMany(u => u.CourseGroupUsers).Any(cgu => cgu.CourseGroupId == groupId))
+            {
+                return Success(_mapper.Map<CourseGroupDto>(_courseGroupRepository.Get(groupId)));
+            }
+            else
+            {
+                return Error<CourseGroupDto>("This group id doesn't exist or you don't have the rights to see it.");
+            }
         }
     }
 }

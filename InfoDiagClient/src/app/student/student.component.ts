@@ -2,6 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { Student } from "../generic/models/student";
 import { StudentService } from "../services/student.service";
 import { ActivatedRoute } from "@angular/router";
+import { zip } from 'rxjs';
+import { StatsService } from '../services/stat.service';
+import { Stats } from '../generic/models/stats';
 
 @Component({
   selector: "app-student",
@@ -9,82 +12,27 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ["./student.component.css"]
 })
 export class StudentComponent implements OnInit {
-  stats: any = [];
+  stats: Stats[];
   student: Student;
   loaded = false;
 
   constructor(
     private studentService: StudentService,
+    private statsService: StatsService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      console.log(params);
-      this.studentService.getStudent(params.get("id")).subscribe(student => {
-        this.student = student;
+      zip(
+        this.studentService.getStudent(params.get("id")),
+        this.statsService.getStats(params.get("id"))
+      )
+      .subscribe(results => {
+        this.student = results[0];
+        this.stats = results[1];
         this.loaded = true;  
       });
     });
-
-    this.stats = {
-      date: Date.now(),
-      lines: [
-        {
-          nbOccurence: 4,
-          name: "a Type",
-          type: 2,
-          isErrorCode: false
-        },
-        {
-          nbOccurence: 1,
-          name: "Ein",
-          type: 2,
-          isErrorCode: true
-        },
-        {
-          nbOccurence: 1,
-          name: "Zwei",
-          type: 2,
-          isErrorCode: true
-        },
-        {
-          nbOccurence: 3,
-          name: "another Type of error",
-          type: 3,
-          isErrorCode: false
-        },
-        {
-          nbOccurence: 10,
-          name: "First",
-          type: 3,
-          isErrorCode: true
-        },
-        {
-          nbOccurence: 1,
-          name: "Drei",
-          type: 2,
-          isErrorCode: true
-        },
-        {
-          nbOccurence: 20,
-          name: "Second",
-          type: 3,
-          isErrorCode: true
-        },
-        {
-          nbOccurence: 10,
-          name: "Third error!!!",
-          type: 3,
-          isErrorCode: true
-        },
-        {
-          nbOccurence: 1,
-          name: "Vier",
-          type: 2,
-          isErrorCode: true
-        }
-      ]
-    };
   }
 }

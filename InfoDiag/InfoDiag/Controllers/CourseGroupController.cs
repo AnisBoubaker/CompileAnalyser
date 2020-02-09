@@ -35,6 +35,19 @@ namespace InfoDiag.Controllers
             return Ok(courseGroups);
         }
 
+        public IActionResult Get(string groupId)
+        {
+            var user = this.UserDto();
+
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            var courseGroup = _courseGroupService.Get(user.Email, groupId);
+            return Ok(courseGroup);
+        }
+
         [HttpPost("assign")]
         public IActionResult Assign(AssignCourseGroupDto dto)
         {

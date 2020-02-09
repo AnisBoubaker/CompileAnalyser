@@ -8,6 +8,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatTableModule } from "@angular/material/table";
 import { StudentService } from "../services/student.service";
+import { StatsService } from '../services/stat.service';
 
 @NgModule({
   declarations: [StudentComponent, StudentListComponent],
@@ -19,6 +20,6 @@ import { StudentService } from "../services/student.service";
     MatPaginatorModule,
     StatsModule
   ],
-  providers: [StudentService]
+  providers: [StudentService, StatsService]
 })
 export class StudentModule {}

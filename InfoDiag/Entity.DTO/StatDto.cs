@@ -1,4 +1,4 @@
-﻿namespace Entity.DTO
+namespace Entity.DTO
 {
     using System;
     using System.Collections.Generic;
@@ -7,6 +7,6 @@
     {
         public DateTime Date { get; set; }
 
-        IEnumerable<StatLineDto> Lines { get; set; }
+        public IEnumerable<StatLineDto> Lines { get; set; }
     }
 }

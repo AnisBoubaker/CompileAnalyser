@@ -18,15 +18,15 @@ namespace InfoDiag.Controllers
 
         // GET: api/Stats
         [HttpGet]
-        public IEnumerable<StatDto> Get(int? clientId, string groupId)
+        public IActionResult Get(int? clientId, string groupId)
         {
             if (groupId != null)
             {
-                return _statService.Get(groupId);
-            } 
+                return Ok(_statService.Get(groupId).Value);
+            }
             else if (clientId.HasValue)
             {
-                _statService.Get(clientId.Value);
+                return Ok(_statService.Get(clientId.Value).Value);
             }
 
             return BadRequest();
