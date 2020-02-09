@@ -1,9 +1,9 @@
-﻿using AutoMapper;
-using Entity;
-using Entity.DTO;
-
-namespace Services.Profiles
+﻿namespace Services.Profiles
 {
+    using AutoMapper;
+    using Entity;
+    using Entity.DTO;
+
     public class CourseGroupProfile : Profile
     {
         public CourseGroupProfile()

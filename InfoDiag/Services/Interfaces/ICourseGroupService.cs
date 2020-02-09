@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using Entity.DTO;
-using Services.Models;
-
 namespace Services.Interfaces
 {
+    using System.Collections.Generic;
+    using Entity.DTO;
+    using Services.Models;
+
     public interface ICourseGroupService
     {
         IEnumerable<CourseGroupDto> GetAll(string userEmail);

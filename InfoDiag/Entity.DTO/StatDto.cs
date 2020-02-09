@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Entity.DTO
+﻿namespace Entity.DTO
 {
+    using System;
+    using System.Collections.Generic;
+
     public class StatDto
     {
         public DateTime Date { get; set; }

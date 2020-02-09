@@ -1,9 +1,9 @@
-using Entity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 namespace Data.Configurations
 {
+    using Entity;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
     public class CourseGroupUserConfiguration : IEntityTypeConfiguration<CourseGroupUser>
     {
         public void Configure(EntityTypeBuilder<CourseGroupUser> builder)

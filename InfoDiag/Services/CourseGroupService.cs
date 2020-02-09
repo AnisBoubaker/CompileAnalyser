@@ -1,15 +1,15 @@
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
-using Entity;
-using Entity.DTO;
-using Microsoft.EntityFrameworkCore;
-using Repositories.Interfaces;
-using Services.Interfaces;
-using Services.Models;
-
 namespace Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using AutoMapper;
+    using Entity;
+    using Entity.DTO;
+    using Microsoft.EntityFrameworkCore;
+    using Repositories.Interfaces;
+    using Services.Interfaces;
+    using Services.Models;
+
     public class CourseGroupService : BaseService, ICourseGroupService
     {
         private readonly IUserRepository _userRepository;

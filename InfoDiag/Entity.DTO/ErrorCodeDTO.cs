@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Entity.DTO
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     public class ErrorCodeDTO
     {
         public string Id { get; set; }

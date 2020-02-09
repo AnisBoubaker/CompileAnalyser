@@ -1,11 +1,11 @@
-using Entity.DTO;
-using InfoDiag.Extensions;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Services.Interfaces;
-
 namespace InfoDiag.Controllers
 {
+    using Entity.DTO;
+    using InfoDiag.Extensions;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Services.Interfaces;
+
     [Route("api/[controller]")]
     [ApiController]
     public class CourseGroupController : ControllerBase

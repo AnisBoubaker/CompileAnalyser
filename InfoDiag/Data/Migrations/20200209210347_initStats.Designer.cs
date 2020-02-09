@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(InfoDiagContext))]
-    [Migration("20200118193936_addStats")]
-    partial class addStats
+    [Migration("20200209210347_initStats")]
+    partial class initStats
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -259,8 +259,11 @@ namespace Data.Migrations
                     b.Property<bool>("IsErrorCode")
                         .HasColumnType("bit");
 
-                    b.Property<int>("StatsId")
+                    b.Property<int>("NbOccurence")
                         .HasColumnType("int");
+
+                    b.Property<long>("StatsId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
@@ -276,9 +279,9 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entity.Stats", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CompilationId")

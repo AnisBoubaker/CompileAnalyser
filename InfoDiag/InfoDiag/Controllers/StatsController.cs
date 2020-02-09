@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using Entity.DTO;
-using Microsoft.AspNetCore.Mvc;
-using Services.Interfaces;
-
 namespace InfoDiag.Controllers
 {
+    using System.Collections.Generic;
+    using Entity.DTO;
+    using Microsoft.AspNetCore.Mvc;
+    using Services.Interfaces;
+
     [Route("api/[controller]")]
     [ApiController]
     public class StatsController : ControllerBase
@@ -18,9 +18,18 @@ namespace InfoDiag.Controllers
 
         // GET: api/Stats
         [HttpGet]
-        public IEnumerable<StatDto> Get()
+        public IEnumerable<StatDto> Get(int? clientId, string groupId)
         {
-            return _statService.Get();
+            if (groupId != null)
+            {
+                return _statService.Get(groupId);
+            } 
+            else if (clientId.HasValue)
+            {
+                _statService.Get(clientId.Value);
+            }
+
+            return BadRequest();
         }
     }
 }

@@ -1,10 +1,10 @@
-using InfoDiag.Extensions;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Services.Interfaces;
-
 namespace InfoDiag.Controllers
 {
+    using InfoDiag.Extensions;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Services.Interfaces;
+
     [Route("api/[controller]")]
     [ApiController]
     public class ClientController : ControllerBase

@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using System.Linq;
-using Constants.Enums;
-
 namespace Entity
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Constants.Enums;
+
     public class User : IBaseEntity<int>
     {
         public int Id { get; set; }

@@ -260,8 +260,8 @@ namespace Data.Migrations
                     b.Property<int>("NbOccurence")
                         .HasColumnType("int");
 
-                    b.Property<int>("StatsId")
-                        .HasColumnType("int");
+                    b.Property<long>("StatsId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
@@ -277,9 +277,9 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entity.Stats", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CompilationId")

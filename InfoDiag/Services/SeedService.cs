@@ -1,14 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Constants.Enums;
-using Constants.Extentions;
-using Entity;
-using Repositories.Interfaces;
-using Services.Interfaces;
-
 namespace Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Constants.Enums;
+    using Constants.Extentions;
+    using Entity;
+    using Repositories.Interfaces;
+    using Services.Interfaces;
+
     public class SeedService : ISeedService
     {
         private const string _seedPassword = "9TwlonUcSEeLv08D7nSzjU0XL1dNi/NXjBdYutbI8SMMiJG2hf10/Q68YUAxVq+a"; // 1234

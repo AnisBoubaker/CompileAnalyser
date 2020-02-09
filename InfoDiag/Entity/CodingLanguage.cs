@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using Constants.Enums;
-
 namespace Entity
 {
+    using System.Collections.Generic;
+    using Constants.Enums;
+
     public class CodingLanguage : IBaseEntity<int>
     {
         public int Id { get; set; }

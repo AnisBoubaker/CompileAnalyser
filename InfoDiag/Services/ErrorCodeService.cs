@@ -1,17 +1,17 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using AutoMapper;
-using Constants.Enums;
-using Data.SeedModels;
-using Entity;
-using Entity.DTO;
-using Newtonsoft.Json;
-using Repositories.Interfaces;
-using Services.Interfaces;
-
 namespace Services
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using AutoMapper;
+    using Constants.Enums;
+    using Data.SeedModels;
+    using Entity;
+    using Entity.DTO;
+    using Newtonsoft.Json;
+    using Repositories.Interfaces;
+    using Services.Interfaces;
+
     internal class ErrorCodeService : BaseService, IErrorCodeService
     {
         private readonly IErrorCodeRepository _errorCodeRepository;

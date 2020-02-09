@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-
 namespace Entity
 {
-    public class Stats : IBaseEntity<int>
+    using System;
+    using System.Collections.Generic;
+
+    public class Stats : IBaseEntity<long>
     {
         public DateTime Date { get; set; }
 
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public int CompilationId { get; set; }
 

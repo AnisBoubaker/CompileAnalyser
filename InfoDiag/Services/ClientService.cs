@@ -1,14 +1,14 @@
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
-using Constants.Enums;
-using Entity.DTO;
-using Microsoft.EntityFrameworkCore;
-using Repositories.Interfaces;
-using Services.Interfaces;
-
 namespace Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using AutoMapper;
+    using Constants.Enums;
+    using Entity.DTO;
+    using Microsoft.EntityFrameworkCore;
+    using Repositories.Interfaces;
+    using Services.Interfaces;
+
     public class ClientService : IClientService
     {
         private readonly IUserRepository _userRepository;

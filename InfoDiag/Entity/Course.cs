@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-
 namespace Entity
 {
+    using System.Collections.Generic;
+
     public class Course : IBaseEntity<string>
     {
         // Should be in the format AAA000

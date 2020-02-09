@@ -1,13 +1,13 @@
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using Constants.Enums;
-using Entity.DTO;
-using Microsoft.AspNetCore.Mvc;
-
 namespace InfoDiag.Extensions
 {
+    using System;
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Linq;
+    using System.Security.Claims;
+    using Constants.Enums;
+    using Entity.DTO;
+    using Microsoft.AspNetCore.Mvc;
+
     public static class ControllerBaseExtensions
     {
         public static UserDto UserDto(this ControllerBase cb)

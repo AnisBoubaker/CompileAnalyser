@@ -1,11 +1,11 @@
-using Data;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Repositories.Interfaces;
-
 namespace Repositories.Configurations
 {
+    using Data;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Repositories.Interfaces;
+
     public class RepositoriesConfiguration
     {
         public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)

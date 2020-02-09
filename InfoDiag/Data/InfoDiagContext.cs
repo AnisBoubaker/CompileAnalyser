@@ -1,9 +1,9 @@
-using Data.Configurations;
-using Entity;
-using Microsoft.EntityFrameworkCore;
-
 namespace Data
 {
+    using Data.Configurations;
+    using Entity;
+    using Microsoft.EntityFrameworkCore;
+
     public class InfoDiagContext : DbContext
     {
         public DbSet<Client> Clients { get; set; }

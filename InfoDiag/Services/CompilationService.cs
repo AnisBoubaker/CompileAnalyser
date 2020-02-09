@@ -1,17 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using AutoMapper;
-using Entity;
-using Microsoft.AspNetCore.Http;
-using Repositories.Interfaces;
-using Services.Interfaces;
-using Services.Models;
-
 namespace Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.IO.Compression;
+    using System.Linq;
+    using AutoMapper;
+    using Entity;
+    using Microsoft.AspNetCore.Http;
+    using Repositories.Interfaces;
+    using Services.Interfaces;
+    using Services.Models;
+
     public class CompilationService : BaseService, ICompilationService
     {
         private const int _lineKeep = 3;
