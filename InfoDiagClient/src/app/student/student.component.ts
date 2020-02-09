@@ -1,4 +1,9 @@
 import { Component, OnInit } from "@angular/core";
+import { Student } from "../generic/models/student";
+import { StudentService } from "../services/student.service";
+import { Router, ActivatedRoute, Params, ParamMap } from "@angular/router";
+import { Observable } from "rxjs";
+import { switchMap } from "rxjs/operators";
 
 @Component({
   selector: "app-student",
@@ -7,13 +12,26 @@ import { Component, OnInit } from "@angular/core";
 })
 export class StudentComponent implements OnInit {
   stats: any = [];
-  stats2 = "allo";
-  constructor() {}
+  currentStudent: Student;
+  student: Observable<Student>;
+  students: Observable<Student[]>;
+
+  constructor(
+    private studentService: StudentService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   /**
    * type = ce qui me dit si les true et false sont ensemble
    */
   ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      this.student = this.studentService.getStudent(+params.get("id"));
+    });
+
+    console.log("Student : ", this.student);
+
     this.stats = {
       date: Date.now(),
       lines: [

@@ -28,5 +28,18 @@ namespace InfoDiag.Controllers
 
             return Ok(_clientService.GetAllClients(user.Email));
         }
+
+        [HttpGet]
+        public IActionResult GetClient(int id)
+        {
+            var user = this.UserDto();
+
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            return Ok(_clientService.GetClient(user.Email, id));
+        }
     }
 }

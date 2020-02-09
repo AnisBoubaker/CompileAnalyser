@@ -6,3 +6,11 @@
     {{ user.firstName + " " + user.lastName }}
   </mat-list-option>
 </mat-selection-list>
+<button
+  mat-raised-button
+  class="adjustBtn"
+  color="primary"
+  (click)="adjustTeacher(users.selectedOptions.selected)"
+>
+  Enregistrer
+</button>

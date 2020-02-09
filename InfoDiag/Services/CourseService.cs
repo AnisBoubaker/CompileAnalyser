@@ -9,7 +9,7 @@ namespace Services
 {
     public class CourseService : BaseService, ICourseService
     {
-        private readonly Regex aliasRegex = new Regex("^{\\w}-{\\w}-{\\d}$");
+        private readonly Regex aliasRegex = new Regex("^(\\w*)-(\\w*)-(\\d*)$");
 
         private readonly ICourseRepository courseRepository;
         private readonly ICourseGroupRepository courseGroupRepository;
@@ -33,7 +33,7 @@ namespace Services
                 return Error("Course cannot be found");
             }
 
-            var courseGroup = courseGroupRepository.AllAsQueryable.Where(cg => cg.CourseId == course.Id && cg.Id == alias).FirstOrDefault();
+            var courseGroup = courseGroupRepository.AllAsQueryable.Where(cg => cg.CourseId == course.Id && cg.Id == courseAlias + "-" + termAlias + "-" + coursegroup).FirstOrDefault();
 
             if (courseGroup == null)
             {
@@ -57,7 +57,13 @@ namespace Services
                 return (null, null, 0);
             }
 
-            return (matches.Groups[1].Value, matches.Groups[2].Value, int.Parse(matches.Groups[3].Value));
+            var termString = matches.Groups[2].Value;
+            if (termString.Length == 5)
+            {
+                termString = termString.Replace("20", string.Empty);
+            }
+
+            return (matches.Groups[1].Value, termString, int.Parse(matches.Groups[3].Value));
         }
     }
 }

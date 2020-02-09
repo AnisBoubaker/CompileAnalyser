@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { GroupListComponent } from "./group-list/group-list.component";
 import { EditGroupComponent } from "./edit-group/edit-group.component";
+import { StatsModule } from "../stats/stats.module";
 import { GroupComponent } from "./group.component";
 import {
   MatTableModule,
@@ -23,7 +24,8 @@ import {
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
-    MatListModule
+    MatListModule,
+    StatsModule
   ],
   entryComponents: [EditGroupComponent]
 })

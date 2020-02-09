@@ -93,6 +93,7 @@ namespace Services
             {
                 _termService.CreateCurrentTerm();
                 term = _termRepository.AllAsQueryable.FirstOrDefault();
+
             }
 
             // Generate a course group of each
@@ -122,6 +123,29 @@ namespace Services
 
                 Assign(group, admin);
             }
+
+            if (!_courseGroupRepository.AllAsQueryable.Any(c => c.Id == "INF155-A18-2"))
+            {
+                CreateTestCourseGroup(institution.Courses.Last());
+            }
+        }
+
+        private void CreateTestCourseGroup(Course course)
+        {
+            var term = _termRepository.Insert(new Term
+            {
+                Id = "A18",
+                TermType = Constants.TermTypeEnum.Fall,
+                Year = 2018,
+            });
+
+            _courseGroupRepository.Insert(new CourseGroup
+            {
+                // TODO this is for testing with : micha_INF155_Projet2_20181030150250
+                GroupNumber = 2,
+                CourseId = course.Id,
+                TermId = term.Id,
+            });
         }
 
         private IEnumerable<CodingLanguage> SeedLanguages()
