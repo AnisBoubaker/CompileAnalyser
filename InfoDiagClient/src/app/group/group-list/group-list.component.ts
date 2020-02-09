@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { MatTableDataSource, MatPaginator, MatDialog } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatTableDataSource } from "@angular/material/table";
 import { Group } from "src/app/generic/models/group";
 import { GroupService } from "src/app/services/group.service";
 import { AuthenticationService } from "src/app/services/authentication.service";

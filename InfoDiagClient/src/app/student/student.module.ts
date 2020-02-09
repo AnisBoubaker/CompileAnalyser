@@ -3,12 +3,10 @@ import { CommonModule } from "@angular/common";
 import { StudentComponent } from "./student.component";
 import { StatsModule } from "../stats/stats.module";
 import { StudentListComponent } from "./student-list/student-list.component";
-import {
-  MatTableModule,
-  MatIconModule,
-  MatButtonModule,
-  MatPaginatorModule
-} from "@angular/material";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatTableModule } from "@angular/material/table";
 import { StudentService } from "../services/student.service";
 
 @NgModule({

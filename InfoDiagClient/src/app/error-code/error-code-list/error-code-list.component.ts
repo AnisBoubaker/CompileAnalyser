@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ErrorCodeService } from 'src/app/services/error-code.service';
 import { ErrorCode } from 'src/app/generic/models/errorCode';
 import { ToastrService } from 'ngx-toastr';
-import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-error-code-list',

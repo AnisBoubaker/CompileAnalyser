@@ -1,9 +1,6 @@
 import { Component, OnInit, Inject, ViewChild } from "@angular/core";
-import {
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-  MatSelectionList
-} from "@angular/material";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { MatSelectionList } from "@angular/material/list";
 import { Group } from "src/app/generic/models/group";
 import { UserService } from "src/app/services/user.service";
 

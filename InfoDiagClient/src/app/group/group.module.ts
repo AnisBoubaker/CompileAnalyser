@@ -4,15 +4,13 @@ import { GroupListComponent } from "./group-list/group-list.component";
 import { EditGroupComponent } from "./edit-group/edit-group.component";
 import { StatsModule } from "../stats/stats.module";
 import { GroupComponent } from "./group.component";
-import {
-  MatTableModule,
-  MatPaginatorModule,
-  MatButtonModule,
-  MatIconModule,
-  MatDialogModule,
-  MatSelectModule,
-  MatListModule
-} from "@angular/material";
+import { MatButtonModule } from "@angular/material/button";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatIconModule } from "@angular/material/icon";
+import { MatListModule } from "@angular/material/list";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatSelectModule } from "@angular/material/select";
+import { MatTableModule } from "@angular/material/table";
 
 @NgModule({
   declarations: [GroupListComponent, EditGroupComponent, GroupComponent],
