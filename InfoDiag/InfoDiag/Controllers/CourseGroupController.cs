@@ -40,7 +40,7 @@ namespace InfoDiag.Controllers
         {
             if (_userService.Exists(dto.UserId))
             {
-                _courseGroupService.Assign(dto);
+                _courseGroupService.Assign(dto.UserId, dto.CourseGroupId);
                 return Ok();
             }
 

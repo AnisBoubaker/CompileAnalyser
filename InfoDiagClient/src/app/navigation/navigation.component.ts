@@ -38,4 +38,8 @@ export class NavigationComponent {
     this.authService.logout();
     location.reload();
   }
+
+  isConnected() {
+    return !!this.authService.currentUserValue;
+  }
 }

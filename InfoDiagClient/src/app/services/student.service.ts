@@ -15,9 +15,9 @@ export class StudentService {
       .pipe(first());
   }
 
-  getStudent(id: number): Observable<Student> {
+  getStudent(id: string): Observable<Student> {
     return this.http
-      .get<Student>(`${environment.apiUrl}/api/client`)
+      .get<Student>(`${environment.apiUrl}/api/client`, {params: {id: id}})
       .pipe(first());
   }
 }

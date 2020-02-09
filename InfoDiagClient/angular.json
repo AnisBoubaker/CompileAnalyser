@@ -120,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "InfoDiagClient"
+    }
+  },
+  "defaultProject": "InfoDiagClient",
+  "cli": {
+    "analytics": "8a46c011-4227-4b4c-aeff-0970fe198c4f"
+  }
 }

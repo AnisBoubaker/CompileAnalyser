@@ -1,5 +1,6 @@
 export interface Student {
     id: number;
-    name: string;
+    firstName: string;
+    lastName: string;
     email: string;
 }

@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button *ngIf="authService.currentUserValue" (click)="click(drawer)">
+  <button mat-icon-button *ngIf="isConnected()" (click)="click(drawer)">
     <div class="thicker-icon white-icon">
       <mat-icon>menu</mat-icon>
     </div>
@@ -10,7 +10,7 @@
   <span class="fill-space"></span>
 </mat-toolbar>
 <mat-sidenav-container #drawer class="sidenav-container">
-  <mat-sidenav  class="sidenav" fixedInViewport="true" *ngIf="authService.currentUserValue"
+  <mat-sidenav  class="sidenav" fixedInViewport="true" *ngIf="isConnected()"
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" fixedTopGap="64">
     <mat-action-list>
       <button mat-list-item (click)="redirect('student')"> Étudiants </button>

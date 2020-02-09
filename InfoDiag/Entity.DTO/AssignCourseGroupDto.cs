@@ -6,7 +6,7 @@ namespace Entity.DTO
 {
     public class AssignCourseGroupDto
     {
-        public int CourseGroupId { get; set; }
+        public string CourseGroupId { get; set; }
 
         public int UserId { get; set; }
     }

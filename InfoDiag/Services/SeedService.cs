@@ -126,11 +126,11 @@ namespace Services
 
             if (!_courseGroupRepository.AllAsQueryable.Any(c => c.Id == "INF155-A18-2"))
             {
-                CreateTestCourseGroup(institution.Courses.Last());
+                CreateTestCourseGroup(institution.Courses.Last(), admin);
             }
         }
 
-        private void CreateTestCourseGroup(Course course)
+        private void CreateTestCourseGroup(Course course, User admin)
         {
             var term = _termRepository.Insert(new Term
             {
@@ -139,13 +139,15 @@ namespace Services
                 Year = 2018,
             });
 
-            _courseGroupRepository.Insert(new CourseGroup
+            var group = _courseGroupRepository.Insert(new CourseGroup
             {
                 // TODO this is for testing with : micha_INF155_Projet2_20181030150250
                 GroupNumber = 2,
                 CourseId = course.Id,
                 TermId = term.Id,
             });
+
+            Assign(group, admin);
         }
 
         private IEnumerable<CodingLanguage> SeedLanguages()

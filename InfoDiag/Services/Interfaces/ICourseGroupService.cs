@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Entity.DTO;
+using Services.Models;
 
 namespace Services.Interfaces
 {
@@ -7,6 +8,8 @@ namespace Services.Interfaces
     {
         IEnumerable<CourseGroupDto> GetAll(string userEmail);
 
-        void Assign(AssignCourseGroupDto dto);
+        ServiceCallResult Assign(int userId, string groupCourseId);
+
+        ServiceCallResult AddStudent(int clientId, string groupCourseId);
     }
 }

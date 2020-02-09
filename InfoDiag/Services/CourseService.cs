@@ -9,40 +9,43 @@ namespace Services
 {
     public class CourseService : BaseService, ICourseService
     {
-        private readonly Regex aliasRegex = new Regex("^(\\w*)-(\\w*)-(\\d*)$");
+        private readonly Regex _aliasRegex = new Regex("^(\\w*)-(\\w*)-(\\d*)$");
 
-        private readonly ICourseRepository courseRepository;
-        private readonly ICourseGroupRepository courseGroupRepository;
+        private readonly ICourseRepository _courseRepository;
+        private readonly ICourseGroupRepository _courseGroupRepository;
+        private readonly ICourseGroupService _courseGroupService;
 
         public CourseService(
             ICourseRepository courseRepository,
-            ICourseGroupRepository courseGroupRepository)
+            ICourseGroupRepository courseGroupRepository,
+            ICourseGroupService courseGroupService)
         {
-            this.courseRepository = courseRepository;
-            this.courseGroupRepository = courseGroupRepository;
+            _courseRepository = courseRepository;
+            _courseGroupRepository = courseGroupRepository;
+            _courseGroupService = courseGroupService;
         }
 
         public ServiceCallResult ProcessCourseGroupAlias(string alias, int clientId)
         {
             (string courseAlias, string termAlias, int coursegroup) = SplitAlias(alias);
 
-            var course = courseRepository.AllAsQueryable.Where(c => c.Id == courseAlias).Include(c => c.CourseGroups).FirstOrDefault();
+            var course = _courseRepository.AllAsQueryable.Where(c => c.Id == courseAlias).Include(c => c.CourseGroups).FirstOrDefault();
 
             if (course == null)
             {
                 return Error("Course cannot be found");
             }
 
-            var courseGroup = courseGroupRepository.AllAsQueryable.Where(cg => cg.CourseId == course.Id && cg.Id == courseAlias + "-" + termAlias + "-" + coursegroup).FirstOrDefault();
+            var courseGroup = _courseGroupRepository.AllAsQueryable.Include(cg => cg.CourseGroupClients).Where(cg => cg.CourseId == course.Id && cg.Id == courseAlias + "-" + termAlias + "-" + coursegroup).FirstOrDefault();
 
             if (courseGroup == null)
             {
                 return Error("Course group cannot be found");
             }
 
-            if (courseGroup.TermId != termAlias)
+            if (!courseGroup.CourseGroupClients.Any(cgc => cgc.ClientId == clientId))
             {
-                return Error("Term cannot be found");
+                _courseGroupService.AddStudent(clientId, courseGroup.Id);
             }
 
             return Success();
@@ -50,7 +53,7 @@ namespace Services
 
         public (string courseAlias, string term, int coursegroup) SplitAlias(string alias)
         {
-            var matches = aliasRegex.Match(alias);
+            var matches = _aliasRegex.Match(alias);
 
             if (!matches.Success)
             {

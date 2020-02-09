@@ -1,9 +1,13 @@
-<h1>Statistiques d'erreurs : StudentName</h1>
+<div *ngIf="loaded">
+  <h1>
+    Statistiques d'erreurs : {{ student.firstName + " " + student.lastName }}
+  </h1>
 
-<div>
-  <!-- graph -->
-</div>
+  <div>
+    <!-- graph -->
+  </div>
 
-<div>
-  <app-stats [stats]="stats"></app-stats>
+  <div>
+    <app-stats [stats]="stats"></app-stats>
+  </div>
 </div>
