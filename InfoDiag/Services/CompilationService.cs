@@ -34,6 +34,11 @@ namespace Services
 
         public ServiceCallResult<string> AddCompilation(IFormFile file)
         {
+            if (file == null)
+            {
+                return Error<string>("Une compilation doit être inclus dans cette requête");
+            }
+
             (var projPath, var logPath, var programPath) = ProcessZip(file);
             var result = _clientService.Process(projPath);
             if (result.Failed)
