@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-
 namespace Entity
 {
+    using System.Collections.Generic;
+
     public class Institution : IBaseEntity<int>
     {
         public int Id { get; set; }

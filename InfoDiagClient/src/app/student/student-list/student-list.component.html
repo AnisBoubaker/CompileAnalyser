@@ -1,22 +1,35 @@
 <h1>Tableau de vos étudiants</h1>
-<div *ngIf="loaded">
+<div *ngIf="loaded" class="mat-elevation-z8">
   <table
     mat-table
-    *ngIf="students.lenght > 0; else elseBlock"
+    *ngIf="students.data.length > 0; else elseBlock"
     [dataSource]="students"
-    class="mat-elevation-z8"
   >
     <!--- Note that these columns can be defined in any order.
         The actual rendered columns are set as a property on the row definition" -->
 
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.lastName + ', ' + element.firstName }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="weight">
+    <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef>Email</th>
       <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-raised-button
+          class="btnList"
+          color="primary"
+          (click)="stats(element.id)"
+        >
+          <mat-icon>scatter_plot</mat-icon>
+        </button>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -29,4 +42,5 @@
       administrateur
     </h3></ng-template
   >
+  <mat-paginator [pageSizeOptions]="[10, 20]"></mat-paginator>
 </div>

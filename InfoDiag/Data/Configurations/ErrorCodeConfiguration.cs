@@ -1,9 +1,9 @@
-using Entity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 namespace Data.Configurations
 {
+    using Entity;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
     public class ErrorCodeConfiguration : IEntityTypeConfiguration<ErrorCode>
     {
         public void Configure(EntityTypeBuilder<ErrorCode> builder)
@@ -11,6 +11,8 @@ namespace Data.Configurations
             builder.ToTable("ErrorCode");
 
             builder.HasKey(x => x.Id);
+
+            builder.HasOne(x => x.ErrorCategory).WithMany(ec => ec.RelatedErrors);
         }
     }
 }

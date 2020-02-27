@@ -1,9 +1,9 @@
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Migrations
 {
-    public partial class Init : Migration
+    public partial class initStats : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,7 @@ namespace Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -24,17 +24,17 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ErrorCode",
+                name: "CodingLanguage",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Link = table.Column<string>(nullable: true),
+                    Code = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ErrorCode", x => x.Id);
+                    table.PrimaryKey("PK_CodingLanguage", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -44,7 +44,7 @@ namespace Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
-                    Alias = table.Column<string>(nullable: true),
+                    Alias = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -57,7 +57,7 @@ namespace Data.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     TermType = table.Column<int>(nullable: false),
-                    Year = table.Column<int>(nullable: false),
+                    Year = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -74,7 +74,7 @@ namespace Data.Migrations
                     LastName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: false),
                     Role = table.Column<string>(nullable: false),
-                    Password = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -89,7 +89,7 @@ namespace Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ClientId = table.Column<int>(nullable: false),
-                    CompilationTime = table.Column<DateTime>(nullable: false),
+                    CompilationTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -103,21 +103,69 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ErrorCode",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Link = table.Column<string>(nullable: true),
+                    CodingLanguageId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ErrorCode", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ErrorCode_CodingLanguage_CodingLanguageId",
+                        column: x => x.CodingLanguageId,
+                        principalTable: "CodingLanguage",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Course",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    InstitutionId = table.Column<int>(nullable: true),
+                    CodingLanguageId = table.Column<int>(nullable: false),
+                    InstitutionId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Course", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Course_CodingLanguage_CodingLanguageId",
+                        column: x => x.CodingLanguageId,
+                        principalTable: "CodingLanguage",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Course_Institution_InstitutionId",
                         column: x => x.InstitutionId,
                         principalTable: "Institution",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Stats",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(nullable: false),
+                    CompilationId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Stats", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Stats_Compilation_CompilationId",
+                        column: x => x.CompilationId,
+                        principalTable: "Compilation",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -129,7 +177,7 @@ namespace Data.Migrations
                     CompilationId = table.Column<int>(nullable: false),
                     Message = table.Column<string>(nullable: true),
                     ErrorCodeId = table.Column<string>(nullable: true),
-                    Type = table.Column<int>(nullable: false),
+                    Type = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -155,8 +203,7 @@ namespace Data.Migrations
                     Id = table.Column<string>(nullable: false),
                     CourseId = table.Column<string>(nullable: true),
                     TermId = table.Column<string>(nullable: true),
-                    GroupNumber = table.Column<int>(nullable: false),
-                    Alias = table.Column<string>(nullable: true),
+                    GroupNumber = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -176,13 +223,42 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "StatLine",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StatsId = table.Column<long>(nullable: false),
+                    NbOccurence = table.Column<int>(nullable: false),
+                    IsErrorCode = table.Column<bool>(nullable: false),
+                    ErrorCodeId = table.Column<string>(nullable: true),
+                    Type = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StatLine", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StatLine_ErrorCode_ErrorCodeId",
+                        column: x => x.ErrorCodeId,
+                        principalTable: "ErrorCode",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_StatLine_Stats_StatsId",
+                        column: x => x.StatsId,
+                        principalTable: "Stats",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CompilationErrorLine",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Text = table.Column<string>(nullable: true),
-                    CompilationErrorId = table.Column<long>(nullable: true),
+                    CompilationErrorId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -200,7 +276,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     ClientId = table.Column<int>(nullable: false),
-                    CourseGroupId = table.Column<string>(nullable: false),
+                    CourseGroupId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -224,7 +300,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<int>(nullable: false),
-                    CourseGroupId = table.Column<string>(nullable: false),
+                    CourseGroupId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -264,6 +340,11 @@ namespace Data.Migrations
                 column: "CompilationErrorId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Course_CodingLanguageId",
+                table: "Course",
+                column: "CodingLanguageId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Course_InstitutionId",
                 table: "Course",
                 column: "InstitutionId");
@@ -287,6 +368,26 @@ namespace Data.Migrations
                 name: "IX_CourseGroupUser_CourseGroupId",
                 table: "CourseGroupUser",
                 column: "CourseGroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ErrorCode_CodingLanguageId",
+                table: "ErrorCode",
+                column: "CodingLanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StatLine_ErrorCodeId",
+                table: "StatLine",
+                column: "ErrorCodeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StatLine_StatsId",
+                table: "StatLine",
+                column: "StatsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Stats_CompilationId",
+                table: "Stats",
+                column: "CompilationId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -301,6 +402,9 @@ namespace Data.Migrations
                 name: "CourseGroupUser");
 
             migrationBuilder.DropTable(
+                name: "StatLine");
+
+            migrationBuilder.DropTable(
                 name: "CompilationError");
 
             migrationBuilder.DropTable(
@@ -310,7 +414,7 @@ namespace Data.Migrations
                 name: "User");
 
             migrationBuilder.DropTable(
-                name: "Compilation");
+                name: "Stats");
 
             migrationBuilder.DropTable(
                 name: "ErrorCode");
@@ -322,10 +426,16 @@ namespace Data.Migrations
                 name: "Term");
 
             migrationBuilder.DropTable(
-                name: "Client");
+                name: "Compilation");
+
+            migrationBuilder.DropTable(
+                name: "CodingLanguage");
 
             migrationBuilder.DropTable(
                 name: "Institution");
+
+            migrationBuilder.DropTable(
+                name: "Client");
         }
     }
 }

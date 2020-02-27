@@ -1,10 +1,10 @@
-using InfoDiag.Extensions;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Services.Interfaces;
-
 namespace InfoDiag.Controllers
 {
+    using InfoDiag.Extensions;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Services.Interfaces;
+
     [Route("api/[controller]")]
     [ApiController]
     public class ClientController : ControllerBase
@@ -27,6 +27,19 @@ namespace InfoDiag.Controllers
             }
 
             return Ok(_clientService.GetAllClients(user.Email));
+        }
+
+        [HttpGet]
+        public IActionResult GetClient(int id)
+        {
+            var user = this.UserDto();
+
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            return Ok(_clientService.GetClient(user.Email, id));
         }
     }
 }

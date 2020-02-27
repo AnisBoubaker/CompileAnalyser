@@ -1,12 +1,12 @@
-﻿using Constants.Enums;
-
 namespace Entity
 {
+    using Constants.Enums;
+
     public class StatLine : IBaseEntity<long>
     {
         public long Id { get; set; }
 
-        public int StatsId { get; set; }
+        public long StatsId { get; set; }
 
         public int NbOccurence { get; set; }
 

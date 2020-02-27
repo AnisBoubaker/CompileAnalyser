@@ -1,11 +1,11 @@
-using System;
-using System.Collections.Generic;
-using Entity;
-using Microsoft.EntityFrameworkCore;
-using Repositories.Interfaces;
-
 namespace Repositories
 {
+    using System;
+    using System.Collections.Generic;
+    using Entity;
+    using Microsoft.EntityFrameworkCore;
+    using Repositories.Interfaces;
+
     internal class CourseGroupRepository : BaseRepository<CourseGroup, string>, ICourseGroupRepository
     {
         public CourseGroupRepository(DbContext context)

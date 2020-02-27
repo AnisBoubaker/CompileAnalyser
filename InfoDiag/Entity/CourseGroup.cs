@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace Entity
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class CourseGroup : IBaseEntity<string>
     {
         // This should have a format as AAA111-A2019-1

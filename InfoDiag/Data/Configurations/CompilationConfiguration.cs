@@ -1,9 +1,9 @@
-﻿using Entity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Data.Configurations
+﻿namespace Data.Configurations
 {
+    using Entity;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
     internal class CompilationConfiguration : IEntityTypeConfiguration<Compilation>
     {
         public void Configure(EntityTypeBuilder<Compilation> builder)

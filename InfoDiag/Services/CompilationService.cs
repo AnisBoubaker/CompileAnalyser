@@ -1,17 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using AutoMapper;
-using Entity;
-using Microsoft.AspNetCore.Http;
-using Repositories.Interfaces;
-using Services.Interfaces;
-using Services.Models;
-
 namespace Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.IO.Compression;
+    using System.Linq;
+    using AutoMapper;
+    using Entity;
+    using Microsoft.AspNetCore.Http;
+    using Repositories.Interfaces;
+    using Services.Interfaces;
+    using Services.Models;
+
     public class CompilationService : BaseService, ICompilationService
     {
         private const int _lineKeep = 3;
@@ -34,6 +34,11 @@ namespace Services
 
         public ServiceCallResult<string> AddCompilation(IFormFile file)
         {
+            if (file == null)
+            {
+                return Error<string>("Une compilation doit être inclus dans cette requête");
+            }
+
             (var projPath, var logPath, var programPath) = ProcessZip(file);
             var result = _clientService.Process(projPath);
             if (result.Failed)
@@ -44,6 +49,8 @@ namespace Services
             var lines = _logAnalyzerService.MapToLines(logPath);
 
             AddReferenceLines(lines, programPath);
+
+           //TODO : OK LA 
 
             var compilationErrors = _mapper.Map<IEnumerable<CompilationError>>(lines);
 
@@ -70,7 +77,16 @@ namespace Services
             {
                 var innerFiles = archive.Entries;
                 innerFiles.Where(f => f.FullName.Contains(".vcxproj")).FirstOrDefault()?.ExtractToFile(projPath, true);
-                innerFiles.Where(f => f.FullName.Contains(".log")).FirstOrDefault()?.ExtractToFile(logPath, true);
+                using (Stream concat = File.OpenWrite(logPath))
+                {
+                    innerFiles.Where(f => f.FullName.Contains(".log")).ToList()
+                        .ForEach(f =>
+                        {
+                            using var fs = f.Open();
+                            fs.CopyTo(concat);
+                        });
+                }
+
                 innerFiles.Where(f => f.FullName.Contains(".h") || f.FullName.Contains(".c")).ToList().ForEach(f =>
                 {
                     if (!Directory.Exists(programPath))

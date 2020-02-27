@@ -1,28 +1,29 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatDialog } from '@angular/material';
-import { ToastrService } from 'ngx-toastr';
-import { Group } from 'src/app/generic/models/group';
-import { GroupService } from 'src/app/services/group.service';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { Role } from 'src/app/generic/models/user';
-import { EditGroupComponent } from '../edit-group/edit-group.component';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatTableDataSource } from "@angular/material/table";
+import { Group } from "src/app/generic/models/group";
+import { GroupService } from "src/app/services/group.service";
+import { AuthenticationService } from "src/app/services/authentication.service";
+import { Role } from "src/app/generic/models/user";
+import { EditGroupComponent } from "../edit-group/edit-group.component";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-group-list',
-  templateUrl: './group-list.component.html',
-  styleUrls: ['./group-list.component.css']
+  selector: "app-group-list",
+  templateUrl: "./group-list.component.html",
+  styleUrls: ["./group-list.component.css"]
 })
 export class GroupListComponent implements OnInit {
   loaded = false;
   groups: MatTableDataSource<Group>;
-  displayedColumns: string[] = ['course', 'term', 'groupNumber', 'actions'];
+  displayedColumns: string[] = ["course", "term", "groupNumber", "actions"];
   base: Group[];
-  searchbar = '';
+  searchbar = "";
   searchLoading = false;
   isAdmin = Number(Role[this.auth.currentUserValue.Role]) === Role.Admin;
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
     private groupService: GroupService,
@@ -47,28 +48,28 @@ export class GroupListComponent implements OnInit {
 
   add() {
     const dialogRef = this.dialog.open(EditGroupComponent, {
-      width: '600px',
+      width: "600px"
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log("The dialog was closed");
       this.init();
     });
   }
 
   edit(element) {
     const dialogRef = this.dialog.open(EditGroupComponent, {
-      width: '600px',
+      width: "600px",
       data: element
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log("The dialog was closed");
       this.init();
     });
   }
 
   stats(id) {
-    this.router.navigate(['/group/' + id]);
+    this.router.navigate(["/group/" + id]);
   }
 }

@@ -1,8 +1,8 @@
-﻿using Entity;
-
 namespace Repositories.Interfaces
 {
-    public interface IStatsRepository : IRepository<Stats, int>
+    using Entity;
+
+    public interface IStatsRepository : IRepository<Stats, long>
     {
     }
 }

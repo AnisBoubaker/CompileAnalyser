@@ -1,9 +1,9 @@
-using Entity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 namespace Data.Configurations
 {
+    using Entity;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
     internal class CodingLanguageConfiguration : IEntityTypeConfiguration<CodingLanguage>
     {
         public void Configure(EntityTypeBuilder<CodingLanguage> builder)

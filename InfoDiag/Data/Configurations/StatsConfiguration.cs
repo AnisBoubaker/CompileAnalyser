@@ -1,9 +1,9 @@
-using Entity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 namespace Data.Configurations
 {
+    using Entity;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
     public class StatsConfiguration : IEntityTypeConfiguration<Stats>
     {
         public void Configure(EntityTypeBuilder<Stats> builder)

@@ -1,0 +1,25 @@
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let stat of display">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ stat.name }}
+      </mat-panel-title>
+      <mat-panel-description>
+        Occurence : {{ stat.nbOccurence }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-list>
+      <mat-list-item *ngFor="let sub of stat.subs"
+        >{{ sub.name }}
+
+        <mat-panel-description>
+          <button mat-raised-button color="primary" (click)="goto(sub.link)">
+            [...]
+          </button>
+          Occurence : {{ sub.nbOccurence }}
+        </mat-panel-description>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+  </mat-expansion-panel>
+</mat-accordion>

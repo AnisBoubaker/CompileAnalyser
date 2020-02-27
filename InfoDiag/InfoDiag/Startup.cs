@@ -1,16 +1,18 @@
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
-using Services.Configurations;
-using Services.Interfaces;
-
 namespace InfoDiag
 {
+    using System.Text;
+    using Hangfire;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.IdentityModel.Tokens;
+    using Services.Configurations;
+    using Services.Interfaces;
+    using Tasks.Configurations;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -24,6 +26,7 @@ namespace InfoDiag
         public void ConfigureServices(IServiceCollection services)
         {
             ServicesConfiguration.ConfigureServices(services, Configuration);
+            TasksConfiguration.ConfigureService(services, Configuration);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                     {
@@ -67,6 +70,10 @@ namespace InfoDiag
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            TasksConfiguration.AddTasksUi(app);
+
+            TasksConfiguration.StartTasks();
 
             app.UseHttpsRedirection();
 

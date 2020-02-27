@@ -1,14 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Constants.Enums;
-using Constants.Extentions;
-using Entity;
-using Repositories.Interfaces;
-using Services.Interfaces;
-
 namespace Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Constants.Enums;
+    using Constants.Extentions;
+    using Entity;
+    using Repositories.Interfaces;
+    using Services.Interfaces;
+
     public class SeedService : ISeedService
     {
         private const string _seedPassword = "9TwlonUcSEeLv08D7nSzjU0XL1dNi/NXjBdYutbI8SMMiJG2hf10/Q68YUAxVq+a"; // 1234
@@ -93,6 +93,7 @@ namespace Services
             {
                 _termService.CreateCurrentTerm();
                 term = _termRepository.AllAsQueryable.FirstOrDefault();
+
             }
 
             // Generate a course group of each
@@ -122,6 +123,31 @@ namespace Services
 
                 Assign(group, admin);
             }
+
+            if (!_courseGroupRepository.AllAsQueryable.Any(c => c.Id == "INF155-A18-2"))
+            {
+                CreateTestCourseGroup(institution.Courses.Last(), admin);
+            }
+        }
+
+        private void CreateTestCourseGroup(Course course, User admin)
+        {
+            var term = _termRepository.Insert(new Term
+            {
+                Id = "A18",
+                TermType = Constants.TermTypeEnum.Fall,
+                Year = 2018,
+            });
+
+            var group = _courseGroupRepository.Insert(new CourseGroup
+            {
+                // TODO this is for testing with : micha_INF155_Projet2_20181030150250
+                GroupNumber = 2,
+                CourseId = course.Id,
+                TermId = term.Id,
+            });
+
+            Assign(group, admin);
         }
 
         private IEnumerable<CodingLanguage> SeedLanguages()

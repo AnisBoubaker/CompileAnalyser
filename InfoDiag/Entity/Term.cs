@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using Constants;
-
 namespace Entity
 {
+    using System.Collections.Generic;
+    using Constants;
+
     public class Term : IBaseEntity<string>
     {
         // Should be in the format A2020

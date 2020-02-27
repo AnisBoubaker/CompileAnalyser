@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Entity.DTO
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     public class AssignCourseGroupDto
     {
-        public int CourseGroupId { get; set; }
+        public string CourseGroupId { get; set; }
 
-        public int UserId { get; set; }
+        public int[] UserIds { get; set; }
     }
 }

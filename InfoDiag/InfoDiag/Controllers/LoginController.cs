@@ -1,19 +1,19 @@
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using Constants.Enums;
-using Entity.DTO;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Logging;
-using Microsoft.IdentityModel.Tokens;
-using Services.Interfaces;
-
 namespace InfoDiag.Controllers
 {
+    using System;
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Text;
+    using Constants.Enums;
+    using Entity.DTO;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.IdentityModel.Logging;
+    using Microsoft.IdentityModel.Tokens;
+    using Services.Interfaces;
+
     [Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
@@ -33,11 +33,11 @@ namespace InfoDiag.Controllers
         [HttpPost]
         public IActionResult Login([FromBody]LoginDto login)
         {
-            var user = _userService.AuthenticateUser(login);
+            var result = _userService.AuthenticateUser(login);
 
-            if (user != null)
+            if (result.Success)
             {
-                var tokenString = GenerateJSONWebToken(user);
+                var tokenString = GenerateJSONWebToken(result.Value);
                 return Ok(new { token = tokenString });
             }
 

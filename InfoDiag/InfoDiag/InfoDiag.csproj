@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -32,6 +32,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Entity.DTO\Entity.DTO.csproj" />
     <ProjectReference Include="..\Services\Services.csproj" />
+    <ProjectReference Include="..\Tasks\Tasks.csproj" />
   </ItemGroup>
 
 </Project>

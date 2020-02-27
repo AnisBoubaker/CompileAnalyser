@@ -1,22 +1,22 @@
 .mat-elevation-z8 {
-    display: grid;
+  display: grid;
 }
 
 .title-row {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .no-element {
-    display: flex;
-    white-space: pre;
-    padding: 1rem;
+  display: flex;
+  white-space: pre;
+  padding: 1rem;
 }
 
 .addBtn {
-    margin: 1rem;
+  margin: 1rem;
 }
 
 .btnList {
-    margin-left: .5rem;
+  margin-left: 0.5rem;
 }

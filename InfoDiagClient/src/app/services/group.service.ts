@@ -17,8 +17,21 @@ export class GroupService {
         .pipe(first());
     }
 
-    getPermitedUsers(courseGroupId: number): Observable<User[]> {
-        return this.http.get<User[]>(`{${environment.apiUrl}/api/courseGroup/users}`, {params:{courseGroupId: '' + courseGroupId}})
+    getGroup(id: string): Observable<Group> {
+        return this.http.get<Group>(`${environment.apiUrl}/api/courseGroup`, {params: {groupId: id}})
         .pipe(first());
+    }
+
+    getPermitedUsers(courseGroupId: string): Observable<User[]> {
+        return this.http.get<User[]>(`${environment.apiUrl}/api/courseGroup/${courseGroupId}/users`)
+        .pipe(first());
+    }
+
+    postGroup(courseId: string, termId: string, groupNumber: number, userIds: number[]) {
+        return this.http.post(`${environment.apiUrl}/api/courseGroup`, {courseId: courseId, termId: termId, groupNumber: groupNumber, userIds: userIds}).pipe(first())
+    }
+
+    assign(courseGroupId: string, userIds: number[]){
+        return this.http.post(`${environment.apiUrl}/api/courseGroup/assign`, { courseGroupId: courseGroupId, userIds: userIds})
     }
 }

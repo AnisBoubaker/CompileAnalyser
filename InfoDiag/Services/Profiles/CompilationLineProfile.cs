@@ -1,12 +1,12 @@
-using System;
-using System.Linq;
-using AutoMapper;
-using Constants.Enums;
-using Entity;
-using Services.Models;
-
 namespace Services.Profiles
 {
+    using System;
+    using System.Linq;
+    using AutoMapper;
+    using Constants.Enums;
+    using Entity;
+    using Services.Models;
+
     public class CompilationLineProfile : Profile
     {
         public CompilationLineProfile()

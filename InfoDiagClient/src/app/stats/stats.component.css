@@ -1,0 +1,9 @@
+.mat-expansion-panel-header-description {
+  display: flex;
+  justify-content: flex-end;
+}
+
+mat-panel-description {
+  align-items: center;
+  white-space: pre-wrap;
+}

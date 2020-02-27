@@ -1,12 +1,13 @@
-using System.Collections.Generic;
-using Entity.DTO;
-
 namespace Services.Interfaces
 {
+    using System.Collections.Generic;
+    using Entity.DTO;
+    using Services.Models;
+
     public interface IUserService
     {
-        UserDto AuthenticateUser(LoginDto dto);
+        ServiceCallResult<UserDto> AuthenticateUser(LoginDto dto);
 
-        bool Exists(int userId);
+        ServiceCallResult<IEnumerable<UserDto>> GetAll();
     }
 }

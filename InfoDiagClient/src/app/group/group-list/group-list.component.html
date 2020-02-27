@@ -31,10 +31,20 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <button mat-raised-button class="btnList" color="primary" (click)="stats(element.id)">
+        <button
+          mat-raised-button
+          class="btnList"
+          color="primary"
+          (click)="stats(element.id)"
+        >
           <mat-icon>scatter_plot</mat-icon>
         </button>
-        <button mat-raised-button class="btnList" color="primary" (click)="edit(element)">
+        <button
+          mat-raised-button
+          class="btnList"
+          color="primary"
+          (click)="edit(element)"
+        >
           <mat-icon>edit</mat-icon>
         </button>
       </td>
