@@ -11,7 +11,7 @@ namespace Services.Configurations
     using Services.Interfaces;
     using Services.Models;
 
-    public class UserService : BaseService, IUserService
+    internal class UserService : BaseService, IUserService
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;

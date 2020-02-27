@@ -9,7 +9,7 @@ namespace Services
     using Repositories.Interfaces;
     using Services.Interfaces;
 
-    public class SeedService : ISeedService
+    internal class SeedService : ISeedService
     {
         private const string _seedPassword = "9TwlonUcSEeLv08D7nSzjU0XL1dNi/NXjBdYutbI8SMMiJG2hf10/Q68YUAxVq+a"; // 1234
 

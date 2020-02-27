@@ -8,7 +8,7 @@ namespace Services
     using Services.Interfaces;
     using Services.Models;
 
-    public class CourseService : BaseService, ICourseService
+    internal class CourseService : BaseService, ICourseService
     {
         private readonly Regex _aliasRegex = new Regex("^(\\w*)-(\\w*)-(\\d*)$");
 

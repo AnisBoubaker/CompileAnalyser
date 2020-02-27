@@ -11,7 +11,7 @@ namespace Services
     using Services.Interfaces;
     using Services.Models;
 
-    public class TermService : BaseService, ITermService
+    internal class TermService : BaseService, ITermService
     {
         private readonly ITermRepository _termRepository;
         private readonly IMapper _mapper;

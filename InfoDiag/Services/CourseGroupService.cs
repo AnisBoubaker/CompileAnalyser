@@ -10,7 +10,7 @@ namespace Services
     using Services.Interfaces;
     using Services.Models;
 
-    public class CourseGroupService : BaseService, ICourseGroupService
+    internal class CourseGroupService : BaseService, ICourseGroupService
     {
         private readonly IUserRepository _userRepository;
         private readonly ICourseGroupRepository _courseGroupRepository;

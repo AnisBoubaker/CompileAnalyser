@@ -13,7 +13,7 @@ namespace Services
     using Services.Interfaces;
     using Services.Models;
 
-    public class StatService : BaseService, IStatService
+    internal class StatService : BaseService, IStatService
     {
         private readonly IStatsRepository _statsRepository;
         private readonly ICompilationRepository _compilationRepository;

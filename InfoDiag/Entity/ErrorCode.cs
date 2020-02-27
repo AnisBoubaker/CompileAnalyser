@@ -14,7 +14,7 @@ namespace Entity
 
         public virtual CodingLanguage CodingLanguage { get; set; }
 
-        public int ErrorCategoryId { get; set; }
+        public int? ErrorCategoryId { get; set; }
 
         public virtual ErrorCategory ErrorCategory { get; set; }
     }

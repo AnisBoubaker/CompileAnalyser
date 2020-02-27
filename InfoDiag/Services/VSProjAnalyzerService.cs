@@ -9,7 +9,7 @@ namespace Services
     using Services.Interfaces;
     using Services.Models;
 
-    public class VSProjAnalyzerService : BaseService, IVSProjAnalyzerService
+    internal class VSProjAnalyzerService : BaseService, IVSProjAnalyzerService
     {
         private readonly IClientRepository _clientRepository;
         private readonly IInstitutionRepository _institutionRepository;

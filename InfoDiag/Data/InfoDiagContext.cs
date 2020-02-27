@@ -32,6 +32,8 @@ namespace Data
 
         public DbSet<StatLine> StatLines { get; set; }
 
+        public DbSet<ErrorCategory> ErrorCategories { get; set; }
+
         public InfoDiagContext(DbContextOptions<InfoDiagContext> options)
             : base(options)
         {
@@ -54,6 +56,7 @@ namespace Data
             modelBuilder.ApplyConfiguration(new CodingLanguageConfiguration());
             modelBuilder.ApplyConfiguration(new StatsConfiguration());
             modelBuilder.ApplyConfiguration(new StatLineConfiguration());
+            modelBuilder.ApplyConfiguration(new ErrorCategoryConfiguration());
         }
     }
 }

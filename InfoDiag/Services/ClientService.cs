@@ -9,7 +9,7 @@ namespace Services
     using Repositories.Interfaces;
     using Services.Interfaces;
 
-    public class ClientService : IClientService
+    internal class ClientService : IClientService
     {
         private readonly IUserRepository _userRepository;
         private readonly IClientRepository _clientRepository;

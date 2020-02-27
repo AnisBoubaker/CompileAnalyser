@@ -12,7 +12,7 @@ namespace Services
     using Services.Interfaces;
     using Services.Models;
 
-    public class CompilationService : BaseService, ICompilationService
+    internal class CompilationService : BaseService, ICompilationService
     {
         private const int _lineKeep = 3;
         private readonly IVSProjAnalyzerService _clientService;

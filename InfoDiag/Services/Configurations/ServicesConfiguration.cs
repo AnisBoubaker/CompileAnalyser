@@ -25,7 +25,8 @@ namespace Services.Configurations
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<ITermService, TermService>();
             services.AddTransient<ISeedService, SeedService>();
-            services.AddTransient<IStatService, StatService>();
+            services.AddScoped<IStatService, StatService>();
+            services.AddScoped<IErrorCategoryService, ErrorCategoryService>();
         }
     }
 }
