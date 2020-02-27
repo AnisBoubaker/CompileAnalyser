@@ -1,9 +1,11 @@
-<h1>Statistiques des erreurs : </h1>
+<h1>Statistiques des erreurs :</h1>
 
-<div>
-  <!-- graph -->
-</div>
+<div *ngIf="loaded">
+  <div>
+    <!-- graph -->
+  </div>
 
-<div>
-  <app-stats [stats]="stats"></app-stats>
+  <div>
+    <app-stats [stats]="stats"></app-stats>
+  </div>
 </div>

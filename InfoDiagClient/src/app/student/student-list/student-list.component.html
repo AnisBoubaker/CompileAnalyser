@@ -2,7 +2,7 @@
 <div *ngIf="loaded" class="mat-elevation-z8">
   <table
     mat-table
-    *ngIf="students.length > 0; else elseBlock"
+    *ngIf="students.data.length > 0; else elseBlock"
     [dataSource]="students"
   >
     <!--- Note that these columns can be defined in any order.

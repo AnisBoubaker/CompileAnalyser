@@ -2,17 +2,30 @@ namespace InfoDiag.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Services.Interfaces;
 
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CourseController : ControllerBase
     {
-        [AllowAnonymous]
-        [HttpGet("hello")]
-        public IActionResult Hello()
+        private readonly ICourseService _courseService;
+
+        public CourseController(ICourseService courseService)
         {
-            return Ok("hello");
+            _courseService = courseService;
+        }
+
+        [HttpGet("alias")]
+        public IActionResult GetCourseIds()
+        {
+            var result = _courseService.GetCourseIds();
+
+            if (result.Failed)
+            {
+                return BadRequest(result.Error);
+            }
+
+            return Ok(result.Value);
         }
     }
 }

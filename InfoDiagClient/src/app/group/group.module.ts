@@ -13,11 +13,15 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatTableModule } from "@angular/material/table";
 import { StatsService } from '../services/stat.service';
 import { GroupService } from '../services/group.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [GroupListComponent, EditGroupComponent, GroupComponent],
   imports: [
     CommonModule,
+    FormsModule,
     MatTableModule,
     MatPaginatorModule,
     MatSelectModule,
@@ -25,6 +29,8 @@ import { GroupService } from '../services/group.service';
     MatIconModule,
     MatDialogModule,
     MatListModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
     StatsModule
   ],
   entryComponents: [EditGroupComponent],

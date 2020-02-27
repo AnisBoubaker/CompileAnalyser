@@ -9,8 +9,9 @@ namespace Services.Configurations
     using Microsoft.AspNetCore.Cryptography.KeyDerivation;
     using Repositories.Interfaces;
     using Services.Interfaces;
+    using Services.Models;
 
-    public class UserService : IUserService
+    public class UserService : BaseService, IUserService
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
@@ -21,21 +22,21 @@ namespace Services.Configurations
             _mapper = mapper;
         }
 
-        public UserDto AuthenticateUser(LoginDto dto)
+        public ServiceCallResult<UserDto> AuthenticateUser(LoginDto dto)
         {
             var user = _userRepository.Get(u => u.Email == dto.Email).SingleOrDefault();
 
             if (user == null)
             {
-                return null;
+                return Error<UserDto>("User does not exist");
             }
 
             if (VerifyPassword(user.Password, dto.Password))
             {
-                return _mapper.Map<UserDto>(user);
+                return Success(_mapper.Map<UserDto>(user));
             }
 
-            return null;
+            return Error<UserDto>("The username password combo does not match");
         }
 
         public bool ChangePassword(LoginDto dto, string newPassword)
@@ -58,9 +59,14 @@ namespace Services.Configurations
             return false;
         }
 
-        public bool Exists(int userId)
+        public ServiceCallResult Exists(int userId)
         {
-            return _userRepository.AllAsQueryable.Any(u => u.Id == userId);
+            return _userRepository.AllAsQueryable.Any(u => u.Id == userId) ? Success(): Error("The specified user id does not exist");
+        }
+
+        public ServiceCallResult<IEnumerable<UserDto>> GetAll()
+        {
+            return Success(_mapper.Map<IEnumerable<UserDto>>(_userRepository.AllAsQueryable.Where(u => u.Role != Constants.Enums.UserRole.Admin)));
         }
 
         private string EncryptPassword(string password)

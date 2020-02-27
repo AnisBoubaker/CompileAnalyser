@@ -1,7 +1,8 @@
+using System.Collections.Generic;
+using Services.Models;
+
 namespace Services.Interfaces
 {
-    using Services.Models;
-
     public interface ITermService
     {
         ServiceCallResult Create(string alias);
@@ -9,5 +10,7 @@ namespace Services.Interfaces
         ServiceCallResult CreateMultiple(string startAlias, int number);
 
         ServiceCallResult CreateCurrentTerm();
+
+        ServiceCallResult<IEnumerable<string>> GetAll();
     }
 }

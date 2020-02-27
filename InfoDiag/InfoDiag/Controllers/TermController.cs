@@ -1,4 +1,4 @@
-﻿namespace InfoDiag.Controllers
+namespace InfoDiag.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -19,7 +19,7 @@
             this.termService = termService;
         }
 
-        [HttpPost("create")]
+        [HttpPost()]
         public IActionResult Create(string alias)
         {
             var result = termService.Create(alias);
@@ -32,7 +32,20 @@
             return Ok();
         }
 
-        [HttpPost("createMultiple")]
+        [HttpPost("current")]
+        public IActionResult CreateCurrent()
+        {
+            var result = termService.CreateCurrentTerm();
+
+            if (result.Failed)
+            {
+                return BadRequest(result.Error);
+            }
+
+            return Ok(termService.GetAll());
+        }
+
+        [HttpPost("multiple")]
         public IActionResult CreateMultiple(string alias, int number)
         {
             var result = termService.CreateMultiple(alias, number);
@@ -43,6 +56,19 @@
             }
 
             return Ok();
+        }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var result = termService.GetAll();
+
+            if (result.Failed)
+            {
+                return BadRequest(result.Error);
+            }
+
+            return Ok(result.Value);
         }
     }
 }

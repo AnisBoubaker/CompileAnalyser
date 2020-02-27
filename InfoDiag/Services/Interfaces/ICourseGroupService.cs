@@ -8,10 +8,14 @@ namespace Services.Interfaces
     {
         ServiceCallResult<IEnumerable<CourseGroupDto>> GetAll(string userEmail);
 
-        ServiceCallResult Assign(int userId, string groupCourseId);
+        ServiceCallResult Assign(int[] userIds, string groupCourseId);
 
         ServiceCallResult AddStudent(int clientId, string groupCourseId);
 
         ServiceCallResult<CourseGroupDto> Get(string email, string groupId);
+
+        ServiceCallResult CreateGroupCourse(CreateCourseGroupDto dto);
+
+        ServiceCallResult<IEnumerable<int>> GetPermitedUsers(string courseGroupId);
     }
 }

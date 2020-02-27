@@ -23,36 +23,23 @@ namespace Services
             _mapper = mapper;
         }
 
-        public ServiceCallResult Assign(int userId, string groupCourseId)
+        public ServiceCallResult Assign(int[] userIds, string groupCourseId)
         {
-            var cg = _courseGroupRepository.AllAsQueryable.Include(cg => cg.CourseGroupUsers).FirstOrDefault(cg => cg.Id == groupCourseId);
-
-            if (cg.CourseGroupUsers.Any(cgc => cgc.UserId == userId))
+            if (userIds == null)
             {
-                return Error("User is already in this group");
+                return Error("UserIds cannot be null");
             }
 
-            cg.CourseGroupUsers.Add(new CourseGroupUser
-            {
-                UserId = userId,
-                CourseGroupId = groupCourseId,
-            });
-
-            _courseGroupRepository.Update(cg);
-
-            return Success();
-        }
-
-        public ServiceCallResult Unassigned(int userId, string groupCourseId)
-        {
             var cg = _courseGroupRepository.AllAsQueryable.Include(cg => cg.CourseGroupUsers).FirstOrDefault(cg => cg.Id == groupCourseId);
 
-            if (!cg.CourseGroupUsers.Any(cgc => cgc.UserId == userId))
+            cg.CourseGroupUsers.Clear();
+
+            foreach (int userId in userIds)
             {
-                return Error("User isn't assigned to this group");
+                Assign(userId, cg);
             }
 
-            cg.CourseGroupUsers = cg.CourseGroupUsers.Where(cg => cg.UserId != userId).ToList();
+            Assign(1, cg);
 
             _courseGroupRepository.Update(cg);
 
@@ -100,6 +87,45 @@ namespace Services
             {
                 return Error<CourseGroupDto>("This group id doesn't exist or you don't have the rights to see it.");
             }
+        }
+
+        public ServiceCallResult CreateGroupCourse(CreateCourseGroupDto dto)
+        {
+            var inserted = _courseGroupRepository.Insert(new CourseGroup
+            {
+                TermId = dto.TermId,
+                CourseId = dto.CourseId,
+                GroupNumber = dto.GroupNumber,
+            });
+
+            var permited = dto.UserIds.Select(id => new CourseGroupUser { CourseGroupId = inserted.Id, UserId = id });
+
+            // adds admin by default to every group 
+            permited.Concat(new[] { new CourseGroupUser { CourseGroupId = inserted.Id, UserId = 1} });
+
+            inserted.CourseGroupUsers = permited.ToList();
+
+            _courseGroupRepository.Update(inserted);
+
+            return Success();
+        }
+
+        public ServiceCallResult<IEnumerable<int>> GetPermitedUsers(string courseGroupId)
+        {
+            var group = _courseGroupRepository.AllAsQueryable.Where(cg => cg.Id == courseGroupId);
+
+            var users = group.SelectMany(cg => cg.CourseGroupUsers).Select(cgu => cgu.UserId);
+
+            return Success(users.AsEnumerable());
+        }
+
+        private void Assign(int userId, CourseGroup cg)
+        {
+            cg.CourseGroupUsers.Add(new CourseGroupUser
+            {
+                UserId = userId,
+                CourseGroupId = cg.Id,
+            });
         }
     }
 }

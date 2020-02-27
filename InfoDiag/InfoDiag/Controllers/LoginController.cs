@@ -33,11 +33,11 @@ namespace InfoDiag.Controllers
         [HttpPost]
         public IActionResult Login([FromBody]LoginDto login)
         {
-            var user = _userService.AuthenticateUser(login);
+            var result = _userService.AuthenticateUser(login);
 
-            if (user != null)
+            if (result.Success)
             {
-                var tokenString = GenerateJSONWebToken(user);
+                var tokenString = GenerateJSONWebToken(result.Value);
                 return Ok(new { token = tokenString });
             }
 

@@ -1,5 +1,5 @@
 export interface Stats {
-    date: Date,
+    date: Date | string,
     lines: StatLine[]
 }
 
@@ -8,5 +8,6 @@ export interface StatLine {
     name: string,
     // we use the type has a reference
     type: number,
-    isErrorCode: boolean
+    isErrorCode: boolean,
+    link: string
 }

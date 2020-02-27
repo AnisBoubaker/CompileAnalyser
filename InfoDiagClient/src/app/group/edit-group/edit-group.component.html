@@ -1,16 +1,57 @@
 <div class="title-row">
   <h1>{{ title }}</h1>
 </div>
+
+<div *ngIf="!isEditing && loaded">
+  <div>
+    <mat-form-field>
+      <mat-label>Cours</mat-label>
+      <mat-select [(value)]="courseId">
+        <mat-option *ngFor="let cours of possibleCourses" [value]="cours">
+          {{ cours }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-label>Session</mat-label>
+      <mat-select [(value)]="termId">
+        <mat-option *ngFor="let term of possibleTerms" [value]="term">
+          {{ term }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      class="adjustBtn"
+      color="primary"
+      (click)="addCurrentTerm()"
+      style="float: right;"
+    >
+      Ajouter session courante
+    </button>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-label>Numéro de groupe</mat-label>
+      <input matInput type="number" [(ngModel)]="groupNumber" />
+    </mat-form-field>
+  </div>
+</div>
+
 <mat-selection-list #users>
   <mat-list-option *ngFor="let user of possibleUsers" [value]="user">
     {{ user.firstName + " " + user.lastName }}
   </mat-list-option>
 </mat-selection-list>
+
 <button
   mat-raised-button
   class="adjustBtn"
   color="primary"
-  (click)="adjustTeacher(users.selectedOptions.selected)"
+  (click)="submit()"
+  [disabled]="saving || !loaded"
 >
-  Enregistrer
+  Enregister
 </button>

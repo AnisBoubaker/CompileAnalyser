@@ -8,6 +8,6 @@ namespace Entity.DTO
     {
         public string CourseGroupId { get; set; }
 
-        public int UserId { get; set; }
+        public int[] UserIds { get; set; }
     }
 }

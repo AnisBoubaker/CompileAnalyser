@@ -32,7 +32,7 @@ namespace InfoDiag.Controllers
             }
 
             var courseGroups = _courseGroupService.GetAll(user.Email);
-            return Ok(courseGroups);
+            return Ok(courseGroups.Value);
         }
 
         public IActionResult Get(string groupId)
@@ -45,19 +45,46 @@ namespace InfoDiag.Controllers
             }
 
             var courseGroup = _courseGroupService.Get(user.Email, groupId);
-            return Ok(courseGroup);
+            return Ok(courseGroup.Value);
         }
 
         [HttpPost("assign")]
         public IActionResult Assign(AssignCourseGroupDto dto)
         {
-            if (_userService.Exists(dto.UserId))
+            var result = _courseGroupService.Assign(dto.UserIds, dto.CourseGroupId);
+
+            if (result.Failed)
             {
-                _courseGroupService.Assign(dto.UserId, dto.CourseGroupId);
+                return BadRequest();
+            }
+
+            return Ok();
+        }
+
+        [HttpPost]
+        public IActionResult Create(CreateCourseGroupDto dto)
+        {
+            var result = _courseGroupService.CreateGroupCourse(dto);
+
+            if (result.Success)
+            {
                 return Ok();
             }
 
-            return BadRequest();
+            return BadRequest(result.Error);
+        }
+
+        [HttpGet("{courseGroupId}/users")]
+        public IActionResult GetPermitedUsers(string courseGroupId)
+        {
+            var result = _courseGroupService.GetPermitedUsers(courseGroupId);
+
+            if (result.Success)
+            {
+                return Ok(result.Value);
+            }
+
+            return BadRequest(result.Error);
         }
     }
 }

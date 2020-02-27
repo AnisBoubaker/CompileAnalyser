@@ -1,5 +1,6 @@
 namespace Services
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
     using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,11 @@ namespace Services
             _courseRepository = courseRepository;
             _courseGroupRepository = courseGroupRepository;
             _courseGroupService = courseGroupService;
+        }
+
+        public ServiceCallResult<IEnumerable<string>> GetCourseIds()
+        {
+            return Success(_courseRepository.AllAsQueryable.Select(c => c.Id).AsEnumerable());
         }
 
         public ServiceCallResult ProcessCourseGroupAlias(string alias, int clientId)

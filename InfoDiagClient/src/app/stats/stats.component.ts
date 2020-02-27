@@ -14,7 +14,7 @@ export class StatsComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.createDisplay(JSON.parse(JSON.stringify(this.stats)));
+    this.createDisplay(this.concat(this.stats));
   }
 
   createDisplay(toUse) {
@@ -31,5 +31,34 @@ export class StatsComponent implements OnInit {
         val => val.type === element.type
       );
     });
+  }
+
+  changeBeginnig(from: string) {
+
+  }
+
+  changeEnd(to: string) {}
+
+  concat(toConcat: Stats[]): Stats {
+    const concated: Stats = toConcat[0];
+
+    toConcat.forEach((tc,i) => {
+      if (i != 0) {
+        tc.lines.forEach(l => {
+          const temp = concated.lines.find(l1 => l1.name === l.name)
+          if (temp) {
+            temp.nbOccurence += l.nbOccurence;
+          } else {
+            concated.lines.push(l);
+          }
+        })
+      }
+    });
+
+    return concated;
+  }
+
+  goto(link: string) {
+    window.open(link, '_blank');
   }
 }

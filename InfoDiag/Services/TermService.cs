@@ -2,6 +2,7 @@ namespace Services
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using AutoMapper;
     using Constants;
     using Entity;
@@ -81,6 +82,11 @@ namespace Services
             }
 
             return Success();
+        }
+
+        public ServiceCallResult<IEnumerable<string>> GetAll()
+        {
+            return Success(_termRepository.AllAsQueryable.Select(t => t.Id).AsEnumerable());
         }
 
         private IEnumerable<string> CreateAliases(string startAlias, int number)
