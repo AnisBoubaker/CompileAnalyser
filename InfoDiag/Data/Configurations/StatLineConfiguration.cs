@@ -1,4 +1,4 @@
-namespace Data.Configurations
+﻿namespace Data.Configurations
 {
     using Entity;
     using Microsoft.EntityFrameworkCore;

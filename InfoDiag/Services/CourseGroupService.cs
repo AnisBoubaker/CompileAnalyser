@@ -100,8 +100,8 @@ namespace Services
 
             var permited = dto.UserIds.Select(id => new CourseGroupUser { CourseGroupId = inserted.Id, UserId = id });
 
-            // adds admin by default to every group 
-            permited.Concat(new[] { new CourseGroupUser { CourseGroupId = inserted.Id, UserId = 1} });
+            // adds admin by default to every group
+            permited.Concat(new[] { new CourseGroupUser { CourseGroupId = inserted.Id, UserId = 1 } });
 
             inserted.CourseGroupUsers = permited.ToList();
 
