@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Migrations
 {
-    public partial class initStats : Migration
+    public partial class InitStats : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,7 @@ namespace Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: false)
+                    Email = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -30,7 +30,7 @@ namespace Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
-                    Code = table.Column<int>(nullable: false)
+                    Code = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -44,7 +44,7 @@ namespace Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
-                    Alias = table.Column<string>(nullable: true)
+                    Alias = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -57,7 +57,7 @@ namespace Data.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     TermType = table.Column<int>(nullable: false),
-                    Year = table.Column<int>(nullable: false)
+                    Year = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -74,7 +74,7 @@ namespace Data.Migrations
                     LastName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: false),
                     Role = table.Column<string>(nullable: false),
-                    Password = table.Column<string>(nullable: true)
+                    Password = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -89,7 +89,7 @@ namespace Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ClientId = table.Column<int>(nullable: false),
-                    CompilationTime = table.Column<DateTime>(nullable: false)
+                    CompilationTime = table.Column<DateTime>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -110,7 +110,7 @@ namespace Data.Migrations
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Link = table.Column<string>(nullable: true),
-                    CodingLanguageId = table.Column<int>(nullable: false)
+                    CodingLanguageId = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -129,7 +129,7 @@ namespace Data.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     CodingLanguageId = table.Column<int>(nullable: false),
-                    InstitutionId = table.Column<int>(nullable: true)
+                    InstitutionId = table.Column<int>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -155,7 +155,7 @@ namespace Data.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Date = table.Column<DateTime>(nullable: false),
-                    CompilationId = table.Column<int>(nullable: false)
+                    CompilationId = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -177,7 +177,7 @@ namespace Data.Migrations
                     CompilationId = table.Column<int>(nullable: false),
                     Message = table.Column<string>(nullable: true),
                     ErrorCodeId = table.Column<string>(nullable: true),
-                    Type = table.Column<int>(nullable: false)
+                    Type = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -203,7 +203,7 @@ namespace Data.Migrations
                     Id = table.Column<string>(nullable: false),
                     CourseId = table.Column<string>(nullable: true),
                     TermId = table.Column<string>(nullable: true),
-                    GroupNumber = table.Column<int>(nullable: false)
+                    GroupNumber = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -232,7 +232,7 @@ namespace Data.Migrations
                     NbOccurence = table.Column<int>(nullable: false),
                     IsErrorCode = table.Column<bool>(nullable: false),
                     ErrorCodeId = table.Column<string>(nullable: true),
-                    Type = table.Column<int>(nullable: false)
+                    Type = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -258,7 +258,7 @@ namespace Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Text = table.Column<string>(nullable: true),
-                    CompilationErrorId = table.Column<long>(nullable: true)
+                    CompilationErrorId = table.Column<long>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -276,7 +276,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     ClientId = table.Column<int>(nullable: false),
-                    CourseGroupId = table.Column<string>(nullable: false)
+                    CourseGroupId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -300,7 +300,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<int>(nullable: false),
-                    CourseGroupId = table.Column<string>(nullable: false)
+                    CourseGroupId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {

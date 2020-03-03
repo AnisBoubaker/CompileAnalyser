@@ -11,7 +11,7 @@ namespace Data.Migrations
 {
     [DbContext(typeof(InfoDiagContext))]
     [Migration("20200209210347_initStats")]
-    partial class initStats
+    partial class InitStats
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

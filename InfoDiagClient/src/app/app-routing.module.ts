@@ -15,6 +15,8 @@ import { ErrorCodeModule } from "./error-code/error-code.module";
 import { GroupListComponent } from "./group/group-list/group-list.component";
 import { GroupModule } from "./group/group.module";
 import { GroupComponent } from "./group/group.component";
+import { ErrorCategoryComponent } from './error-category/error-category.component';
+import { ErrorCategoryModule } from './error-category/error-category.module';
 
 const routes: Routes = [
   { path: "", redirectTo: "/home", pathMatch: "full" },
@@ -44,6 +46,8 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { path: "errorCode", redirectTo: "errorCode/all" },
+  { path: "errorCategory/all", component: ErrorCategoryComponent, canActivate: [AuthGuard]},
+  { path: "errorCategory", redirectTo: "errorCategory/all"},
   { path: "**", component: PageNotFoundComponent }
 ];
 
@@ -55,8 +59,9 @@ const routes: Routes = [
     ErrorModule,
     LoginModule,
     ErrorCodeModule,
-    GroupModule
+    GroupModule,
+    ErrorCategoryModule
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

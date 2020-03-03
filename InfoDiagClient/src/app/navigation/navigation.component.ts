@@ -29,6 +29,10 @@ export class NavigationComponent {
     }
   }
 
+  get role() {
+    return this.authService.currentUserValue.Role;
+  }
+
   click(sideNav: any) {
     // hack to make the drawer work... 
     sideNav._drawers.first.toggle()

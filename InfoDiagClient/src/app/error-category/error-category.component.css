@@ -1,0 +1,8 @@
+.example-card {
+    width: 40%;
+}
+
+.title-row {
+    display: flex;
+    justify-content: space-between;
+}
