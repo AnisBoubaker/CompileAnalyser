@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace TalentMontreal.Entities
+namespace Entity.DTO
 {
     public class ErrorCategoryDto
     {
