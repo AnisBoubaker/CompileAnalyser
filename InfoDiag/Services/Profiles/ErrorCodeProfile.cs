@@ -13,7 +13,7 @@ namespace Services.Profiles
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(source => source.Title))
                 .ForMember(dest => dest.CodingLanguageId, opt => opt.MapFrom((src, dest, _, ctx) => ctx.Items["lang"]));
             CreateMap<ErrorCode, ErrorCodeDTO>();
-            CreateMap<ErrorCode, string>().ForMember(dest => dest, opt => opt.MapFrom(src => src.Id));
+            CreateMap<ErrorCode, string>().ConvertUsing(src => src.Id);
         }
     }
 }

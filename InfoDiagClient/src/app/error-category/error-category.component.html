@@ -1,93 +1,115 @@
-
 <div class="row">
-    <div style="width: 40%;">
-<div class="title-row">
-    <h3>Codes d'erreur</h3>
-    <mat-form-field appearance="outline">
-      <mat-label>Recherche</mat-label>
-      <input matInput [(ngModel)]="searchbar1" (ngModelChange)="searchChange1()" />
-      <mat-spinner *ngIf="searchLoading1" matSuffix diameter="24"></mat-spinner>
-      <mat-icon *ngIf="!searchLoading1" matSuffix color="primary">search</mat-icon>
-      <mat-hint>3 caractères minimum</mat-hint>
-    </mat-form-field>
-</div>
-<mat-accordion>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Personal data
-        </mat-panel-title>
-        <mat-panel-description>
-          Type your name and age
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-  
-      <mat-form-field>
-        <mat-label>First name</mat-label>
-        <input matInput>
-      </mat-form-field>
-  
-      <mat-form-field>
-        <mat-label>Age</mat-label>
-        <input matInput type="number" min="1">
-      </mat-form-field>
-    </mat-expansion-panel>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Self aware panel
-        </mat-panel-title>
-        <mat-panel-description>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <p>I'm visible because I am open</p>
-    </mat-expansion-panel>
-  </mat-accordion>
-    </div> <button mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <div style="width: 40%;">
+  <div class="col">
     <div class="title-row">
-        <h3>Codes d'erreur</h3>
-        <mat-form-field appearance="outline">
-          <mat-label>Recherche</mat-label>
-          <input matInput [(ngModel)]="searchbar2" (ngModelChange)="searchChange2()" />
-          <mat-spinner *ngIf="searchLoading2" matSuffix diameter="24"></mat-spinner>
-          <mat-icon *ngIf="!searchLoading2" matSuffix color="primary">search</mat-icon>
-          <mat-hint>3 caractères minimum</mat-hint>
-        </mat-form-field>
+      <h3>Codes d'erreur</h3>
+      <mat-form-field appearance="outline">
+        <mat-label>Recherche</mat-label>
+        <input
+          matInput
+          [(ngModel)]="searchbar1"
+          (ngModelChange)="searchChange1()"
+        />
+        <mat-spinner
+          *ngIf="searchLoading1"
+          matSuffix
+          diameter="24"
+        ></mat-spinner>
+        <mat-icon *ngIf="!searchLoading1" matSuffix color="primary"
+          >search</mat-icon
+        >
+        <mat-hint>3 caractères minimum</mat-hint>
+      </mat-form-field>
     </div>
     <mat-accordion>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Personal data
-            </mat-panel-title>
-            <mat-panel-description>
-              Type your name and age
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-      
-          <mat-form-field>
-            <mat-label>First name</mat-label>
-            <input matInput>
-          </mat-form-field>
-      
-          <mat-form-field>
-            <mat-label>Age</mat-label>
-            <input matInput type="number" min="1">
-          </mat-form-field>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Self aware panel
-            </mat-panel-title>
-            <mat-panel-description>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <p>I'm visible because I am open</p>
-        </mat-expansion-panel>
-      </mat-accordion>
-        </div>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Personal data
+          </mat-panel-title>
+          <mat-panel-description>
+            Type your name and age
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field>
+          <mat-label>First name</mat-label>
+          <input matInput />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Age</mat-label>
+          <input matInput type="number" min="1" />
+        </mat-form-field>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Self aware panel
+          </mat-panel-title>
+          <mat-panel-description> </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>I'm visible because I am open</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <button
+    mat-icon-button
+    color="primary"
+    aria-label="Example icon-button with a heart icon"
+  >
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <div class="col">
+    <div class="title-row">
+      <h3>Codes d'erreur</h3>
+      <mat-form-field appearance="outline">
+        <mat-label>Recherche</mat-label>
+        <input
+          matInput
+          [(ngModel)]="searchbar2"
+          (ngModelChange)="searchChange2()"
+        />
+        <mat-spinner
+          *ngIf="searchLoading2"
+          matSuffix
+          diameter="24"
+        ></mat-spinner>
+        <mat-icon *ngIf="!searchLoading2" matSuffix color="primary"
+          >search</mat-icon
+        >
+        <mat-hint>3 caractères minimum</mat-hint>
+      </mat-form-field>
+    </div>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Personal data
+          </mat-panel-title>
+          <mat-panel-description>
+            Type your name and age
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field>
+          <mat-label>First name</mat-label>
+          <input matInput />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Age</mat-label>
+          <input matInput type="number" min="1" />
+        </mat-form-field>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Self aware panel
+          </mat-panel-title>
+          <mat-panel-description> </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>I'm visible because I am open</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
 </div>

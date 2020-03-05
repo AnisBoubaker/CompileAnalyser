@@ -1,8 +1,13 @@
-.example-card {
-    width: 40%;
-}
-
 .title-row {
     display: flex;
     justify-content: space-between;
+}
+
+.row {
+    display: inline-flex;
+    width: 100%;
+}
+
+.col {
+    width: 47%;
 }
