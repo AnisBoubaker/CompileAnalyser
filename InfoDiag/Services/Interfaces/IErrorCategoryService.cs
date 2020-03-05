@@ -10,7 +10,9 @@ namespace Services.Interfaces
     {
         ServiceCallResult<IEnumerable<ErrorCategoryDto>> GetAll();
 
-        ServiceCallResult Assign(string errorCodeId, int categoryId);
+        ServiceCallResult Assign(int categoryId, params string[] errorCodeIds);
+
+        ServiceCallResult Unassign(params string[] errorCodeIds);
 
         ServiceCallResult<ErrorCategoryDto> Add(string name);
 

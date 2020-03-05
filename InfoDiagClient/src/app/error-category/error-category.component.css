@@ -11,3 +11,15 @@
 .col {
     width: 47%;
 }
+
+.button-col {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
+mat-selection-list {
+    flex-grow: 1;
+    overflow: auto;
+    height: 660px;
+}

@@ -19,7 +19,7 @@ namespace InfoDiag.Controllers
             _errorCategoryService = errorCategoryService;
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public IActionResult GetAll()
         {
             var result = _errorCategoryService.GetAll();
@@ -28,9 +28,22 @@ namespace InfoDiag.Controllers
         }
 
         [HttpPost("assign")]
-        public IActionResult Assign()
+        public IActionResult Assign(int categoryId, string[] errorCodeIds)
         {
-            var result = _errorCategoryService.Assign(string.Empty, 0);
+            var result = _errorCategoryService.Assign(categoryId, errorCodeIds);
+
+            if (result.Failed)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
+        }
+
+        [HttpPut("Unassign")]
+        public IActionResult Unassign(string[] errorCodeIds)
+        {
+            var result = _errorCategoryService.Unassign(errorCodeIds);
 
             if (result.Failed)
             {
@@ -50,10 +63,10 @@ namespace InfoDiag.Controllers
                 return BadRequest();
             }
 
-            return Ok();
+            return Ok(result.Value);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             var result = _errorCategoryService.Delete(id);

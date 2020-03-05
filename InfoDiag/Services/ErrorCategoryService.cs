@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Entity;
 using Entity.DTO;
@@ -32,22 +33,30 @@ namespace Services
             return Success(_mapper.Map<ErrorCategoryDto>(result));
         }
 
-        public ServiceCallResult Assign(string errorCodeId, int categoryId)
+        public ServiceCallResult Assign(int categoryId, params string[] errorCodeIds)
         {
-            var ec = _errorCodeRepository.Get(errorCodeId);
-            ec.ErrorCategoryId = categoryId;
-            
-            _errorCodeRepository.Update(ec);
+            var ecs = _errorCodeRepository.Get(ec => errorCodeIds.Contains(ec.Id));
+
+            foreach (var ec in ecs)
+            {
+                ec.ErrorCategoryId = categoryId;
+            }
+
+            _errorCodeRepository.Update(ecs);
 
             return Success();
         }
 
-        public ServiceCallResult Unassign(string errorCodeId)
+        public ServiceCallResult Unassign(params string[] errorCodeIds)
         {
-            var ec = _errorCodeRepository.Get(errorCodeId);
-            ec.ErrorCategoryId = null;
+            var ecs = _errorCodeRepository.Get(ec => errorCodeIds.Contains(ec.Id));
 
-            _errorCodeRepository.Update(ec);
+            foreach (var ec in ecs)
+            {
+                ec.ErrorCategoryId = null;
+            }
+
+            _errorCodeRepository.Update(ecs);
 
             return Success();
         }
