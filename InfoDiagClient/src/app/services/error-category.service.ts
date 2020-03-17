@@ -11,7 +11,7 @@ export class ErrorCategoryService {
     constructor(private http: HttpClient) {
     }
 
-    getErrorCategory(): Observable<ErrorCategory[]> {
+    getAll(): Observable<ErrorCategory[]> {
         return this.http.get<ErrorCategory[]>(`${environment.apiUrl}/api/errorCategory/all`)
         .pipe(first());
     }
@@ -23,11 +23,11 @@ export class ErrorCategoryService {
 
     unassign(errorCodeIds: string[]): Observable<void> {
         return this.http.put<void>(`${environment.apiUrl}/api/errorCategory/unassign`,
-        {errorCodeIds}).pipe(first());
+        {value: errorCodeIds}).pipe(first());
     }
 
     add(name: string): Observable<ErrorCategory> {
-        return this.http.post<ErrorCategory>(`${environment.apiUrl}/api/errorCategory`, {name})
+        return this.http.post<ErrorCategory>(`${environment.apiUrl}/api/errorCategory`, {value: name})
         .pipe(first());
     }
 

@@ -1,0 +1,13 @@
+<div class="title-row">
+  <h1>Ajouter une catégorie</h1>
+</div>
+<div class="row">
+  <mat-form-field>
+    <mat-label>Nom de la catégorie</mat-label>
+    <input matInput [(ngModel)]="name" />
+  </mat-form-field>
+</div>
+
+<button mat-button class="float-right" color="primary" (click)="submit()">
+  Ajouter
+</button>

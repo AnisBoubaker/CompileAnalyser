@@ -9,6 +9,8 @@ namespace Entity.DTO
     {
         public int NbOccurence { get; set; }
 
+        public string ErrorCodeId { get; set; }
+
         public string Name { get; set; }
 
         public string Link { get; set; }

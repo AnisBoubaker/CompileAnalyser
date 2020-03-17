@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Entity.DTO;
+using InfoDiag.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using Services.Interfaces;
 
 namespace InfoDiag.Controllers
@@ -28,9 +31,9 @@ namespace InfoDiag.Controllers
         }
 
         [HttpPost("assign")]
-        public IActionResult Assign(int categoryId, string[] errorCodeIds)
+        public IActionResult Assign(AssignCategoryDto dto)
         {
-            var result = _errorCategoryService.Assign(categoryId, errorCodeIds);
+            var result = _errorCategoryService.Assign(dto.CategoryId, dto.ErrorCodeIds);
 
             if (result.Failed)
             {
@@ -41,9 +44,9 @@ namespace InfoDiag.Controllers
         }
 
         [HttpPut("Unassign")]
-        public IActionResult Unassign(string[] errorCodeIds)
+        public IActionResult Unassign(SimpleBody<string[]> errorCodeIds)
         {
-            var result = _errorCategoryService.Unassign(errorCodeIds);
+            var result = _errorCategoryService.Unassign(errorCodeIds.Value);
 
             if (result.Failed)
             {
@@ -54,9 +57,9 @@ namespace InfoDiag.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(string name)
+        public IActionResult Add(SimpleBody<string> name)
         {
-            var result = _errorCategoryService.Add(name);
+            var result = _errorCategoryService.Add(name.Value);
 
             if (result.Failed)
             {

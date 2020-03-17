@@ -8,18 +8,46 @@
         Occurence : {{ stat.nbOccurence }}
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <mat-list>
-      <mat-list-item *ngFor="let sub of stat.subs"
-        >{{ sub.name }}
-
+    <mat-expansion-panel *ngFor="let sub of stat.subs">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ sub.name }}
+        </mat-panel-title>
         <mat-panel-description>
-          <button mat-raised-button color="primary" (click)="goto(sub.link)">
-            [...]
-          </button>
           Occurence : {{ sub.nbOccurence }}
         </mat-panel-description>
-        <mat-divider></mat-divider>
-      </mat-list-item>
-    </mat-list>
+      </mat-expansion-panel-header>
+      <mat-list>
+        <mat-list-item *ngFor="let subsub of sub.subsub"
+          >{{ subsub.name }}
+
+          <mat-panel-description>
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="goto(subsub.link)"
+            >
+              [...]
+            </button>
+            Occurence : {{ subsub.nbOccurence }}
+          </mat-panel-description>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </mat-list>
+    </mat-expansion-panel>
   </mat-expansion-panel>
 </mat-accordion>
+
+<!-- <mat-list>
+  <mat-list-item *ngFor="let sub of stat.subs"
+    >{{ sub.name }}
+
+    <mat-panel-description>
+      <button mat-raised-button color="primary" (click)="goto(sub.link)">
+        [...]
+      </button>
+      Occurence : {{ sub.nbOccurence }}
+    </mat-panel-description>
+    <mat-divider></mat-divider>
+  </mat-list-item>
+</mat-list> -->

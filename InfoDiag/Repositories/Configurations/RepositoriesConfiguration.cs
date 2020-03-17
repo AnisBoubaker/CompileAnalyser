@@ -28,6 +28,7 @@ namespace Repositories.Configurations
             services.AddScoped<ICodingLanguageRepository, CodingLanguageRepository>();
             services.AddScoped<IStatsRepository, StatsRepository>();
             services.AddScoped<IStatLineRepository, StatLineRepository>();
+            services.AddScoped<IErrorCategoryRepository, ErrorCategoryRepository>();
         }
     }
 }

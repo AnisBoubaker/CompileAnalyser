@@ -10,11 +10,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule } from '@angular/forms';
 import { MatOptionModule } from '@angular/material/core';
-
-
+import { MatCardModule } from '@angular/material/card';
+import { AddErrorCategoryComponent } from './add-error-category/add-error-category.component';
 
 @NgModule({
-  declarations: [ErrorCategoryComponent],
+  declarations: [ErrorCategoryComponent, AddErrorCategoryComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -26,6 +26,8 @@ import { MatOptionModule } from '@angular/material/core';
     MatInputModule,
     MatExpansionModule,
     MatOptionModule,
-  ]
+    MatCardModule
+  ],
+  entryComponents:[AddErrorCategoryComponent]
 })
 export class ErrorCategoryModule { }

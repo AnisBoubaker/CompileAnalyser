@@ -4,6 +4,8 @@ import { GroupService } from '../services/group.service';
 import { StatsService } from '../services/stat.service';
 import { ActivatedRoute } from '@angular/router';
 import { zip } from 'rxjs';
+import { ErrorCategory } from '../generic/models/errorCategory';
+import { ErrorCategoryService } from '../services/error-category.service';
 
 @Component({
   selector: "app-group",
@@ -13,21 +15,25 @@ import { zip } from 'rxjs';
 export class GroupComponent implements OnInit {
   stats: any = [];
   group: Group;
+  errorCategories: ErrorCategory[];
   loaded = false;
   constructor(
     private groupService: GroupService,
     private statsService: StatsService,
+    private errorCategoryService: ErrorCategoryService,
     private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       zip(
         this.groupService.getGroup(params.get("id")),
-        this.statsService.getStats("", params.get("id"))
+        this.statsService.getStats("", params.get("id")),
+        this.errorCategoryService.getAll()
       )
       .subscribe(results => {
         this.group = results[0];
         this.stats = results[1];
+        this.errorCategories = results[2];
         this.loaded = true;  
       });
     });

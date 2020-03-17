@@ -1,5 +1,8 @@
 <div class="title-row">
   <h1>Catégories d'erreur</h1>
+  <button mat-button color="primary" (click)="add()">
+    Ajouter
+  </button>
 </div>
 <div class="row">
   <div class="col">
@@ -23,27 +26,33 @@
         <mat-hint>2 caractères minimum</mat-hint>
       </mat-form-field>
     </div>
-    <mat-selection-list #errorCodeList *ngIf="loaded">
-      <mat-list-option *ngFor="let ec of errorCodes">
-        {{ec.id}}
-      </mat-list-option>
-    </mat-selection-list>
+    <mat-card>
+      <div class="row">
+        <button mat-button color="primary" (click)="errorCodeList.selectAll()">
+          Sélectionner tout
+        </button>
+        <button mat-button color="primary" (click)="errorCodeList.deselectAll()">
+          Déselectionner tout
+        </button>
+      </div>
+      <mat-selection-list #errorCodeList class="error-code-selection-list">
+        <div *ngIf="loaded">
+          <mat-list-option *ngFor="let ec of filteredErrorCodes" [value]="ec">
+            {{ ec.id }}
+          </mat-list-option>
+        </div>
+      </mat-selection-list>
+    </mat-card>
   </div>
   <div class="button-col">
-    <button
-    mat-icon-button
-    color="primary"
-  >
-    <mat-icon>arrow_forward</mat-icon>
-  </button>
-  <button
-    mat-icon-button
-    color="primary"
-  >
-    <mat-icon>arrow_back</mat-icon>
-  </button>
+    <button mat-icon-button color="primary" (click)="assign()">
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" (click)="unassign()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
   </div>
-  
+
   <div class="col">
     <div class="title-row">
       <h3>Catégories</h3>
@@ -66,34 +75,26 @@
       </mat-form-field>
     </div>
     <mat-accordion>
-      <mat-expansion-panel>
+      <mat-expansion-panel *ngFor="let c of filteredCategories" (opened)="opened(c)" (closed)="closed()">
         <mat-expansion-panel-header>
-          <mat-panel-title>
-            Personal data
+          <mat-panel-title class="category-title">
+            <div>
+              {{c.name}}
+            </div> 
+            <div class="delete-category">
+              <button mat-icon-button  color="primary" (click)="deleteCategory(c)">
+              <mat-icon>delete_outline
+              </mat-icon>
+            </button>
+            </div>
+            
           </mat-panel-title>
-          <mat-panel-description>
-            Type your name and age
-          </mat-panel-description>
         </mat-expansion-panel-header>
-
-        <mat-form-field>
-          <mat-label>First name</mat-label>
-          <input matInput />
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Age</mat-label>
-          <input matInput type="number" min="1" />
-        </mat-form-field>
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Self aware panel
-          </mat-panel-title>
-          <mat-panel-description> </mat-panel-description>
-        </mat-expansion-panel-header>
-        <p>I'm visible because I am open</p>
+        <mat-selection-list (selectionChange)="selectionChange($event)">
+          <mat-list-option *ngFor="let ec of c.relatedErrors" [value]="ec">
+            {{ ec }}
+          </mat-list-option>
+        </mat-selection-list>
       </mat-expansion-panel>
     </mat-accordion>
   </div>

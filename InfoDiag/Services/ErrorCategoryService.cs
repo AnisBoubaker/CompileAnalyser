@@ -16,7 +16,7 @@ namespace Services
         private readonly IErrorCodeRepository _errorCodeRepository;
         private readonly IMapper _mapper;
 
-        internal ErrorCategoryService(
+        public ErrorCategoryService(
             IErrorCategoryRepository errorCategoryRepository,
             IErrorCodeRepository errorCodeRepository,
             IMapper mapper)
@@ -63,6 +63,12 @@ namespace Services
 
         public ServiceCallResult Delete(int category)
         {
+            var ecs = _errorCodeRepository.AllAsQueryable.Where(ec => ec.ErrorCategoryId == category).ToList();
+
+            ecs.ForEach(ec => ec.ErrorCategoryId = null);
+
+            _errorCodeRepository.Update(ecs);
+
             _errorCategoryRepository.Delete(ec => ec.Id == category);
 
             return Success();

@@ -11,3 +11,7 @@ export interface StatLine {
     isErrorCode: boolean,
     link: string
 }
+
+export interface DisplayStats {
+    
+}

@@ -5,6 +5,8 @@ import { ActivatedRoute } from "@angular/router";
 import { zip } from 'rxjs';
 import { StatsService } from '../services/stat.service';
 import { Stats } from '../generic/models/stats';
+import { ErrorCategoryService } from '../services/error-category.service';
+import { ErrorCategory } from '../generic/models/errorCategory';
 
 @Component({
   selector: "app-student",
@@ -14,11 +16,13 @@ import { Stats } from '../generic/models/stats';
 export class StudentComponent implements OnInit {
   stats: Stats[];
   student: Student;
+  errorCategories: ErrorCategory[];
   loaded = false;
 
   constructor(
     private studentService: StudentService,
     private statsService: StatsService,
+    private errorCategoryService: ErrorCategoryService,
     private route: ActivatedRoute
   ) {}
 
@@ -26,11 +30,13 @@ export class StudentComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       zip(
         this.studentService.getStudent(params.get("id")),
-        this.statsService.getStats(params.get("id"))
+        this.statsService.getStats(params.get("id")),
+        this.errorCategoryService.getAll()
       )
       .subscribe(results => {
         this.student = results[0];
         this.stats = results[1];
+        this.errorCategories = results[2];
         this.loaded = true;  
       });
     });
