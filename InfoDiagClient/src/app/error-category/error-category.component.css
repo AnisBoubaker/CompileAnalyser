@@ -9,13 +9,15 @@
 }
 
 .col {
-    width: 47%;
+    width: 48%;
 }
 
 .button-col {
     display: flex;
     flex-direction: column;
     align-self: center;
+    height: -webkit-fill-available;
+    width: 40px;
 }
 
 .error-code-selection-list {
@@ -31,4 +33,20 @@
 .category-title {
     align-items: baseline;
     justify-content: space-between;
+}
+
+.fill-space {
+    flex: 1 1 auto
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.floating-btns {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top: 50%;
 }

@@ -4,7 +4,7 @@
     Ajouter
   </button>
 </div>
-<div class="row">
+<div class="row" *ngIf="loaded; else elseblock">
   <div class="col">
     <div class="title-row">
       <h3>Codes d'erreur</h3>
@@ -45,12 +45,14 @@
     </mat-card>
   </div>
   <div class="button-col">
-    <button mat-icon-button color="primary" (click)="assign()">
-      <mat-icon>arrow_forward</mat-icon>
-    </button>
-    <button mat-icon-button color="primary" (click)="unassign()">
-      <mat-icon>arrow_back</mat-icon>
-    </button>
+    <div class="floating-btns">
+      <button mat-icon-button color="primary" (click)="assign()">
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+      <button mat-icon-button color="primary" (click)="unassign()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+    </div>
   </div>
 
   <div class="col">
@@ -80,7 +82,14 @@
           <mat-panel-title class="category-title">
             <div>
               {{c.name}}
-            </div> 
+            </div>
+            <span class="fill-space"></span>
+            <div class="edit-category">
+              <button mat-icon-button  color="primary" (click)="editCategory(c)">
+              <mat-icon>edit
+              </mat-icon>
+            </button> 
+            </div>
             <div class="delete-category">
               <button mat-icon-button  color="primary" (click)="deleteCategory(c)">
               <mat-icon>delete_outline
@@ -99,3 +108,25 @@
     </mat-accordion>
   </div>
 </div>
+
+<ng-template #elseblock>
+  <div style="display: flex; height: 75%;">
+    <span class="fill-space"></span>
+  <div class="flex-column">
+    <div class="fill-space"></div>
+    Chargement...
+    <div style="display: flex;">
+      <span class="fill-space"></span>
+      <mat-spinner
+      matSuffix
+      diameter="35"
+    ></mat-spinner>
+      <span class="fill-space"></span>
+    </div>
+    <div class="fill-space"></div>
+  </div>
+  <span class="fill-space"></span>
+  </div>
+  
+  </ng-template
+>

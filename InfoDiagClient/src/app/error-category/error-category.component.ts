@@ -105,14 +105,12 @@ export class ErrorCategoryComponent implements OnInit {
 
   assign() {
     if (this.selectedCategory) {
-      this.loaded = false;
       const errorCodeIds = this.errorCodeList.selectedOptions.selected.map(ec => ec.value.id as string);
       this.errorCategoryService.assign(Number(this.selectedCategory.id), errorCodeIds)
       .subscribe(() => {
         this.selectedCategory.relatedErrors.push(...errorCodeIds);
         this.errorCodes = this.errorCodes.filter(ec => !errorCodeIds.includes(ec.id));
         this.searchChange1();
-        this.loaded = true;
       }); 
     } else {
       this.toastService.error("Aucune catégorie n'est sélectionnée")
@@ -120,13 +118,11 @@ export class ErrorCategoryComponent implements OnInit {
   }
 
   unassign() {
-    this.loaded = false;
     this.errorCategoryService.unassign(this.selectedErrors).subscribe(() => {
         this.selectedCategory.relatedErrors = 
         this.selectedCategory.relatedErrors.filter(re => !this.selectedErrors.includes(re));        
         this.selectedErrors = [];
         this.initErrorCodes();
-        this.loaded = true;
     });
   }
 
@@ -144,6 +140,16 @@ export class ErrorCategoryComponent implements OnInit {
   }
 
   deleteCategory(category: ErrorCategory) {
+    this.errorCategoryService.delete(Number(category.id)).subscribe(() => {
+      const errorsToAdd = this.possibleErrorCodes.filter(pec => category.relatedErrors.includes(pec.id));
+      this.errorCodes.push(...errorsToAdd);
+      this.categories = this.categories.filter(c => c.id != category.id);
+      this.searchChange1();
+      this.searchChange2();
+    });
+  }
+
+  editCategory(category: ErrorCategory) {
     this.errorCategoryService.delete(Number(category.id)).subscribe(() => {
       const errorsToAdd = this.possibleErrorCodes.filter(pec => category.relatedErrors.includes(pec.id));
       this.errorCodes.push(...errorsToAdd);

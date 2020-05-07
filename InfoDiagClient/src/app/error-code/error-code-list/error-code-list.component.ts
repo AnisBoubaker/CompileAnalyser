@@ -55,9 +55,9 @@ export class ErrorCodeListComponent implements OnInit {
     if (value && value.length > 2) {
       this.errorCodes.data = this.base.filter(
         ec =>
-          ec.id.toUpperCase().includes(this.searchbar) ||
-          ec.name.toUpperCase().includes(this.searchbar) ||
-          ec.description.toUpperCase().includes(this.searchbar)
+          ec.id.toUpperCase().includes(value) ||
+          ec.name.toUpperCase().includes(value) ||
+          ec.description.toUpperCase().includes(value)
       );
     } else {
       this.errorCodes.data = this.base;

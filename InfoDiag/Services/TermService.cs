@@ -44,7 +44,7 @@ namespace Services
             var currentMonth = DateTime.Now.Month;
             string currentAlias;
 
-            if (currentMonth < 5)
+            if (currentMonth < 4)
             {
                 currentAlias = "H" + currentYear;
             }
@@ -55,6 +55,11 @@ namespace Services
             else
             {
                 currentAlias = "A" + currentYear;
+            }
+
+            if (_termRepository.AllAsQueryable.Any(t => t.Id.Contains(currentAlias))) 
+            {
+                return Error("Term already exists");
             }
 
             _termRepository.Insert(new Term

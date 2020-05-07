@@ -16,10 +16,13 @@ import { GroupService } from '../services/group.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [GroupListComponent, EditGroupComponent, GroupComponent],
   imports: [
+    BrowserAnimationsModule,
     CommonModule,
     FormsModule,
     MatTableModule,
@@ -31,6 +34,7 @@ import { FormsModule } from '@angular/forms';
     MatListModule,
     MatInputModule,
     MatProgressSpinnerModule,
+    MatTooltipModule,
     StatsModule
   ],
   entryComponents: [EditGroupComponent],

@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { MatOptionModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { AddErrorCategoryComponent } from './add-error-category/add-error-category.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [ErrorCategoryComponent, AddErrorCategoryComponent],
@@ -26,7 +27,8 @@ import { AddErrorCategoryComponent } from './add-error-category/add-error-catego
     MatInputModule,
     MatExpansionModule,
     MatOptionModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressSpinnerModule
   ],
   entryComponents:[AddErrorCategoryComponent]
 })
